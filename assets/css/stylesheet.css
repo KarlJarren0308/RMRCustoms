@@ -1,0 +1,162 @@
+/* Bootstrap Extension */
+.bg-dark {
+    background-color: #222;
+    color: white;
+}
+
+.bg-blue {
+    background-color: rgb(6, 162, 203);
+    color: white;
+}
+
+.bg-green {
+    background-color: rgb(33, 133, 89);
+    color: white;
+}
+
+.bg-red {
+    background-color: rgb(221, 30, 47);
+    color: white;
+}
+
+.bg-white {
+    background-color: white;
+    color: #222;
+}
+
+.fg-dark {
+    color: #222;
+}
+
+.fg-white {
+    color: white;
+}
+
+.indent-1 {
+    text-indent: 1em;
+}
+
+.indent-2 {
+    text-indent: 2em;
+}
+
+.indent-3 {
+    text-indent: 3em;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.with-padding-1 {
+    padding: 1em;
+}
+
+.with-padding-2 {
+    padding: 2em;
+}
+
+.with-padding-3 {
+    padding: 3em;
+}
+
+.with-margin-1 {
+    margin: 1em;
+}
+
+.with-margin-2 {
+    margin: 2em;
+}
+
+.with-margin-3 {
+    margin: 3em;
+}
+
+.top-corners-round {
+    border-radius: 4px 4px 0 0;
+}
+
+.bottom-corners-round {
+    border-radius: 0 0 4px 4px;
+}
+
+.profile-picture {
+    margin-top: -10px;
+    height: 40px;
+}
+
+.auto-next-line {
+    word-wrap: break-word;
+}
+
+.absolute-position {
+    position: absolute;
+}
+
+.relative-position {
+    position: relative;
+}
+
+.fixed-position {
+    position: fixed;
+}
+
+.noti {
+    position: relative;
+    padding: 3em 1em 1em 1em;
+}
+
+.noti-title {
+    background-color: rgb(221, 30, 47);
+    border-radius: 0 5px 5px 0;
+    color: white;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    padding: 5px;
+    margin: 0;
+}
+
+.noti-time {
+    color: rgb(100, 100, 100);
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 10px 0 0;
+    margin: 0;
+}
+
+.noti-body {
+    text-indent: 2em;
+    margin: 0;
+}
+
+.noti:nth-child(even) {
+    background: linear-gradient(rgba(200, 200, 200, 0.5), rgba(175, 175, 175, 0.5));
+}
+
+.shadow {
+    box-shadow: 2px 2px 3px rgba(25, 40, 35, 0.5);
+}
+
+#main-body {
+    background-image: url(../img/bg01-translucent.png);
+    padding: 75px 0;
+}
+
+#map-canvas {
+    border: 1px solid rgb(25, 40, 35);
+    height: 25em;
+    width: 100%;
+}
+
+#gps-frame {
+    border: 1px solid rgb(25, 40, 35);
+    height: 25em;
+    width: 100%;
+}
