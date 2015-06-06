@@ -144,6 +144,11 @@
     box-shadow: 2px 2px 3px rgba(25, 40, 35, 0.5);
 }
 
+.copy-to-clipboard:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 #main-body {
     background-image: url(../img/bg01-translucent.png);
     padding: 75px 0;
