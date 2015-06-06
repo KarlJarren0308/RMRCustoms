@@ -94,7 +94,7 @@
             echo '</tr>';
             echo '<tr>';
             echo '<td width="30%" align="right"><strong>Waybill Number:</strong></td>';
-            echo '<td>' . $row['Waybill_Number'] . '</td>';
+            echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
             echo '</tr>';
             echo '<tr>';
             echo '<td width="30%" align="right"><strong>Bill of Lading ID:</strong></td>';
@@ -270,7 +270,7 @@
                         $transactionDebit = $row2['Debit'] / $currencyRate;
                     }
 
-                    echo '<td width="20%">' . $row2['Waybill_Number'] . '</td>';
+                    echo '<td width="20%"><a class="copy-to-clipboard" data-clipboard-text="' . $row2['Waybill_Number'] . '" title="Click to copy">' . $row2['Waybill_Number'] . '</a></td>';
                     echo '<td width="20%">' . $row2['Transaction_Date'] . '</td>';
                     echo '<td width="20%">' . $row2['Delivery_Status'] . '</td>';
                     echo '<td width="20%">' . $currencySymbol . number_format($transactionCredit) . '</td>';
@@ -480,4 +480,8 @@
     } else {
         echo 'Please enter your waybill number first.';
     }
+
+    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
+
+    mysqli_close($connection);
 ?>
