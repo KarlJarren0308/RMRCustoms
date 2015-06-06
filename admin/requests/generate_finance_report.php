@@ -11,7 +11,7 @@
     $pdf->AliasNbPages();
 
     if($action == 'clientIncome') {
-        $query = mysqli_query($connection, "SELECT * FROM clients") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $ctr = 1;
 
         $pdf->SetFillColor(25, 40, 35);
@@ -35,12 +35,18 @@
         $pdf->SetFillColor(200);
 
         while($row = mysqli_fetch_array($query)) {
-            $queryIncome = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$row[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $queryIncome = mysqli_query($connection, "SELECT * FROM waybills WHERE Status='Active' AND Client_ID='$row[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $credit = 0;
+            $debit = 0;
 
-            if(strlen($row['Middle_Name']) > 1) {
-                $name = $row['First_Name'] . ' ' . substr($row['Middle_Name'], 0, 1) . '. ' . $row['Last_Name'];
+            if($row['First_Name'] != 'Not Available' && $row['Middle_Name'] != 'Not Available' && $row['Last_Name'] != 'Not Available') {
+                if(strlen($row['Middle_Name']) > 1) {
+                    $name = $row['First_Name'] . ' ' . substr($row['Middle_Name'], 0, 1) . '. ' . $row['Last_Name'];
+                } else {
+                    $name = $row['First_Name'] . ' ' . $row['Last_Name'];
+                }
             } else {
-                $name = $row['First_Name'] . ' ' . $row['Last_Name'];
+                $name = $row['Company_Name'];
             }
 
             while($rowIncome = mysqli_fetch_array($queryIncome)) {
@@ -66,7 +72,7 @@
         $pdf->Output();
     } else if($action == 'totalMonthlyIncome') {
         $datetime = date('Y-m');
-        $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Transaction_Date LIKE '$datetime%") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Transaction_Date LIKE '$datetime%'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         while($row = mysqli_fetch_array($query)) {
             $credit += $row['Credit'];

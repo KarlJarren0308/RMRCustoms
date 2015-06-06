@@ -13,7 +13,7 @@
     if($scan > 0) {
         while($row = mysqli_fetch_array($query)) {
             echo '<tr>';
-            echo '<td>' . $row['Waybill_Number'] . '</td>';
+            echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
             echo '<td>' . $row['Description'] . '</td>';
             echo '<td>' . $row['Truck_Name'] . '</td>';
             echo '<td>' . $row['Delivery_Status'] . '</td>';
@@ -27,6 +27,8 @@
         echo '<td colspan="7" align="center">No Results Found</td>';
         echo '</tr>';
     }
+
+    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
 
     mysqli_close($connection);
 ?>

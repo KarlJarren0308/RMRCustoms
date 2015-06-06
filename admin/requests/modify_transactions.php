@@ -28,7 +28,7 @@
             echo '<tbody>';
             echo '<tr>';
             echo '<td width="30%" align="right">Waybill Number:</td>';
-            echo '<td>' . $row['Waybill_Number'] . '</td>';
+            echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
             echo '</tr>';
             echo '<tr>';
             echo '<td align="right">Description:</td>';
@@ -356,15 +356,15 @@
         $newBankName = json_decode($rowCheques['Bank_Name']);
         $newChequeDate = json_decode($rowCheques['Cheque_Date']);
 
-        array_push($newChequeNumber, $chequeNumber);
-        array_push($newBankName, $bankName);
-        array_push($newChequeDate, $chequeDate);
-
         if(strlen($chequeNumber) > 0 && strlen($bankName) > 0 && strlen($chequeDate) > 0) {
-            $newChequeNumber = json_encode($newChequeNumber);
-            $newBankName = json_encode($newBankName);
-            $newChequeDate = json_encode($newChequeDate);
+            array_push($newChequeNumber, $chequeNumber);
+            array_push($newBankName, $bankName);
+            array_push($newChequeDate, $chequeDate);
         }
+
+        $newChequeNumber = json_encode($newChequeNumber);
+        $newBankName = json_encode($newBankName);
+        $newChequeDate = json_encode($newChequeDate);
 
         $query = mysqli_query($connection, "UPDATE waybills SET Credit=Credit+$payment, Debit=Debit-$payment, Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
@@ -477,6 +477,8 @@
             }
         }
     }
+
+    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
 
     mysqli_close($connection);
 ?>

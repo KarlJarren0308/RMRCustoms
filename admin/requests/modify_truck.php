@@ -69,7 +69,7 @@
 
             while($rowTransactions3 = mysqli_fetch_array($queryTransactions2)) {
                 echo '<tr>';
-                echo '<td>' . $rowTransactions3['Waybill_Number'] . '</td>';
+                echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $rowTransactions3['Waybill_Number'] . '" title="Click to copy">' . $rowTransactions3['Waybill_Number'] . '</a></td>';
                 echo '<td>' . $rowTransactions3['Delivery_Location'] . '</td>';
                 echo '<td align="right"><button id="comply-pending-transaction-button" class="btn btn-success btn-xs" data-execute="Comply Pending Transaction" data-var="' . $row['Truck_ID'] . ';' . $rowTransactions3['Waybill_Number'] . '"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Comply</button>&nbsp;&nbsp;<button id="remove-pending-transaction-button" class="btn btn-danger btn-xs" data-execute="Remove Pending Transaction" data-var="' . $row['Truck_ID'] . ';' . $rowTransactions3['Waybill_Number'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Remove</button></td>';
                 echo '</tr>';
@@ -152,6 +152,8 @@
             echo 'All fields should not be empty.';
         }
     }
+
+    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
 
     mysqli_close($connection);
 ?>

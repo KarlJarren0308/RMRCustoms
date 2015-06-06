@@ -185,7 +185,7 @@
                 $totalDebit += (double) $rowHistory['Debit'];
 
                 echo '<tr>';
-                echo '<td>' . $rowHistory['Waybill_Number'] . '</td>';
+                echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $rowHistory['Waybill_Number'] . '" title="Click to copy">' . $rowHistory['Waybill_Number'] . '</a></td>';
                 echo '<td>' . $rowHistory['Transaction_Date'] . '</td>';
                 echo '<td>' . $rowHistory['Delivery_Status'] . '</td>';
                 echo '<td>&#8369; ' . $rowHistory['Credit'] . '</td>';
@@ -442,6 +442,8 @@
             echo 'Client already exist.';
         }
     }
+
+    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
 
     mysqli_close($connection);
 ?>
