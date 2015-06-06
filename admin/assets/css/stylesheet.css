@@ -290,6 +290,11 @@
     width: 40px;
 }
 
+.copy-to-clipboard:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 #gps-frame {
     position: relative;
     height: 600px;
