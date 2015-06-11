@@ -326,7 +326,7 @@
 
             if($row['Debit'] > 0) {
                 echo '<div class="well">';
-                echo '<div class="row"><div class="col-lg-3 col-md-3 text-right"><strong>Set Payment:</strong></div><div class="col-lg-9 col-md-9"><div class="input-group"><input id="transaction-payment" class="form-control" type="number" min="0" max="' . $row['Debit'] . '" value="0"><span class="input-group-btn"><button id="transaction-payment-locker-button" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span></button></span></div></div></div>';
+                echo '<div class="row"><div class="col-lg-3 col-md-3 text-right"><strong>Set Payment:</strong></div><div class="col-lg-9 col-md-9"><div class="input-group"><input id="transaction-payment" class="form-control" type="number" min="0" max="' . $row['Debit'] . '"><span class="input-group-btn"><button id="transaction-payment-locker-button" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span></button></span></div></div></div>';
                 echo '</div>';
                 echo '<div class="text-right"><button id="set-payment-button" class="btn btn-primary">Set Payment</button></div>';
             } else {
@@ -339,6 +339,7 @@
         $newChequeNumber = [];
         $newBankName = [];
         $newChequeDate = [];
+        $newChequeAmount = [];
         $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
         $payment = mysqli_real_escape_string($connection, $_POST['payment']);
         $chequeNumber = mysqli_real_escape_string($connection, $_POST['chequeNumber']);
@@ -355,18 +356,21 @@
         $newChequeNumber = json_decode($rowCheques['Cheque_Number']);
         $newBankName = json_decode($rowCheques['Bank_Name']);
         $newChequeDate = json_decode($rowCheques['Cheque_Date']);
+        $newChequeAmount = json_decode($rowCheques['Cheque_Amount']);
 
-        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0 && strlen($chequeDate) > 0) {
+        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0) {
             array_push($newChequeNumber, $chequeNumber);
             array_push($newBankName, $bankName);
             array_push($newChequeDate, $chequeDate);
+            array_push($newChequeAmount, $payment);
         }
 
         $newChequeNumber = json_encode($newChequeNumber);
         $newBankName = json_encode($newBankName);
         $newChequeDate = json_encode($newChequeDate);
+        $newChequeAmount = json_encode($newChequeAmount);
 
-        $query = mysqli_query($connection, "UPDATE waybills SET Credit=Credit+$payment, Debit=Debit-$payment, Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE waybills SET Credit=Credit+$payment, Debit=Debit-$payment, Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate', Cheque_Amount='$newChequeAmount' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Payment has been set.';
@@ -377,6 +381,7 @@
         $newChequeNumber = [];
         $newBankName = [];
         $newChequeDate = [];
+        $newChequeAmount = [];
         $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
         $credit = mysqli_real_escape_string($connection, $_POST['credit']);
         $debit = mysqli_real_escape_string($connection, $_POST['debit']);
@@ -394,18 +399,21 @@
         $newChequeNumber = json_decode($rowCheques['Cheque_Number']);
         $newBankName = json_decode($rowCheques['Bank_Name']);
         $newChequeDate = json_decode($rowCheques['Cheque_Date']);
+        $newChequeAmount = json_decode($rowCheques['Cheque_Amount']);
 
-        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0 && strlen($chequeDate) > 0) {
+        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0) {
             array_push($newChequeNumber, $chequeNumber);
             array_push($newBankName, $bankName);
             array_push($newChequeDate, $chequeDate);
+            array_push($newChequeAmount, $credit);
         }
 
         $newChequeNumber = json_encode($newChequeNumber);
         $newBankName = json_encode($newBankName);
         $newChequeDate = json_encode($newChequeDate);
+        $newChequeAmount = json_encode($newChequeAmount);
 
-        $query = mysqli_query($connection, "UPDATE waybills SET Credit='$credit', Debit='$debit', Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE waybills SET Credit='$credit', Debit='$debit', Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate', Cheque_Amount='$newChequeAmount' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Payment has been set.';

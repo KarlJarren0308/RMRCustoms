@@ -309,27 +309,70 @@ function fillTable($file, $search) {
                             $('#set-new-payment-button').addClass('disabled').attr('disabled', '');
 
                             $('#transaction-payment-locker-button').click(function() {
-                                $(this).addClass('disabled').attr('disabled', '');
-                                $('#transaction-payment').attr('readonly', '');
+                                if($('#transaction-payment').val() == '' || $('#transaction-payment').val() < 0) {
+                                    // Update Block (Optional)
+                                    alert('Your input is invalid. Please enter a number greater than 0.');
+                                    $('#transaction-payment').val('').focus();
+                                } else {
+                                    if($('#transaction-payment').val() > 0) {
+                                        $(this).addClass('disabled').attr('disabled', '');
+                                        $('#transaction-payment').attr('readonly', '');
 
-                                $('#set-payment-button').removeClass('disabled').removeAttr('disabled');
+                                        $('#set-payment-button').removeClass('disabled').removeAttr('disabled');
+                                    } else {
+                                        // Update Block (Optional)
+                                        alert('Setting payment to 0 is not allowed.\n\nPlease enter a number greater than 0.');
+                                    }
+                                }
                             });
 
                             $('#transaction-credit-locker-button').click(function() {
-                                $(this).addClass('disabled').attr('disabled', '');
-                                $('#transaction-credit').attr('readonly', '');
+                                if($('#transaction-credit').val() == '' || $('#transaction-credit').val() < 0) {
+                                    if($('#cheque-number').val() != '' || $('#bank-name').val() != '') {
+                                        // Update Block (Optional)
+                                        alert('Your input is invalid. Please enter a number greater than 0.');
+                                        $('#transaction-credit').val('').focus();
+                                    } else {
+                                        // Update Block (Optional)
+                                        alert('Your input is invalid. Please enter a number greater than or equal to 0.');
+                                        $('#transaction-credit').val('').focus();
+                                    }
+                                } else {
+                                    if($('#cheque-number').val() != '' || $('#bank-name').val() != '') {
+                                        if($('#transaction-credit').val() > 0) {
+                                            $(this).addClass('disabled').attr('disabled', '');
+                                            $('#transaction-credit').attr('readonly', '');
 
-                                if($('#transaction-debit').attr('readonly')) {
-                                    $('#set-new-payment-button').removeClass('disabled').removeAttr('disabled');
+                                            if($('#transaction-debit').attr('readonly')) {
+                                                $('#set-new-payment-button').removeClass('disabled').removeAttr('disabled');
+                                            }
+                                        } else {
+                                            // Update Block (Optional)
+                                            alert('Setting credit to 0 is not allowed when a cheque information has been provided.\n\nPlease remove all cheque information fields before setting credit to 0.');
+                                        }
+                                    } else {
+                                        $(this).addClass('disabled').attr('disabled', '');
+                                        $('#transaction-credit').attr('readonly', '');
+
+                                        if($('#transaction-debit').attr('readonly')) {
+                                            $('#set-new-payment-button').removeClass('disabled').removeAttr('disabled');
+                                        }
+                                    }
                                 }
                             });
 
                             $('#transaction-debit-locker-button').click(function() {
-                                $(this).addClass('disabled').attr('disabled', '');
-                                $('#transaction-debit').attr('readonly', '');
+                                if($('#transaction-debit').val() == '' || $('#transaction-debit').val() < 0) {
+                                    // Update Block (Optional)
+                                    alert('Your input is invalid. Please enter a number greater than or equal to 0.');
+                                    $('#transaction-debit').val('').focus();
+                                } else {
+                                    $(this).addClass('disabled').attr('disabled', '');
+                                    $('#transaction-debit').attr('readonly', '');
 
-                                if($('#transaction-credit').attr('readonly')) {
-                                    $('#set-new-payment-button').removeClass('disabled').removeAttr('disabled');
+                                    if($('#transaction-credit').attr('readonly')) {
+                                        $('#set-new-payment-button').removeClass('disabled').removeAttr('disabled');
+                                    }
                                 }
                             });
 
