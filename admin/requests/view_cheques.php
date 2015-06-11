@@ -4,6 +4,7 @@
     $chequeNumber = [];
     $bankName = [];
     $chequeDate = [];
+    $chequeAmount = [];
     $clientId = mysqli_real_escape_string($connection, $_POST['id']);
 
     $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$clientId' AND Status='Active'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
@@ -14,6 +15,7 @@
             $cn = json_decode($row['Cheque_Number']);
             $bn = json_decode($row['Bank_Name']);
             $cd = json_decode($row['Cheque_Date']);
+            $ca = json_decode($row['Cheque_Amount']);
 
             for($i = 0; $i < count($cn); $i++) {
                 array_push($chequeNumber, $cn[$i]);
@@ -26,9 +28,14 @@
             for($i = 0; $i < count($cd); $i++) {
                 array_push($chequeDate, $cd[$i]);
             }
+
+            for($i = 0; $i < count($ca); $i++) {
+                array_push($chequeAmount, $ca[$i]);
+            }
         }
     }
 
+    /*
     if(count($chequeNumber) > count($bankName)) {
         if(count($chequeNumber) > count($chequeDate)) {
             $countCheques = count($chequeNumber);
@@ -42,6 +49,9 @@
             $countCheques = count($chequeDate);
         }
     }
+    */
+
+    $countCheques = max(count($chequeNumber), count($bankName), count($chequeDate), count($chequeAmount));
 
     echo '<table class="table table-hover table-striped">';
     echo '<thead class="bg-dark">';
@@ -49,6 +59,7 @@
     echo '<th>Cheque Number</th>';
     echo '<th>Bank Name</th>';
     echo '<th>Cheque Date</th>';
+    echo '<th>Cheque Amount</th>';
     echo '</tr>';
     echo '</thead>';
     echo '<tbody>';
@@ -59,11 +70,12 @@
             echo '<td>' . @$chequeNumber[$i] . '</td>';
             echo '<td>' . @$bankName[$i] . '</td>';
             echo '<td>' . @date('F d, Y', strtotime($chequeDate[$i])) . '</td>';
+            echo '<td>&#8369; ' . @number_format((double) $chequeAmount[$i], 2, '.', ',') . '</td>';
             echo '</tr>';
         }
     } else {
         echo '<tr>';
-        echo '<td colspan="3" align="center">No cheque found.</td>';
+        echo '<td colspan="4" align="center">No cheque found.</td>';
         echo '</tr>';
     }
 

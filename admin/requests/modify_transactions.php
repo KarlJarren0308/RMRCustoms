@@ -61,7 +61,9 @@
                 $chequeNumber = json_decode($rowCheques['Cheque_Number']);
                 $bankName = json_decode($rowCheques['Bank_Name']);
                 $chequeDate = json_decode($rowCheques['Cheque_Date']);
+                $chequeAmount = json_decode($rowCheques['Cheque_Amount']);
                 
+                /*
                 if(count($chequeNumber) > count($bankName)) {
                     if(count($chequeNumber) > count($chequeDate)) {
                         $countCheques = count($chequeNumber);
@@ -75,6 +77,9 @@
                         $countCheques = count($chequeDate);
                     }
                 }
+                */
+
+                $countCheques = max(count($chequeNumber), count($bankName), count($chequeDate), count($chequeAmount));
 
                 echo '<div class="well">';
                 // echo '<h3 class="no-margin">Cheque Information <button id="add-new-cheque-button" class="btn btn-primary btn-xs pull-right" data-cheque-count="' . $countCheques . '">Add New Cheque</button></h3>';
@@ -87,6 +92,7 @@
                 echo '<th>Cheque Number</th>';
                 echo '<th>Bank Name</th>';
                 echo '<th>Cheque Date</th>';
+                echo '<th>Cheque Amount</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -104,6 +110,7 @@
                     echo '<td>' . @$chequeNumber[$i] . '</td>';
                     echo '<td>' . @$bankName[$i] . '</td>';
                     echo '<td>' . @date('F d, Y', strtotime($chequeDate[$i])) . '</td>';
+                    echo '<td>&#8369; ' . @number_format($chequeAmount[$i], 2, '.', ',') . '</td>';
                     echo '</tr>';
                 }
 
