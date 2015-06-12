@@ -107,7 +107,7 @@
             }
         }
 
-        echo '{"total_credits": [' . json_encode($totalCredits) . '], "total_debits": [' . json_encode($totalDebits) . ']}';
+        echo '{"total_credits": ' . json_encode($totalCredits) . ', "total_debits": ' . json_encode($totalDebits) . '}';
     }
 
     mysqli_close($connection);
