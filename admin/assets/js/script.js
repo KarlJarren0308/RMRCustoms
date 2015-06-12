@@ -1149,18 +1149,18 @@ function clientIncomeChart($pageNumber) {
                 labels: response['names'],
                 datasets: [
                     {
-                        label: "Credits",
+                        label: "Credit",
                         fillColor: "rgba(57, 117, 189, 0)",
                         strokeColor: "rgba(7, 67, 139, 0.75)",
-                        pointColor: "rgba(57, 117, 189, 1)",
+                        pointColor: "rgba(57, 117, 189, 0.75)",
                         pointStrokeColor: "rgba(7, 67, 139, 1)",
                         data: response['credits']
                     },
                     {
-                        label: "Debits",
+                        label: "Debit",
                         fillColor: "rgba(195, 57, 55, 0)",
                         strokeColor: "rgba(145, 7, 5, 0.75)",
-                        pointColor: "rgba(195, 57, 55, 1)",
+                        pointColor: "rgba(195, 57, 55, 0.75)",
                         pointStrokeColor: "rgba(145, 7, 5, 1)",
                         data: response['debits']
                     }
@@ -1169,14 +1169,19 @@ function clientIncomeChart($pageNumber) {
 
             var ctx = document.getElementById('client-income-chart').getContext('2d');
             var clientIncome = new Chart(ctx).Line(chartData, {
-                scaleGridLineColor: 'rgba(0, 0, 0, .25)'
+                scaleGridLineColor: "rgba(0, 0, 0, .25)",
+                multiTooltipTemplate: "<%= datasetLabel + ': ' + value %>",
+                legendTemplate: "<div class=\"legend-title\">Legend:</div><ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].pointColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
             });
+
+            $('#client-income-chart-legend').html(clientIncome.generateLegend());
         }
     });
 
     return false;
 }
 
+/*
 function totalMonthlyIncomeChart() {
     $.ajax({
         url: 'requests/generate_chart.php',
@@ -1187,7 +1192,7 @@ function totalMonthlyIncomeChart() {
         dataType: 'json',
         success: function(response) {
             var chartData = {
-                labels: ["RMR Income"],
+                labels: ["Credits", "Debits"],
                 datasets: [
                     {
                         label: "Credits",
@@ -1212,6 +1217,50 @@ function totalMonthlyIncomeChart() {
             var totalMonthlyIncome = new Chart(ctx).Bar(chartData, {
                 scaleGridLineColor: 'rgba(0, 0, 0, .25)'
             });
+        }
+    });
+
+    return false;
+}
+*/
+
+function totalMonthlyIncomeChart() {
+    $.ajax({
+        url: 'requests/generate_chart.php',
+        method: 'GET',
+        data: {
+            action: 'View Total Monthly Income'
+        },
+        dataType: 'json',
+        success: function(response) {
+            var chartData = [
+                {
+                    value: response['total_credits'],
+                    color: "rgba(57, 117, 189, 0.75)",
+                    highlight: "rgba(57, 117, 189, 1)",
+                    label: "Total Credit"
+                },
+                {
+                    value: response['total_debits'],
+                    color: "rgba(195, 57, 55, 0.75)",
+                    highlight: "rgba(195, 57, 55, 1)",
+                    label: "Total Debit"
+                }
+            ];
+
+            var ctx = document.getElementById('total-monthly-income-chart').getContext('2d');
+            var totalMonthlyIncome = new Chart(ctx).Doughnut(chartData, {
+                animationSteps: 0,
+                segmentStrokeColor: "rgba(0, 0, 0, .25)",
+                tooltipEvents: [],
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                legendTemplate: "<div class=\"legend-title\">Legend:</div><ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
+                onAnimationComplete: function() {
+                    this.showTooltip(this.segments, true);
+                }
+            });
+
+            $('#total-monthly-income-chart-legend').html(totalMonthlyIncome.generateLegend());
         }
     });
 
@@ -1281,6 +1330,12 @@ function isInputAddress(field, message) {
         field.value = '';
         field.focus = '';
     }
+}
+
+function getCanvasUrl(canvasID) {
+    var id = document.getElementById(canvasID);
+
+    return id.toDataURL();
 }
 
 $(document).ready(function() {
@@ -1646,6 +1701,39 @@ $(document).ready(function() {
 
     $('[data-log]').click(function() {
         addLog($(this).attr('data-log'));
+    });
+
+    $('#generate-client-income-report-button').click(function() {
+        $('#modal').modal({
+            backdrop: 'static'
+        });
+        $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
+        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_finance_report.php?action=clientIncome" type="application/pdf" internalinstanceid="3">');
+    });
+
+    $('#generate-total-monthly-income-report-button').click(function() {
+        //window.location = 'requests/generate_finance_report.php?action=totalMonthlyIncome&graph=' + getCanvasUrl('total-monthly-income-chart');
+        totalMonthlyIncomeChart();
+
+        setTimeout(function() {
+            $.ajax({
+                url: 'requests/generate_monthly_income_chart.php',
+                method: 'POST',
+                data: {
+                    action: 'renderGraph',
+                    graph: getCanvasUrl('total-monthly-income-chart')
+                },
+                success: function(response) {
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+                    $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
+                    $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_finance_report.php?action=totalMonthlyIncome" type="application/pdf" internalinstanceid="3">');
+                }
+            });
+
+            return false;
+        }, 1000);
     });
 
     $('.light-switch-on').click(function() {
