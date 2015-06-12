@@ -45,10 +45,10 @@
             <div class="navbar navbar-inverse navbar" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a href="javascript:void(0);" class="navbar-brand">Income per Client</a>
+                        <a class="navbar-brand">Income per Client</a>
                     </div>
                     <div class="navbar-right">
-                        <a id="generate-client-income-report-button" class="btn btn-primary navbar-btn" href="requests/generate_finance_report.php?action=clientIncome">Generate Report</a>
+                        <a id="generate-client-income-report-button" class="btn btn-primary navbar-btn">Generate Report</a>
                         &nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
@@ -73,12 +73,7 @@
                 </div>
                 <canvas id="client-income-chart" class="center-block" height="400" width="740"></canvas>
                 <br>
-                <div style="font-size: 20px;">Legend:</div>
-                <div style="font-size: 15px;">
-                    <div class="colored-box" style="background-color: rgba(57, 117, 189, 0.75); border: 2px solid rgba(7, 67, 139, 0.75);"></div> Total Credit
-                    &nbsp;&nbsp;&nbsp;
-                    <div class="colored-box" style="background-color: rgba(195, 57, 55, 0.75); border: 2px solid rgba(145, 7, 5, 0.75);"></div> Total Debit
-                </div>
+                <div id="client-income-chart-legend"></div>
                 <br>
                 <div>
                     <table id="client-income-table" class="table table-hover table-striped">
@@ -141,10 +136,10 @@
             <div class="navbar navbar-inverse navbar" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a href="javascript:void(0);" class="navbar-brand">Total Income for the Month of <?php echo date('F'); ?></a>
+                        <a class="navbar-brand">Total Income for the Month of <?php echo date('F'); ?></a>
                     </div>
                     <div class="navbar-right">
-                        <a id="generate-total-monthly-income-report-button" class="btn btn-primary navbar-btn" href="requests/generate_finance_report.php?action=totalMonthlyIncome">Generate Report</a>
+                        <a id="generate-total-monthly-income-report-button" class="btn btn-primary navbar-btn">Generate Report</a>
                         &nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
@@ -152,12 +147,7 @@
             <div class="text-left col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <canvas id="total-monthly-income-chart" class="center-block" height="250" width="740"></canvas>
                 <br>
-                <div>Legend:</div>
-                <div>
-                    <div class="colored-box" style="background-color: rgba(57, 117, 189, 0.75); border: 2px solid rgba(7, 67, 139, 0.75);"></div> Credit
-                    &nbsp;&nbsp;&nbsp;
-                    <div class="colored-box" style="background-color: rgba(195, 57, 55, 0.75); border: 2px solid rgba(145, 7, 5, 0.75);"></div> Debit
-                </div>
+                <div id="total-monthly-income-chart-legend"></div>
             </div>
         </div>
     </div>
