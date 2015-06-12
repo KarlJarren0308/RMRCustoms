@@ -8,7 +8,7 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/particleground.min.js"></script>
-    <script src="assets/js/Chart.js"></script>
+    <script src="assets/js/Chart.min.js"></script>
     <script src="assets/js/script.js"></script>
 
     <script src="../zeroclipboard/ZeroClipboard.min.js"></script>
