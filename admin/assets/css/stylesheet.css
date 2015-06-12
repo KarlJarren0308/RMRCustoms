@@ -295,6 +295,29 @@
     text-decoration: none;
 }
 
+.legend-title {
+    font-size: 20px;
+}
+
+.line-legend, .doughnut-legend {
+    font-size: 15px;
+    list-style-type: none;
+    padding-left: 25px;
+}
+
+.line-legend li, .doughnut-legend li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 5px;
+}
+
+.line-legend li span, .doughnut-legend li span {
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+}
+
 #gps-frame {
     position: relative;
     height: 600px;
