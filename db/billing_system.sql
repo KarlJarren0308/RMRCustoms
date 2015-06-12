@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2015 at 06:05 PM
+-- Generation Time: Jun 12, 2015 at 07:31 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -137,9 +137,9 @@ CREATE TABLE IF NOT EXISTS `ladings` (
   `Bill_of_Lading_ID` char(15) NOT NULL,
   `Consignee` char(250) NOT NULL,
   `Export_References` char(250) NOT NULL,
-  `Item_Mark` varchar(2500) NOT NULL,
-  `Item_Quantity` varchar(2500) NOT NULL,
-  `Item_Description` varchar(2500) NOT NULL,
+  `Item_Mark` varchar(2500) NOT NULL DEFAULT '[]',
+  `Item_Quantity` varchar(2500) NOT NULL DEFAULT '[]',
+  `Item_Description` varchar(2500) NOT NULL DEFAULT '[]',
   `Date_of_Transaction` date NOT NULL,
   `Status` char(8) NOT NULL DEFAULT 'Active',
   `Date_Added` date NOT NULL
@@ -150,8 +150,7 @@ CREATE TABLE IF NOT EXISTS `ladings` (
 --
 
 INSERT INTO `ladings` (`Bill_of_Lading_ID`, `Consignee`, `Export_References`, `Item_Mark`, `Item_Quantity`, `Item_Description`, `Date_of_Transaction`, `Status`, `Date_Added`) VALUES
-('TESTLADING001', 'Jinri Choi', 'No Export References Available', '[]', '[]', '[]', '2015-06-02', 'Active', '2015-06-02'),
-('TESTLADING002', 'Jinri Choi', 'No Export References', '[]', '[]', '[]', '2015-06-02', 'Active', '2015-06-02');
+('TESTLADING101', 'Jinri Choi', 'No Export References available', '["Mark #1"]', '["1 pc."]', '["Description #1"]', '2015-06-11', 'Active', '2015-06-11');
 
 -- --------------------------------------------------------
 
@@ -164,22 +163,36 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `Account_Username` char(10) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `Log` char(255) NOT NULL,
   `Log_Datetime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
 --
 
 INSERT INTO `logs` (`Log_ID`, `Account_Username`, `Log`, `Log_Datetime`) VALUES
-(1, 'admin', 'accessed the Bill of Lading Module.', '2015-06-02 19:43:07'),
-(2, 'admin', 'has logged in.', '2015-06-02 22:46:38'),
-(3, 'admin', 'accessed the Transactions Module.', '2015-06-02 22:46:43'),
-(4, 'admin', 'accessed the Trucks Module.', '2015-06-02 22:46:46'),
-(5, 'admin', 'accessed the Transactions Module.', '2015-06-02 22:51:57'),
-(6, 'admin', 'accessed the Bill of Lading Module.', '2015-06-02 23:03:08'),
-(7, 'admin', 'accessed the Transactions Module.', '2015-06-02 23:03:09'),
-(8, 'admin', 'accessed the Bill of Lading Module.', '2015-06-02 23:40:04'),
-(9, 'admin', 'accessed the Transactions Module.', '2015-06-02 23:40:40');
+(1, 'admin', 'has logged in.', '2015-06-11 20:31:26'),
+(2, 'admin', 'accessed the Companies Module.', '2015-06-11 20:36:44'),
+(3, 'admin', 'accessed the Transactions Module.', '2015-06-11 20:37:15'),
+(4, 'admin', 'accessed the Bill of Lading Module.', '2015-06-11 20:46:58'),
+(5, 'admin', 'accessed the Transactions Module.', '2015-06-11 21:00:35'),
+(6, 'admin', 'accessed the Clients Module.', '2015-06-11 22:25:27'),
+(7, 'admin', 'accessed the Trucks Module.', '2015-06-11 22:33:55'),
+(8, 'admin', 'accessed the Companies Module.', '2015-06-11 22:57:52'),
+(9, 'admin', 'accessed the Clients Module.', '2015-06-11 23:01:28'),
+(10, 'admin', 'accessed the Companies Module.', '2015-06-12 00:46:14'),
+(11, 'admin', 'accessed the Clients Module.', '2015-06-12 01:26:15'),
+(12, 'admin', 'accessed the Transactions Module.', '2015-06-12 01:56:02'),
+(13, 'admin', 'accessed the Companies Module.', '2015-06-12 02:07:35'),
+(14, 'admin', 'accessed the Transactions Module.', '2015-06-12 02:07:42'),
+(15, 'admin', 'accessed the Bill of Lading Module.', '2015-06-12 02:07:50'),
+(16, 'admin', 'accessed the Trucks Module.', '2015-06-12 02:07:52'),
+(17, 'admin', 'accessed the Finances Module.', '2015-06-12 02:07:57'),
+(18, 'admin', 'accessed the Finances Module.', '2015-06-12 02:25:14'),
+(19, 'admin', 'accessed the Transactions Module.', '2015-06-12 02:51:31'),
+(20, 'admin', 'accessed the Finances Module.', '2015-06-12 15:23:12'),
+(21, 'admin', 'accessed the Finances Module.', '2015-06-12 16:44:15'),
+(22, 'admin', 'accessed the Transactions Module.', '2015-06-12 19:08:39'),
+(23, 'admin', 'accessed the Transactions Module.', '2015-06-12 19:20:28');
 
 -- --------------------------------------------------------
 
@@ -200,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `trucks` (
 --
 
 INSERT INTO `trucks` (`Truck_ID`, `Truck_Name`, `IMEI_Number`, `Current_Location`, `Status`) VALUES
-(1, 'TR02-28497', '358899052528497', '', 'Inactive');
+(1, 'TR02-28497', '358899052528497', '', 'Active');
 
 -- --------------------------------------------------------
 
@@ -221,6 +234,7 @@ CREATE TABLE IF NOT EXISTS `waybills` (
   `Cheque_Number` varchar(2500) NOT NULL DEFAULT '[]',
   `Bank_Name` varchar(2500) NOT NULL DEFAULT '[]',
   `Cheque_Date` varchar(2500) NOT NULL DEFAULT '[]',
+  `Cheque_Amount` varchar(2500) NOT NULL DEFAULT '[]',
   `Credit` double NOT NULL DEFAULT '0',
   `Debit` double NOT NULL DEFAULT '0',
   `Delivery_Status` char(8) NOT NULL DEFAULT 'Inactive',
@@ -234,9 +248,8 @@ CREATE TABLE IF NOT EXISTS `waybills` (
 -- Dumping data for table `waybills`
 --
 
-INSERT INTO `waybills` (`Waybill_Number`, `Description`, `Transaction_Date`, `Mode_of_Transaction`, `Container_Size`, `Pickup_Location`, `Datetime_Picked`, `Delivery_Location`, `Datetime_Delivered`, `Cheque_Number`, `Bank_Name`, `Cheque_Date`, `Credit`, `Debit`, `Delivery_Status`, `Bill_of_Lading_ID`, `Client_ID`, `Truck_ID`, `Status`) VALUES
-('2015060208662', 'Test Transaction 001', '2015-06-02', 'Door to Door', '20 feet', '', '0000-00-00 00:00:00', 'Sampaloc, Manila', '0000-00-00 00:00:00', '[]', '[]', '[]', 500000, 500000, 'Complied', 'TESTLADING001', 1, 1, 'Active'),
-('2015060229583', 'Test Transaction 002', '2015-06-02', 'Warehouse', '40 feet', '', '0000-00-00 00:00:00', 'Tondo, Manila', '0000-00-00 00:00:00', '[]', '[]', '[]', 0, 0, 'Complied', 'TESTLADING002', 13, 1, 'Inactive');
+INSERT INTO `waybills` (`Waybill_Number`, `Description`, `Transaction_Date`, `Mode_of_Transaction`, `Container_Size`, `Pickup_Location`, `Datetime_Picked`, `Delivery_Location`, `Datetime_Delivered`, `Cheque_Number`, `Bank_Name`, `Cheque_Date`, `Cheque_Amount`, `Credit`, `Debit`, `Delivery_Status`, `Bill_of_Lading_ID`, `Client_ID`, `Truck_ID`, `Status`) VALUES
+('2015061148027', 'Test Transaction #1', '2015-06-11', 'Door to Door', '20 feet', '', '0000-00-00 00:00:00', 'Tondo, Manila', '0000-00-00 00:00:00', '["1asf31da3s1f35s"]', '["Banko De Oro"]', '["2015-6-11"]', '["250000"]', 500000, 500000, 'Active', 'TESTLADING101', 1, 1, 'Active');
 
 --
 -- Indexes for dumped tables
@@ -302,7 +315,7 @@ MODIFY `Company_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `trucks`
 --
