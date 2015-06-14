@@ -185,6 +185,29 @@
     padding: 5px 10px;
 }
 
+.notif-container {
+    z-index: 9999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.notif-block {
+    background-color: rgb(25, 40, 35);
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    display: block;
+    padding: 5px 10px;
+    max-height: 50px;
+    max-width: 150px;
+}
+
+.notif-block:not(:last-child) {
+    margin-bottom: 5px;
+}
+
 #main-body {
     background-image: url(../img/bg01-translucent.png);
     padding: 75px 0;
