@@ -12,16 +12,30 @@ function renderMap() {
     addMarker();
 }
 
+function showLoader(id) {
+    var dialogBody = $('#' + id + '.modal-body');
+
+    dialogBody.html('<div class="text-center"><img src="assets/img/loader.png" class="loader"></div>');
+
+    $('.loader').css({
+        'height': '50px;',
+        'width': '50px',
+        'animation': '1s infispin infinite linear'
+    });
+}
+
 $(document).ready(function() {
     $('#track-form').submit(function() {
+        showLoader('modal');
+        $('#modal').modal({
+            backdrop: 'static'
+        });
+
         $.ajax({
             url: 'requests/track_delivery.php',
             method: 'GET',
             data: $(this).serialize() + '&currency=peso',
             success: function(response) {
-                $('#modal').modal({
-                    backdrop: 'static'
-                });
                 $('#modal .modal-title').html('Delivery Information');
                 $('#modal .modal-body').html(response);
 
@@ -39,6 +53,11 @@ $(document).ready(function() {
                     $('#modal').modal('hide');
 
                     setTimeout(function() {
+                        showLoader('#modal');
+                        $('#modal').modal({
+                            backdrop: 'static'
+                        });
+                    
                         $.ajax({
                             url: 'requests/track_delivery.php',
                             method: 'GET',
@@ -47,9 +66,6 @@ $(document).ready(function() {
                                 currency: currency
                             },
                             success: function(response) {
-                                $('#modal').modal({
-                                    backdrop: 'static'
-                                });
                                 $('#modal .modal-title').html('Delivery Information');
                                 $('#modal .modal-body').html(response);
 
