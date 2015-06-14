@@ -19,6 +19,11 @@ function fillTable($file, $search) {
                     arr = 'View;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
                     $.ajax({
                         url: 'requests/modify_client.php',
                         method: 'POST',
@@ -30,9 +35,6 @@ function fillTable($file, $search) {
                             lastName: dVar[4]
                         },
                         success: function(response) {
-                            $('#modal').modal({
-                                backdrop: 'static'
-                            });
                             $('#modal .modal-title').html('<h3 class="no-margin">Client Information</h3>');
                             $('#modal .modal-body').html(response);
                         }
@@ -40,6 +42,11 @@ function fillTable($file, $search) {
 
                     return false;
                 } else if(dataExecute == 'View Cheques') {
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
                     $.ajax({
                         url: 'requests/view_cheques.php',
                         method: 'POST',
@@ -47,9 +54,6 @@ function fillTable($file, $search) {
                             id: dataVar
                         },
                         success: function(response) {
-                            $('#modal').modal({
-                                backdrop: 'static'
-                            });
                             $('#modal .modal-title').html('<h3 class="no-margin">View Cheques</h3>');
                             $('#modal .modal-body').html(response);
                         }
@@ -62,6 +66,11 @@ function fillTable($file, $search) {
                     arr = 'Edit;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
                     $.ajax({
                         url: 'requests/modify_client.php',
                         method: 'POST',
@@ -73,9 +82,6 @@ function fillTable($file, $search) {
                             lastName: dVar[4]
                         },
                         success: function(response) {
-                            $('#modal').modal({
-                                backdrop: 'static'
-                            });
                             $('#modal .modal-title').html('<h3 class="no-margin">Edit Client Information</h3>');
                             $('#modal .modal-body').html(response);
 
@@ -83,6 +89,11 @@ function fillTable($file, $search) {
                                 $('#modal').modal('hide');
 
                                 setTimeout(function() {
+                                    showLoader('modal');
+                                    $('#modal').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_client.php',
                                         method: 'POST',
@@ -115,9 +126,6 @@ function fillTable($file, $search) {
                                             companyId: dVar[5]
                                         },
                                         success: function(response) {
-                                            $('#modal').modal({
-                                                backdrop: 'static'
-                                            });
                                             $('#modal .modal-body').html(response);
 
                                             setTimeout(function() {
@@ -149,6 +157,11 @@ function fillTable($file, $search) {
                             dVar = arr.split(';');
 
                             setTimeout(function() {
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_client.php',
                                     method: 'POST',
@@ -160,9 +173,6 @@ function fillTable($file, $search) {
                                         lastName: dVar[4]
                                     },
                                     success: function(response) {
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
                                         $('#prompt .modal-footer').html('');
@@ -186,6 +196,7 @@ function fillTable($file, $search) {
                     arr = 'View;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
                     $('#modal').modal({
                         backdrop: 'static'
                     });
@@ -224,6 +235,7 @@ function fillTable($file, $search) {
                                     success: function(response) {
                                         $('#modal').modal('hide');
 
+                                        showLoader('prompt');
                                         $('#prompt').modal({
                                             backdrop: 'static'
                                         });
@@ -240,46 +252,6 @@ function fillTable($file, $search) {
 
                                 return false;
                             });
-
-                            /*
-                            $('.date-input-control').keyup(function() {
-                                if($(this).val() == '') {
-                                    $(this).val('');
-                                    $(this).focus();
-                                }
-                            });
-
-                            $('#add-item-to-bill-button').click(function() {
-                                $itemRow += 1;
-
-                                $('#bill-of-lading-table tbody').append('<tr><td><textarea name="billItemMark-' + $itemRow + '" class="form-control" required></textarea></td><td><textarea name="billItemQuantity-' + $itemRow + '" class="form-control" required></textarea></td><td><textarea name="billItemDescription-' + $itemRow + '" class="form-control" required></textarea></td></tr>');
-                            });
-
-                            $('#bill-of-lading-form').submit(function() {
-                                $.ajax({
-                                    url: 'requests/modify_bill_of_lading.php',
-                                    method: 'POST',
-                                    data: $('#bill-of-lading-form').serialize(),
-                                    success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
-                                        $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
-                                        $('#prompt .modal-body').html(response);
-
-                                        setTimeout(function() {
-                                            $('#prompt').modal('hide');
-
-                                            location.reload();
-                                        }, 2000);
-                                    }
-                                });
-
-                                return false;
-                            });
-                            */
                         }
                     });
 
@@ -290,6 +262,7 @@ function fillTable($file, $search) {
                     arr = 'View Payment;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
                     $('#modal').modal({
                         backdrop: 'static'
                     });
@@ -397,6 +370,11 @@ function fillTable($file, $search) {
                                 $('#transaction-debit-locker-button').removeClass('disabled').removeAttr('disabled');
 
                                 if($value != '') {
+                                    showLoader('notif');
+                                    $('#notif').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -409,9 +387,6 @@ function fillTable($file, $search) {
                                         },
                                         success: function(response) {
                                             if(response == 'Higher') {
-                                                $('#notif').modal({
-                                                    backdrop: 'static'
-                                                });
                                                 $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
                                                 $('#notif .modal-body').html('This client/company has already reached the 800k limit. He won\'t be able to have a new transaction temporarily until previous balances has been settled.<br><br>Setting Transaction Debit back to 0.');
 
@@ -443,6 +418,11 @@ function fillTable($file, $search) {
                                 $dataMax = $(this).attr('data-max');
                                 
                                 if($value != '') {
+                                    showLoader('notif');
+                                    $('#notif').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -455,9 +435,6 @@ function fillTable($file, $search) {
                                         },
                                         success: function(response) {
                                             if(response == 'Higher') {
-                                                $('#notif').modal({
-                                                    backdrop: 'static'
-                                                });
                                                 $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
                                                 $('#notif .modal-body').html('This client/company has already reached the 800k limit. He won\'t be able to have a new transaction temporarily until previous balances has been settled.<br><br>Setting Transaction Debit back to 0.');
 
@@ -521,6 +498,12 @@ function fillTable($file, $search) {
                             });
 
                             $('#set-new-payment-button').click(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
                                 $.ajax({
                                     url: 'requests/modify_transactions.php',
                                     method: 'POST',
@@ -536,11 +519,6 @@ function fillTable($file, $search) {
                                         chequeYear: $('#cheque-year').val()
                                     },
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
                                         $('#prompt .modal-footer').html('');
@@ -557,6 +535,13 @@ function fillTable($file, $search) {
                             });
 
                             $('#set-payment-button').click(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_transactions.php',
                                     method: 'POST',
@@ -571,11 +556,6 @@ function fillTable($file, $search) {
                                         chequeYear: $('#cheque-year').val()
                                     },
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
                                         $('#prompt .modal-footer').html('');
@@ -604,7 +584,6 @@ function fillTable($file, $search) {
                         backdrop: 'static'
                     });
                     $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
-                    //$('#prompt .modal-body').html('Are you sure you want to delete this transaction?<br><br><strong>Note:</strong> The transaction\'s bill of lading will also be deleted.');
                     $('#prompt .modal-body').html('Are you sure you want to delete this transaction?');
                     $('#prompt .modal-footer').html('<button id="yes-button" class="btn btn-danger">Yes</button>&nbsp;&nbsp;<button id="no-button" class="btn btn-default">No</button>')
 
@@ -612,6 +591,11 @@ function fillTable($file, $search) {
                         $('#prompt').modal('hide');
 
                         setTimeout(function() {
+                            showLoader('prompt');
+                            $('#prompt').modal({
+                                backdrop: 'static'
+                            });
+
                             $.ajax({
                                 url: 'requests/modify_transactions.php',
                                 method: 'POST',
@@ -620,9 +604,6 @@ function fillTable($file, $search) {
                                     waybillNumber: dVar[1]
                                 },
                                 success: function(response) {
-                                    $('#prompt').modal({
-                                        backdrop: 'static'
-                                    });
                                     $('#prompt .modal-body').html(response);
                                     $('#prompt .modal-footer').html('');
 
@@ -647,6 +628,7 @@ function fillTable($file, $search) {
                     arr = 'View;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
                     $('#modal').modal({
                         backdrop: 'static'
                     });
@@ -670,6 +652,12 @@ function fillTable($file, $search) {
                                 var pending = $('#add-pending-transactions').val();
                                 var truckId = $('#add-pending-transactions-button').attr('data-var');
 
+                                $('#modal').modal('hide');
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_pending.php',
                                     method: 'POST',
@@ -679,11 +667,6 @@ function fillTable($file, $search) {
                                         truckId: truckId
                                     },
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
 
@@ -706,6 +689,13 @@ function fillTable($file, $search) {
                                     dataVar = 'Comply All;' + $(this).attr('data-var');
                                     dVar = dataVar.split(';');
 
+                                    $('#modal').modal('hide');
+
+                                    showLoader('prompt');
+                                    $('#prompt').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_pending.php',
                                         method: 'POST',
@@ -715,11 +705,6 @@ function fillTable($file, $search) {
                                             waybillNumbers: dVar
                                         },
                                         success: function(response) {
-                                            $('#modal').modal('hide');
-
-                                            $('#prompt').modal({
-                                                backdrop: 'static'
-                                            });
                                             $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                             $('#prompt .modal-body').html(response);
 
@@ -736,6 +721,13 @@ function fillTable($file, $search) {
                                     dataVar = 'Comply;' + $(this).attr('data-var');
                                     dVar = dataVar.split(';');
 
+                                    $('#modal').modal('hide');
+
+                                    showLoader('prompt');
+                                    $('#prompt').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_pending.php',
                                         method: 'POST',
@@ -745,11 +737,6 @@ function fillTable($file, $search) {
                                             waybillNumber: dVar[2]
                                         },
                                         success: function(response) {
-                                            $('#modal').modal('hide');
-
-                                            $('#prompt').modal({
-                                                backdrop: 'static'
-                                            });
                                             $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                             $('#prompt .modal-body').html(response);
 
@@ -766,6 +753,13 @@ function fillTable($file, $search) {
                                     dataVar = 'Remove;' + $(this).attr('data-var');
                                     dVar = dataVar.split(';');
 
+                                    $('#modal').modal('hide');
+
+                                    showLoader('prompt');
+                                    $('#prompt').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/modify_pending.php',
                                         method: 'POST',
@@ -775,11 +769,6 @@ function fillTable($file, $search) {
                                             waybillNumber: dVar[2]
                                         },
                                         success: function(response) {
-                                            $('#modal').modal('hide');
-
-                                            $('#prompt').modal({
-                                                backdrop: 'static'
-                                            });
                                             $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                             $('#prompt .modal-body').html(response);
 
@@ -804,6 +793,11 @@ function fillTable($file, $search) {
                     arr = 'Edit;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
                     $.ajax({
                         url: 'requests/modify_truck.php',
                         method: 'POST',
@@ -813,13 +807,17 @@ function fillTable($file, $search) {
                             imeiNumber: dVar[2]
                         },
                         success: function(response) {
-                            $('#modal').modal({
-                                backdrop: 'static'
-                            });
                             $('#modal .modal-title').html('<h3 class="no-margin">Edit Truck Information</h3>');
                             $('#modal .modal-body').html(response);
 
                             $('#save-changes-button').click(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_truck.php',
                                     method: 'POST',
@@ -831,11 +829,6 @@ function fillTable($file, $search) {
                                         newImeiNumber: $('input[name=newImeiNumber]').val()
                                     },
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
 
@@ -866,36 +859,41 @@ function fillTable($file, $search) {
                     $('#yes-button').click(function() {
                         $('#prompt').modal('hide');
 
-                        $.ajax({
-                            url: 'requests/modify_truck.php',
-                            method: 'POST',
-                            data: {
-                                action: 'Delete',
-                                truckName: dVar[0],
-                                imeiNumber: dVar[1]
-                            },
-                            success: function(response) {
-                                $('#prompt').modal({
-                                    backdrop: 'static'
-                                });
-                                $('#prompt .modal-body').html(response);
-                                $('#prompt .modal-footer').html('');
+                        setTimeout(function() {
+                            showLoader('prompt');
+                            $('#prompt').modal({
+                                backdrop: 'static'
+                            });
 
-                                setTimeout(function() {
-                                    $('#prompt').modal('hide');
+                            $.ajax({
+                                url: 'requests/modify_truck.php',
+                                method: 'POST',
+                                data: {
+                                    action: 'Delete',
+                                    truckName: dVar[0],
+                                    imeiNumber: dVar[1]
+                                },
+                                success: function(response) {
+                                    $('#prompt .modal-body').html(response);
+                                    $('#prompt .modal-footer').html('');
 
-                                    location.reload();
-                                }, 2000);
-                            }
-                        });
+                                    setTimeout(function() {
+                                        $('#prompt').modal('hide');
 
-                        return false;
+                                        location.reload();
+                                    }, 2000);
+                                }
+                            });
+
+                            return false;
+                        }, 500);
                     });
 
                     $('#no-button').click(function() {
                         $('#prompt').modal('hide');
                     });
                 } else if(dataExecute == 'View User Info') {
+                    showLoader('modal');
                     $('#modal').modal({
                         backdrop: 'static'
                     });
@@ -915,6 +913,7 @@ function fillTable($file, $search) {
 
                     return false;
                 } else if(dataExecute == 'Edit User Info') {
+                    showLoader('modal');
                     $('#modal').modal({
                         backdrop: 'static'
                     });
@@ -931,6 +930,13 @@ function fillTable($file, $search) {
                             $('#modal .modal-body').html(response);
 
                             $('#save-changes-on-users-button').click(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_users.php',
                                     method: 'POST',
@@ -947,11 +953,6 @@ function fillTable($file, $search) {
                                         oldUsername: dataVar
                                     },
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
                                         $('#prompt .modal-footer').html('');
@@ -982,6 +983,11 @@ function fillTable($file, $search) {
                         $('#prompt').modal('hide');
 
                         setTimeout(function() {
+                            showLoader('prompt');
+                            $('#prompt').modal({
+                                backdrop: 'static'
+                            });
+
                             $.ajax({
                                 url: 'requests/modify_users.php',
                                 method: 'POST',
@@ -990,9 +996,6 @@ function fillTable($file, $search) {
                                     username: dataVar
                                 },
                                 success: function(response) {
-                                    $('#prompt').modal({
-                                        backdrop: 'static'
-                                    });
                                     $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                     $('#prompt .modal-body').html(response);
                                     $('#prompt .modal-footer').html('');
@@ -1018,6 +1021,11 @@ function fillTable($file, $search) {
                     arr = 'Edit;' + dataVar;
                     dVar = arr.split(';');
 
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
                     $.ajax({
                         url: 'requests/modify_ladings.php',
                         method: 'POST',
@@ -1028,9 +1036,6 @@ function fillTable($file, $search) {
                         success: function(response) {
                             $itemRow = 0;
 
-                            $('#modal').modal({
-                                backdrop: 'static'
-                            });
                             $('#modal .modal-title').html('<h3 class="no-margin">Edit Bill of Lading</h3>');
                             $('#modal .modal-body').html(response);
 
@@ -1043,16 +1048,18 @@ function fillTable($file, $search) {
                             });
 
                             $('#edit-bill-of-lading-form').submit(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_ladings.php',
                                     method: 'POST',
                                     data: $('#edit-bill-of-lading-form').serialize() + '&action=Save',
                                     success: function(response) {
-                                        $('#modal').modal('hide');
-
-                                        $('#prompt').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                         $('#prompt .modal-body').html(response);
                                         $('#prompt .modal-footer').html('');
@@ -1083,6 +1090,11 @@ function fillTable($file, $search) {
                         $('#prompt').modal('hide');
 
                         setTimeout(function() {
+                            showLoader('prompt');
+                            $('#prompt').modal({
+                                backdrop: 'static'
+                            });
+
                             $.ajax({
                                 url: 'requests/modify_ladings.php',
                                 method: 'POST',
@@ -1091,9 +1103,6 @@ function fillTable($file, $search) {
                                     billId: dataVar
                                 },
                                 success: function(response) {
-                                    $('#prompt').modal({
-                                        backdrop: 'static'
-                                    });
                                     $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                     $('#prompt .modal-body').html(response);
                                     $('#prompt .modal-footer').html('');
@@ -1346,6 +1355,18 @@ function showNotif(message) {
     }
 }
 
+function showLoader(id) {
+    var dialogBody = $('#' + id + '.modal-body');
+
+    dialogBody.html('<div class="text-center"><img src="assets/img/loader.png" class="loader"></div>');
+
+    $('.loader').css({
+        'height': '50px;',
+        'width': '50px',
+        'animation': '1s infispin infinite linear'
+    });
+}
+
 $(document).ready(function() {
     var notifs;
 
@@ -1400,14 +1421,16 @@ $(document).ready(function() {
             $('#modal .modal-body').html('<form id="add-client-form"><div class="row"><div class="col-lg-4 col-md-4 form-group"><label>Client\'s First Name:</label><input type="text" class="form-control" name="addClientFirstName" placeholder="Enter Client\'s First Name here..." onkeyup="isInputAlpha(this)" required autofocus></div><div class="col-lg-4 col-md-4 form-group"><label>Client\'s Middle Name:</label><input type="text" class="form-control" name="addClientMiddleName" placeholder="Enter Client\'s Middle Name here..." onkeyup="isInputAlpha(this)"></div><div class="col-lg-4 col-md-4 form-group"><label>Client\'s Last Name:</label><input type="text" class="form-control" name="addClientLastName" placeholder="Enter Client\'s Last Name here..." onkeyup="isInputAlpha(this)" required></div></div><div class="form-group"><label>Client\'s Address:</label><input type="text" class="form-control" name="addClientAddress" placeholder="Enter Client\'s Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>Client\'s E-mail Address:</label><input type="text" class="form-control" name="addClientEmail" placeholder="Enter Client\'s E-mail Address here..." required></div><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="addCompanyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="addCompanyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="addCompanyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)"></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Client Information"></div></form>');
 
             $('#add-client-form').submit(function() {
+                showLoader('modal');
+                $('#modal').modal({
+                    backdrop: 'static'
+                });
+
                 $.ajax({
                     url: 'requests/modify_client.php',
                     method: 'POST',
                     data: $(this).serialize() + '&action=Add',
                     success: function(response) {
-                        $('#modal').modal({
-                            backdrop: 'static'
-                        });
                         $('#modal .modal-body').html(response);
 
                         setTimeout(function() {
@@ -1425,22 +1448,21 @@ $(document).ready(function() {
                 backdrop: 'static'
             });
             $('#modal .modal-title').html('<h3 class="no-margin">Add New Company</h3>');
-            //$('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..."></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..."></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
-            //$('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..."></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..."></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..."></div><div class="form-group"><label>Company Head Office Address:</label><input type="text" class="form-control" name="companyHeadOfficeAddress" placeholder="Enter Company Head Office Address here..."></div><div class="form-group"><label>Company E-mail Address:</label><input type="text" class="form-control" name="companyEmailAddress" placeholder="Enter Company E-mail Address here..."></div><div class="form-group"><label>Zip Code:</label><input type="text" class="form-control" name="zipCode" placeholder="Enter Zip Code here..."></div><div class="form-group"><label>Primary Contact:</label><input type="text" class="form-control" name="primaryContact" placeholder="Enter Primary Contact here..."></div><div class="form-group"><label>Primary Contact Company Position:</label><input type="text" class="form-control" name="primaryContactCompanyPosition" placeholder="Enter Primary Contact Company Positio here..."></div><div class="form-group"><label>Primary Contact E-mail:</label><input type="text" class="form-control" name="primaryContactEmail" placeholder="Enter Primary Contact E-mail here..."></div><div class="form-group"><label>Primary Contact Phone Number:</label><input type="text" class="form-control" name="primaryContactPhoneNumber" placeholder="Enter Primary Contact Phone Number here..."></div><div class="form-group"><label>Main Business Activities (Type of Business i.e. Electronics):</label><input type="text" class="form-control" name="mainBusinessActivities" placeholder="Enter Main Business Activities here..."></div><div class="form-group"><label>Country:</label><input type="text" class="form-control" name="country" placeholder="Enter Country here..."></div><div class="form-group"><label>Corporate Currency:</label><input type="text" class="form-control" name="corporateCurrency" placeholder="Enter Corporate Currency here..."></div><div class="form-group"><label>Default Language:</label><input type="text" class="form-control" name="defaultLanguage" placeholder="Enter Default Language here..."></div><div class="form-group"><label>Default Time Zone:</label><input type="text" class="form-control" name="defaultTimeZone" placeholder="Enter Default Time Zone here..."></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="fax" placeholder="Enter Fax here..."></div><div class="form-group"><label>Phone Number:</label><input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number here..."></div><div class="form-group"><label>Established:</label><input type="text" class="form-control" name="established" placeholder="Enter Established here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
-            //$('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..." required></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..." required></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..." required></div><div class="form-group"><label>Company E-mail Address:</label><input type="text" class="form-control" name="companyEmailAddress" placeholder="Enter Company E-mail Address here..." required></div><div class="form-group"><label>Main Business Activities (Type of Business i.e. Electronics):</label><input type="text" class="form-control" name="mainBusinessActivities" placeholder="Enter Main Business Activities here..." required></div><div class="form-group"><label>Company Head Office Address:</label><input type="text" class="form-control" name="companyHeadOfficeAddress" placeholder="Enter Company Head Office Address here..."></div><div class="form-group"><label>Zip Code:</label><input type="text" class="form-control" name="zipCode" placeholder="Enter Zip Code here..."></div><div class="form-group"><label>Primary Contact:</label><input type="text" class="form-control" name="primaryContact" placeholder="Enter Primary Contact here..."></div><div class="form-group"><label>Primary Contact Company Position:</label><input type="text" class="form-control" name="primaryContactCompanyPosition" placeholder="Enter Primary Contact Company Positio here..."></div><div class="form-group"><label>Primary Contact E-mail:</label><input type="text" class="form-control" name="primaryContactEmail" placeholder="Enter Primary Contact E-mail here..."></div><div class="form-group"><label>Primary Contact Phone Number:</label><input type="text" class="form-control" name="primaryContactPhoneNumber" placeholder="Enter Primary Contact Phone Number here..."></div><div class="form-group"><label>Country:</label><input type="text" class="form-control" name="country" placeholder="Enter Country here..."></div><div class="form-group"><label>Corporate Currency:</label><input type="text" class="form-control" name="corporateCurrency" placeholder="Enter Corporate Currency here..."></div><div class="form-group"><label>Default Language:</label><input type="text" class="form-control" name="defaultLanguage" placeholder="Enter Default Language here..."></div><div class="form-group"><label>Default Time Zone:</label><input type="text" class="form-control" name="defaultTimeZone" placeholder="Enter Default Time Zone here..."></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="fax" placeholder="Enter Fax here..."></div><div class="form-group"><label>Phone Number:</label><input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number here..."></div><div class="form-group"><label>Established:</label><input type="text" class="form-control" name="established" placeholder="Enter Established here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
             $('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)" required></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)" required></div><div class="form-group"><label>Company E-mail Address:</label><input type="text" class="form-control" name="companyEmailAddress" placeholder="Enter Company E-mail Address here..." required></div><div class="form-group"><label>Main Business Activities (Type of Business i.e. Electronics):</label><input type="text" class="form-control" name="mainBusinessActivities" placeholder="Enter Main Business Activities here..." required></div><div class="form-group"><label>Company Head Office Address:</label><input type="text" class="form-control" name="companyHeadOfficeAddress" placeholder="Enter Company Head Office Address here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Zip Code:</label><input type="text" class="form-control" name="zipCode" placeholder="Enter Zip Code here..." onkeyup="isInputNumeric(this)"></div><div class="form-group"><label>Primary Contact:</label><input type="text" class="form-control" name="primaryContact" placeholder="Enter Primary Contact here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Primary Contact Company Position:</label><input type="text" class="form-control" name="primaryContactCompanyPosition" placeholder="Enter Primary Contact Company Position here..."></div><div class="form-group"><label>Primary Contact E-mail:</label><input type="text" class="form-control" name="primaryContactEmail" placeholder="Enter Primary Contact E-mail here..."></div><div class="form-group"><label>Primary Contact Phone Number:</label><input type="text" class="form-control" name="primaryContactPhoneNumber" placeholder="Enter Primary Contact Phone Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Country:</label><input type="text" class="form-control" name="country" placeholder="Enter Country here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Corporate Currency:</label><input type="text" class="form-control" name="corporateCurrency" placeholder="Enter Corporate Currency here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Default Language:</label><input type="text" class="form-control" name="defaultLanguage" placeholder="Enter Default Language here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Default Time Zone:</label><input type="text" class="form-control" name="defaultTimeZone" placeholder="Enter Default Time Zone here..."></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="fax" placeholder="Enter Fax here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Phone Number:</label><input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Established:</label><input type="text" class="form-control" name="established" placeholder="Enter Established here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
 
             $('#add-company-form').submit(function() {
+                $('#modal').modal('hide');
+
+                showLoader('prompt');
+                $('#prompt').modal({
+                    backdrop: 'static'
+                });
+
                 $.ajax({
                     url: 'requests/modify_company.php',
                     method: 'POST',
                     data: $('#add-company-form').serialize() + '&action=Add',
                     success: function(response) {
-                        $('#modal').modal('hide');
-
-                        $('#prompt').modal({
-                            backdrop: 'static'
-                        });
                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                         $('#prompt .modal-body').html(response);
 
@@ -1455,6 +1477,7 @@ $(document).ready(function() {
                 return false;
             });
         } else if(dataExecute == 'Create New Transaction') {
+            showLoader('modal');
             $('#modal').modal({
                 backdrop: 'static'
             });
@@ -1477,6 +1500,11 @@ $(document).ready(function() {
                                     var notifValue = $('option:selected', this).attr('data-notif-value');
                                     $(this)[0].selectedIndex = 0;
 
+                                    showLoader('notif');
+                                    $('#notif').modal({
+                                        backdrop: 'static'
+                                    });
+
                                     $.ajax({
                                         url: 'requests/notifier.php',
                                         method: 'GET',
@@ -1484,9 +1512,6 @@ $(document).ready(function() {
                                             value: notifValue
                                         },
                                         success: function(res) {
-                                            $('#notif').modal({
-                                                backdrop: 'static'
-                                            });
                                             $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
                                             $('#notif .modal-body').html(res + ' is not allowed to create new transaction. Please settle previous transaction balances before creating new transaction.<br><br>Please select another one...');
 
@@ -1503,14 +1528,16 @@ $(document).ready(function() {
                             });
                     
                             $('#create-new-transaction-form').submit(function() {
+                                showLoader('modal');
+                                $('#modal').modal({
+                                    backdrop: 'static'
+                                });
+
                                 $.ajax({
                                     url: 'requests/modify_transactions.php',
                                     method: 'POST',
                                     data: $(this).serialize() + '&action=Add',
                                     success: function(response) {
-                                        $('#modal').modal({
-                                            backdrop: 'static'
-                                        });
                                         $('#modal .modal-body').html(response);
 
                                         setTimeout(function() {
@@ -1539,16 +1566,18 @@ $(document).ready(function() {
             $('#modal .modal-body').html('<form id="add-truck-form"><div class="form-group"><label>Truck Name:</label><input class="form-control" type="text" name="truckName" placeholder="Enter Truck Name" required></div><div class="form-group"><label>IMEI Number:</label><input class="form-control" type="text" name="imeiNumber" placeholder="Enter IMEI Number here..." required></div><div class="form-group text-right"><input class="btn btn-primary" type="submit" value="Add Truck"></div></form>');
 
             $('#add-truck-form').submit(function() {
+                $('#modal').modal('hide');
+
+                showLoader('prompt');
+                $('#prompt').modal({
+                    backdrop: 'static'
+                });
+
                 $.ajax({
                     url: 'requests/modify_truck.php',
                     method: 'POST',
                     data: $('#add-truck-form').serialize() + '&action=Add',
                     success: function(response) {
-                        $('#modal').modal('hide');
-
-                        $('#prompt').modal({
-                            backdrop: 'static'
-                        });
                         $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                         $('#prompt .modal-body').html(response);
 
@@ -1563,6 +1592,7 @@ $(document).ready(function() {
                 return false;
             });
         } else if(dataExecute == 'Add New User') {
+            showLoader('modal');
             $('#modal').modal({
                 backdrop: 'static'
             });
@@ -1578,16 +1608,18 @@ $(document).ready(function() {
                     $('#modal .modal-body').html(response);
 
                     $('#add-new-user-form').submit(function() {
+                        $('#modal').modal('hide');
+
+                        showLoader('prompt');
+                        $('#prompt').modal({
+                            backdrop: 'static'
+                        });
+
                         $.ajax({
                             url: 'requests/modify_users.php',
                             method: 'POST',
                             data: $('#add-new-user-form').serialize() + '&action=Add',
                             success: function(response) {
-                                $('#modal').modal('hide');
-
-                                $('#prompt').modal({
-                                    backdrop: 'static'
-                                });
                                 $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                 $('#prompt .modal-body').html(response);
 
@@ -1606,6 +1638,7 @@ $(document).ready(function() {
 
             return false;
         } else if(dataExecute == 'Create New Bill of Lading') {
+            showLoader('modal');
             $('#modal').modal({
                 backdrop: 'static'
             });
@@ -1639,16 +1672,18 @@ $(document).ready(function() {
                     });
 
                     $('#bill-of-lading-form').submit(function() {
+                        $('#modal').modal('hide');
+
+                        showLoader('prompt');
+                        $('#prompt').modal({
+                            backdrop: 'static'
+                        });
+
                         $.ajax({
                             url: 'requests/modify_ladings.php',
                             method: 'POST',
                             data: $('#bill-of-lading-form').serialize(),
                             success: function(response) {
-                                $('#modal').modal('hide');
-
-                                $('#prompt').modal({
-                                    backdrop: 'static'
-                                });
                                 $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
                                 $('#prompt .modal-body').html(response);
 
@@ -1670,15 +1705,16 @@ $(document).ready(function() {
     });
 
     $('#login-form').submit(function() {
+        showLoader('modal');
+        $('#modal').modal({
+            backdrop: 'static'
+        });
+
         $.ajax({
             url: 'requests/login_request.php',
             method: 'GET',
             data: $(this).serialize(),
             success: function(response) {
-                $('#modal').modal({
-                    backdrop: 'static'
-                });
-
                 if(response == "Login Successful.") {
                     $('#modal .modal-header').removeClass('bg-red').addClass('bg-green top-corners-round').html('<h3 class="no-margin">Login Status</h3>');
                     $('#modal .modal-body').html(response);
@@ -1724,6 +1760,11 @@ $(document).ready(function() {
         totalMonthlyIncomeChart();
 
         setTimeout(function() {
+            showLoader('modal');
+            $('#modal').modal({
+                backdrop: 'static'
+            });
+            
             $.ajax({
                 url: 'requests/generate_monthly_income_chart.php',
                 method: 'POST',
@@ -1732,9 +1773,6 @@ $(document).ready(function() {
                     graph: getCanvasUrl('total-monthly-income-chart')
                 },
                 success: function(response) {
-                    $('#modal').modal({
-                        backdrop: 'static'
-                    });
                     $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
                     $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_finance_report.php?action=totalMonthlyIncome" type="application/pdf" internalinstanceid="3">');
                 }
