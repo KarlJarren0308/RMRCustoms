@@ -1268,7 +1268,7 @@ function totalMonthlyIncomeChart() {
 }
 
 function isInputAlpha(field, message) {
-    var rx = /[^a-z]/i;
+    var rx = /[^a-z \.\,]/i;
     if(rx.test(field.value)) {
         if(message == '' || message == null) {
             alert('This field allows texts only.');
@@ -1281,7 +1281,7 @@ function isInputAlpha(field, message) {
 }
 
 function isInputAlphaNumeric(field, message) {
-    var rx = /[^a-z0-9\-]/i;
+    var rx = /[^a-z0-9 \.\,\-]/i;
     if(rx.test(field.value)) {
         if(message == '' || message == null) {
             alert('This field allows texts and numbers only.');
@@ -1294,7 +1294,7 @@ function isInputAlphaNumeric(field, message) {
 }
 
 function isInputNumeric(field, message) {
-    var rx = /[^0-9\-]/i;
+    var rx = /[^0-9 \-]/i;
     if(rx.test(field.value)) {
         if(message == '' || message == null) {
             alert('This field allows numbers only.');
@@ -1320,7 +1320,7 @@ function isInputContact(field, message) {
 }
 
 function isInputAddress(field, message) {
-    var rx = /[^a-z0-9\.\,\'\-\(\)]/i;
+    var rx = /[^a-z0-9 \.\,\'\-\(\)]/i;
     if(rx.test(field.value)) {
         if(message == '' || message == null) {
             alert('Invalid address format. Please enter a valid address.');
@@ -1336,6 +1336,14 @@ function getCanvasUrl(canvasID) {
     var id = document.getElementById(canvasID);
 
     return id.toDataURL();
+}
+
+function showNotif(message) {
+    if(!$('body').find('.notif-container').length) {
+        alert();
+    } else {
+        alert();
+    }
 }
 
 $(document).ready(function() {
@@ -1734,6 +1742,18 @@ $(document).ready(function() {
 
             return false;
         }, 1000);
+    });
+
+    $(document).on('click', '.copy-to-clipboard', function() {
+        if(!$('body').find('.notif-container').length) {
+            $('body').append('<div class="notif-container"></div>');
+        }
+
+        $('.notif-container').append('<div class="notif-block shadow">Copied to clipboard: ' + $(this).text() + '</div>');
+
+        $('.notif-block').delay(2000).fadeOut(1000, function() {
+            $(this).remove();
+        });
     });
 
     $('.light-switch-on').click(function() {
