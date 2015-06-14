@@ -75,4 +75,16 @@ $(document).ready(function() {
 
         return false;
     });
+
+    $(document).on('click', '.copy-to-clipboard', function() {
+        if(!$('body').find('.notif-container').length) {
+            $('body').append('<div class="notif-container"></div>');
+        }
+
+        $('.notif-container').append('<div class="notif-block shadow">Copied to clipboard: ' + $(this).text() + '</div>');
+
+        $('.notif-block').delay(2000).fadeOut(1000, function() {
+            $(this).remove();
+        });
+    });
 });
