@@ -50,7 +50,8 @@
                 $queryUpdate = mysqli_query($connection, "UPDATE trucks SET Status='Inactive' WHERE Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
             }
 
-            $query = mysqli_query($connection, "SELECT * FROM waybills INNER JOIN clients ON waybills.Client_ID=clients.Client_ID INNER JOIN companies ON clients.Company_ID=companies.Company_ID WHERE waybills.Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = mysqli_query($connection, "SELECT * FROM waybills LEFT JOIN clients ON waybills.Client_ID=clients.Client_ID LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE waybills.Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $scan = mysqli_num_rows($query);
 
             if($scan == 1) {
                 $row = mysqli_fetch_array($query);
@@ -64,11 +65,15 @@
                 }
 
                 if($counter > 0) {
-                    echo 'Delivery notification has been sent to client.';
+                    echo 'Congratulations! A transaction has been complied. A delivery notification has been sent to client.';
                 } else {
-                    echo 'Delivery notification not sent.';
+                    echo 'Congratulations! A transaction has been complied. A delivery notification was not sent to client.';
                 }
+            } else {
+                echo 'Oops! Something went wrong. Please check if this transaction exist and try again.';
             }
+        } else {
+            echo 'System Error: Failed to comply transaction.';
         }
     } else if($action == 'Comply All') {
         $truckId = mysqli_real_escape_string($connection, $_POST['truckId']);
@@ -131,7 +136,7 @@
             }
 
             if(count($failedWaybillMails) > 0) {
-                echo '<br><br>The following clients won\'t be able to receive a notification due to a mail function error:<br>';
+                echo '<br><br>The following clients won\'t be able to receive a notification due to a system error:<br>';
 
                 foreach($failedWaybillMails as $key => $failedWaybillMail) {
                     $queryClient = mysqli_query($connection, "SELECT * FROM waybills LEFT JOIN clients ON waybills.Client_ID=clients.Client_ID LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE waybills.Waybill_Number='$failedWaybillMail'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));

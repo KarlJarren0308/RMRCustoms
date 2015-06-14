@@ -222,6 +222,8 @@
             // echo '</form>';
             echo '</div>';
         }
+
+        echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
     } else if($action == 'Add') {
         $createTransactionClientID = mysqli_real_escape_string($connection, $_POST['createTransactionClientID']);
         $createTransactionDescription = mysqli_real_escape_string($connection, $_POST['createTransactionDescription']);
@@ -260,7 +262,7 @@
         echo '<tbody>';
         echo '<tr>';
         echo '<td align="right" width="30%">Waybill Number:</td>';
-        echo '<td>' . $waybillNumber . '</td>';
+        echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $waybillNumber . '" title="Click to copy">' . $waybillNumber . '</a></td>';
         echo '</tr>';
         echo '<tr>';
 
@@ -342,6 +344,8 @@
                 echo '</div>';
             }
         }
+
+        echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
     } else if($action == 'Set Payment') {
         $newChequeNumber = [];
         $newBankName = [];
@@ -492,8 +496,6 @@
             }
         }
     }
-
-    echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
 
     mysqli_close($connection);
 ?>
