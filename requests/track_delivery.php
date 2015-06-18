@@ -234,7 +234,7 @@
 
             $totalCredit = 0;
             $totalDebit = 0;
-            $query2 = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$row[Client_ID]' AND Waybill_Number<>'$track'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query2 = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$row[Client_ID]' AND Waybill_Number<>'$track' AND Status='Active'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
             $scan2 = mysqli_num_rows($query2);
 
             echo '<br>';
