@@ -370,11 +370,6 @@ function fillTable($file, $search) {
                                 $('#transaction-debit-locker-button').removeClass('disabled').removeAttr('disabled');
 
                                 if($value != '') {
-                                    showLoader('notif');
-                                    $('#notif').modal({
-                                        backdrop: 'static'
-                                    });
-
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -387,6 +382,10 @@ function fillTable($file, $search) {
                                         },
                                         success: function(response) {
                                             if(response == 'Higher') {
+                                                showLoader('notif');
+                                                $('#notif').modal({
+                                                    backdrop: 'static'
+                                                });
                                                 $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
                                                 $('#notif .modal-body').html('This client/company has already reached the 800k limit. He won\'t be able to have a new transaction temporarily until previous balances has been settled.<br><br>Setting Transaction Debit back to 0.');
 
@@ -418,11 +417,6 @@ function fillTable($file, $search) {
                                 $dataMax = $(this).attr('data-max');
                                 
                                 if($value != '') {
-                                    showLoader('notif');
-                                    $('#notif').modal({
-                                        backdrop: 'static'
-                                    });
-
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -435,6 +429,10 @@ function fillTable($file, $search) {
                                         },
                                         success: function(response) {
                                             if(response == 'Higher') {
+                                                showLoader('notif');
+                                                $('#notif').modal({
+                                                    backdrop: 'static'
+                                                });
                                                 $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
                                                 $('#notif .modal-body').html('This client/company has already reached the 800k limit. He won\'t be able to have a new transaction temporarily until previous balances has been settled.<br><br>Setting Transaction Debit back to 0.');
 
@@ -1356,7 +1354,7 @@ function showNotif(message) {
 }
 
 function showLoader(id) {
-    var dialogBody = $('#' + id + '.modal-body');
+    var dialogBody = $('#' + id + ' .modal-body');
 
     dialogBody.html('<div class="text-center"><img src="assets/img/loader.png" class="loader"></div>');
 
