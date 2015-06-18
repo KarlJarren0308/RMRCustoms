@@ -13,7 +13,7 @@ function renderMap() {
 }
 
 function showLoader(id) {
-    var dialogBody = $('#' + id + '.modal-body');
+    var dialogBody = $('#' + id + ' .modal-body');
 
     dialogBody.html('<div class="text-center"><img src="assets/img/loader.png" class="loader"></div>');
 
@@ -53,7 +53,7 @@ $(document).ready(function() {
                     $('#modal').modal('hide');
 
                     setTimeout(function() {
-                        showLoader('#modal');
+                        showLoader('modal');
                         $('#modal').modal({
                             backdrop: 'static'
                         });
