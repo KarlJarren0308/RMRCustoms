@@ -354,7 +354,33 @@ function fillTable($file, $search) {
                             });
 
                             $('#transaction-credit').keyup(function() {
+                                $value = $(this).val();
+                                
                                 $('#transaction-credit-locker-button').removeClass('disabled').removeAttr('disabled');
+
+                                if($value != '') {
+                                    $.ajax({
+                                        url: 'requests/modify_transactions.php',
+                                        method: 'POST',
+                                        data: {
+                                            action: 'Check Input',
+                                            checker: 'isNumeric',
+                                            input: $value
+                                        },
+                                        success: function(response) {
+                                            if(response == 'Not Numeric') {
+                                                $('#transaction-credit').val(0);
+                                            }
+
+                                            $('#transaction-credit').focus();
+                                        }
+                                    });
+
+                                    return false;
+                                } else {
+                                    $(this).val(0);
+                                    $(this).focus();
+                                }
                             });
 
                             $('#transaction-debit').keydown(function() {
@@ -1292,6 +1318,19 @@ function isInputAlphaNumeric(field, message) {
     if(rx.test(field.value)) {
         if(message == '' || message == null) {
             alert('This field allows texts and numbers only.');
+        } else {
+            alert(message);
+        }
+        field.value = '';
+        field.focus = '';
+    }
+}
+
+function isInputPositive(field, message) {
+    var rx = /[^0-9]/i;
+    if(rx.test(field.value)) {
+        if(message == '' || message == null) {
+            alert('This field allows positive numbers only.');
         } else {
             alert(message);
         }

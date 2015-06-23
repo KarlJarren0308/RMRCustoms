@@ -69,6 +69,10 @@ $(document).ready(function() {
                                 $('#modal .modal-title').html('Delivery Information');
                                 $('#modal .modal-body').html(response);
 
+                                $('.change-currency').click(function() {
+                                    $('#track-form').submit();
+                                });
+
                                 if(response == 'Please enter your waybill number first.' || response == 'Transaction not found. Please check your waybill number and try again.') {
                                     setTimeout(function() {
                                         $('#modal').modal('hide');

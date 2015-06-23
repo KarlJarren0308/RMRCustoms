@@ -17,7 +17,23 @@
         echo '<input type="number" class="date-input-control input-group form-control" name="dateMonth" min="1" max="12" placeholder="Month" required>';
         echo '<input type="number" class="date-input-control form-control" name="dateDay" min="1" max="31" placeholder="Day" required>';
         echo '<input type="number" class="date-input-control form-control" name="dateYear" min="2000" max="' . date('Y') . '" placeholder="Year" required></div>';
-        echo '</div></div><br>';
+        echo '</div></div><br><div class="row">';
+        echo '<div class="col-lg-4 col-md-4">';
+        echo '<label>Gross Weight:</label>';
+        echo '<input type="text" class="form-control" name="grossWeight" placeholder="Enter Gross Weight here...">';
+        echo '</div>';
+        echo '<div class="col-lg-4 col-md-4">';
+        echo '<label>Measurement:</label>';
+        echo '<div class="input-group">';
+        echo '<input type="text" class="form-control" name="measurement" placeholder="Enter Measurement here...">';
+        echo '<span class="input-group-addon">m<sup>3</sup></span>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="col-lg-4 col-md-4">';
+        echo '<label>No. of Package(s):</label>';
+        echo '<input type="text" class="form-control" name="packageCount" placeholder="Enter No. of Package(s) here...">';
+        echo '</div>';
+        echo '</div><br>';
         echo '<table id="bill-of-lading-table" class="table table-hover table-striped">';
         echo '<thead>';
         echo '<tr class="bg-dark">';
@@ -53,7 +69,23 @@
             echo '<input type="number" class="date-input-control input-group form-control" name="dateMonth" min="1" max="12" placeholder="Month" value="' . date('n', strtotime($row['Date_of_Transaction'])) . '" required>';
             echo '<input type="number" class="date-input-control form-control" name="dateDay" min="1" max="31" placeholder="Day" value="' . date('j', strtotime($row['Date_of_Transaction'])) . '" required>';
             echo '<input type="number" class="date-input-control form-control" name="dateYear" min="2000" max="' . date('Y') . '" placeholder="Year" value="' . date('Y', strtotime($row['Date_of_Transaction'])) . '" required></div>';
-            echo '</div></div><br>';
+            echo '</div></div><br><div class="row">';
+            echo '<div class="col-lg-4 col-md-4">';
+            echo '<label>Gross Weight:</label>';
+            echo '<input type="text" class="form-control" name="grossWeight" placeholder="Enter Gross Weight here..." value="' . $row['Gross_Weight'] . '">';
+            echo '</div>';
+            echo '<div class="col-lg-4 col-md-4">';
+            echo '<label>Measurement:</label>';
+            echo '<div class="input-group">';
+            echo '<input type="text" class="form-control" name="measurement" placeholder="Enter Measurement here..." value="' . $row['Measurement'] . '">';
+            echo '<span class="input-group-addon">m<sup>3</sup></span>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="col-lg-4 col-md-4">';
+            echo '<label>No. of Package(s):</label>';
+            echo '<input type="text" class="form-control" name="packageCount" placeholder="Enter No. of Package(s) here..." value="' . $row['Package_Count'] . '">';
+            echo '</div>';
+            echo '</div><br>';
 
             $mark = json_decode($row['Item_Mark']);
             $quantity = json_decode($row['Item_Quantity']);
@@ -109,6 +141,9 @@
         $dateMonth = mysqli_real_escape_string($connection, $_POST['dateMonth']);
         $dateDay = mysqli_real_escape_string($connection, $_POST['dateDay']);
         $dateYear = mysqli_real_escape_string($connection, $_POST['dateYear']);
+        $grossWeight = mysqli_real_escape_string($connection, $_POST['grossWeight']);
+        $measurement = mysqli_real_escape_string($connection, $_POST['measurement']);
+        $packageCount = mysqli_real_escape_string($connection, $_POST['packageCount']);
 
         $billDate = $dateYear . '-' . $dateMonth . '-' . $dateDay;
         $datetime = date('Y-m-d');
@@ -130,9 +165,12 @@
         array_shift($mark);
         array_shift($mark);
         array_shift($mark);
+        array_shift($mark);
         array_shift($quantity);
         array_shift($quantity);
         array_shift($quantity);
+        array_shift($quantity);
+        array_shift($description);
         array_shift($description);
         array_shift($description);
         array_shift($description);
@@ -146,7 +184,7 @@
             $quantity = json_encode($quantity);
             $description = json_encode($description);
 
-            $query = mysqli_query($connection, "INSERT INTO ladings (Bill_of_Lading_ID, Consignee, Export_References, Item_Mark, Item_Quantity, Item_Description, Date_of_Transaction, Date_Added) VALUES ('$newBill', '$consignee', '$exportReferences', '$mark', '$quantity', '$description', '$billDate', '$datetime')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = mysqli_query($connection, "INSERT INTO ladings (Bill_of_Lading_ID, Consignee, Export_References, Item_Mark, Item_Quantity, Item_Description, Date_of_Transaction, Date_Added, Gross_Weight, Measurement, Package_Count) VALUES ('$newBill', '$consignee', '$exportReferences', '$mark', '$quantity', '$description', '$billDate', '$datetime', '$grossWeight', '$measurement', '$packageCount')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
             if($query) {
                 echo 'You successfully created a new bill of lading.';
@@ -169,6 +207,9 @@
         $dateMonth = mysqli_real_escape_string($connection, $_POST['dateMonth']);
         $dateDay = mysqli_real_escape_string($connection, $_POST['dateDay']);
         $dateYear = mysqli_real_escape_string($connection, $_POST['dateYear']);
+        $grossWeight = mysqli_real_escape_string($connection, $_POST['grossWeight']);
+        $measurement = mysqli_real_escape_string($connection, $_POST['measurement']);
+        $packageCount = mysqli_real_escape_string($connection, $_POST['packageCount']);
 
         $billDate = $dateYear . '-' . $dateMonth . '-' . $dateDay;
         $datetime = date('Y-m-d');
@@ -190,9 +231,12 @@
         array_shift($mark);
         array_shift($mark);
         array_shift($mark);
+        array_shift($mark);
         array_shift($quantity);
         array_shift($quantity);
         array_shift($quantity);
+        array_shift($quantity);
+        array_shift($description);
         array_shift($description);
         array_shift($description);
         array_shift($description);
@@ -203,7 +247,7 @@
         $quantity = json_encode($quantity);
         $description = json_encode($description);
 
-        $query = mysqli_query($connection, "UPDATE ladings SET Bill_of_Lading_ID='$newBill', Consignee='$consignee', Export_References='$exportReferences', Item_Mark='$mark', Item_Quantity='$quantity', Item_Description='$description', Date_of_Transaction='$billDate' WHERE Bill_of_Lading_ID='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE ladings SET Bill_of_Lading_ID='$newBill', Consignee='$consignee', Export_References='$exportReferences', Item_Mark='$mark', Item_Quantity='$quantity', Item_Description='$description', Date_of_Transaction='$billDate', Gross_Weight='$grossWeight', Measurement='$measurement', Package_Count='$packageCount' WHERE Bill_of_Lading_ID='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Bill of Lading successfully modified.';

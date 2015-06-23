@@ -142,7 +142,7 @@
             if($_GET['currency'] == 'peso') {
                 $currencyButton = '<button class="btn btn-primary btn-xs pull-right change-currency" data-waybill="' . $_GET['track'] . '" data-currency="dollar">Convert to Dollar</button>';
             } else {
-                $currencyButton = '';
+                $currencyButton = '<button class="btn btn-primary btn-xs pull-right change-currency" data-waybill="' . $_GET['track'] . '" data-currency="peso">Convert to Peso</button>';
             }
 
             echo '<br><br>';

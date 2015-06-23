@@ -19,43 +19,41 @@
         $pdf->SetFillColor(225);
 
         while($row = mysqli_fetch_array($query)) {
-            for($i = 1; $i <= 5; $i++) {
-                $queryIncome = mysqli_query($connection, "SELECT * FROM waybills WHERE Status='Active' AND Client_ID='$row[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-                $scanIncome = mysqli_num_rows($queryIncome);
-                $credit = 0;
-                $debit = 0;
+            $queryIncome = mysqli_query($connection, "SELECT * FROM waybills WHERE Status='Active' AND Client_ID='$row[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $scanIncome = mysqli_num_rows($queryIncome);
+            $credit = 0;
+            $debit = 0;
 
-                if($row['First_Name'] != 'Not Available' && $row['Middle_Name'] != 'Not Available' && $row['Last_Name'] != 'Not Available') {
-                    if(strlen($row['Middle_Name']) > 1) {
-                        $name = $row['First_Name'] . ' ' . substr($row['Middle_Name'], 0, 1) . '. ' . $row['Last_Name'];
-                    } else {
-                        $name = $row['First_Name'] . ' ' . $row['Last_Name'];
-                    }
+            if($row['First_Name'] != 'Not Available' && $row['Middle_Name'] != 'Not Available' && $row['Last_Name'] != 'Not Available') {
+                if(strlen($row['Middle_Name']) > 1) {
+                    $name = $row['First_Name'] . ' ' . substr($row['Middle_Name'], 0, 1) . '. ' . $row['Last_Name'];
                 } else {
-                    $name = $row['Company_Name'];
+                    $name = $row['First_Name'] . ' ' . $row['Last_Name'];
                 }
-
-                while($rowIncome = mysqli_fetch_array($queryIncome)) {
-                    $credit += (double) $rowIncome['Credit'];
-                    $debit += (double) $rowIncome['Debit'];
-                }
-
-                if($ctr % 2 == 0) {
-                    $pdf->Cell(76, 8, $name, 1, 0, 'C', true);
-                    $pdf->Cell(40, 8, '₱ ' . number_format($credit, 2, '.', ','), 1, 0, 'C', true);
-                    $pdf->Cell(40, 8, '₱ ' . number_format($debit, 2, '.', ','), 1, 0, 'C', true);
-                    $pdf->Cell(40, 8, $scanIncome, 1, 0, 'C', true);
-                    $pdf->Ln();
-                } else {
-                    $pdf->Cell(76, 8, $name, 1, 0, 'C');
-                    $pdf->Cell(40, 8, '₱ ' . number_format($credit, 2, '.', ','), 1, 0, 'C');
-                    $pdf->Cell(40, 8, '₱ ' . number_format($debit, 2, '.', ','), 1, 0, 'C');
-                    $pdf->Cell(40, 8, $scanIncome, 1, 0, 'C');
-                    $pdf->Ln();
-                }
-
-                $ctr++;
+            } else {
+                $name = $row['Company_Name'];
             }
+
+            while($rowIncome = mysqli_fetch_array($queryIncome)) {
+                $credit += (double) $rowIncome['Credit'];
+                $debit += (double) $rowIncome['Debit'];
+            }
+
+            if($ctr % 2 == 0) {
+                $pdf->Cell(76, 8, $name, 1, 0, 'C', true);
+                $pdf->Cell(40, 8, '₱ ' . number_format($credit, 2, '.', ','), 1, 0, 'C', true);
+                $pdf->Cell(40, 8, '₱ ' . number_format($debit, 2, '.', ','), 1, 0, 'C', true);
+                $pdf->Cell(40, 8, $scanIncome, 1, 0, 'C', true);
+                $pdf->Ln();
+            } else {
+                $pdf->Cell(76, 8, $name, 1, 0, 'C');
+                $pdf->Cell(40, 8, '₱ ' . number_format($credit, 2, '.', ','), 1, 0, 'C');
+                $pdf->Cell(40, 8, '₱ ' . number_format($debit, 2, '.', ','), 1, 0, 'C');
+                $pdf->Cell(40, 8, $scanIncome, 1, 0, 'C');
+                $pdf->Ln();
+            }
+
+            $ctr++;
         }
 
         $pdf->Output();
