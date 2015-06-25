@@ -457,8 +457,8 @@
     } else if($action == 'Check Input') {
         $checker = $_POST['checker'];
         $input = (double) mysqli_real_escape_string($connection, $_POST['input']);
-        $min = (double) @mysqli_real_escape_string($connection, $_POST['min']);
-        $max = (double) @mysqli_real_escape_string($connection, $_POST['max']);
+        $min = (double) mysqli_real_escape_string($connection, $_POST['min']);
+        $max = (double) mysqli_real_escape_string($connection, $_POST['max']);
 
         if($checker == 'isNumeric') {
             if(preg_match('/[0-9\.]/', $input)) {

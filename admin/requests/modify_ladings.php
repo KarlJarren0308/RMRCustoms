@@ -25,7 +25,7 @@
         echo '<div class="col-lg-4 col-md-4">';
         echo '<label>Measurement:</label>';
         echo '<div class="input-group">';
-        echo '<input type="text" class="form-control" name="measurement" placeholder="Enter Measurement here..." required>';
+        echo '<input type="text" id="measure-ment" class="form-control" name="measurement" placeholder="Enter Measurement here..." required>';
         echo '<span class="input-group-addon">m<sup>3</sup></span>';
         echo '</div>';
         echo '</div>';
@@ -77,7 +77,7 @@
             echo '<div class="col-lg-4 col-md-4">';
             echo '<label>Measurement:</label>';
             echo '<div class="input-group">';
-            echo '<input type="text" class="form-control" name="measurement" placeholder="Enter Measurement here..." value="' . $row['Measurement'] . '" required>';
+            echo '<input type="text" id="measure-ment" class="form-control" name="measurement" placeholder="Enter Measurement here..." value="' . $row['Measurement'] . '" required>';
             echo '<span class="input-group-addon">m<sup>3</sup></span>';
             echo '</div>';
             echo '</div>';

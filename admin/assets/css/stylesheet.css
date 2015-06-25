@@ -304,19 +304,19 @@
     font-size: 20px;
 }
 
-.line-legend, .doughnut-legend {
+.line-legend, .doughnut-legend, .bar-legend {
     font-size: 15px;
     list-style-type: none;
     padding-left: 25px;
 }
 
-.line-legend li, .doughnut-legend li {
+.line-legend li, .doughnut-legend li, .bar-legend li {
     position: relative;
     padding-left: 25px;
     margin-bottom: 5px;
 }
 
-.line-legend li span, .doughnut-legend li span {
+.line-legend li span, .doughnut-legend li span, .bar-legend li span {
     position: absolute;
     left: 0;
     height: 20px;

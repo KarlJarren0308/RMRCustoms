@@ -1,4 +1,4 @@
-<?php
+ <?php
     require('connection.php');
 
     $action = mysqli_real_escape_string($connection, $_GET['action']);

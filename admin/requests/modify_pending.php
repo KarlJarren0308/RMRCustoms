@@ -45,46 +45,40 @@
         $scanWaybill = mysqli_num_rows($query);
 
         if($scanWaybill == 1) {
-            $queryUpdate = mysqli_query($connection, "UPDATE ladings SET Status='Inactive' WHERE Bill_of_Lading_ID='$rowWaybill[Bill_of_Lading_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-
-            if($queryUpdate) {
-                $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied', Status='Inactive' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         
-                if($queryUpdate) {
-                    $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Delivery_Status='Active' AND Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-                    $scan = mysqli_num_rows($query);
+            if($queryUpdate) {
+                $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Delivery_Status='Active' AND Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $scan = mysqli_num_rows($query);
 
-                    if($scan == 0) {
-                        $queryUpdate = mysqli_query($connection, "UPDATE trucks SET Status='Inactive' WHERE Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                if($scan == 0) {
+                    $queryUpdate = mysqli_query($connection, "UPDATE trucks SET Status='Inactive' WHERE Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                }
+
+                $query = mysqli_query($connection, "SELECT * FROM waybills LEFT JOIN clients ON waybills.Client_ID=clients.Client_ID LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE waybills.Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $scan = mysqli_num_rows($query);
+
+                if($scan == 1) {
+                    $row = mysqli_fetch_array($query);
+                    $emails = array($row['Email_Address'], $row['Company_Email_Address'], $row['Primary_Contact_Email']);
+                    $counter = 0;
+
+                    foreach($emails as $email) {
+                        if(mail($email, 'Delivery Notification', "Waybill Number: " . $waybillNumber . "\n\nYour package has been delivered. Thank you!\n\nIf you received this message and your package has not yet reached its destination, please contact us immediately.", 'From: RMR Customs Brokerage Corporation <corp@rmrcustoms.com>')) {
+                            $counter += 1;
+                        }
                     }
 
-                    $query = mysqli_query($connection, "SELECT * FROM waybills LEFT JOIN clients ON waybills.Client_ID=clients.Client_ID LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE waybills.Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-                    $scan = mysqli_num_rows($query);
-
-                    if($scan == 1) {
-                        $row = mysqli_fetch_array($query);
-                        $emails = array($row['Email_Address'], $row['Company_Email_Address'], $row['Primary_Contact_Email']);
-                        $counter = 0;
-
-                        foreach($emails as $email) {
-                            if(mail($email, 'Delivery Notification', "Waybill Number: " . $waybillNumber . "\n\nYour package has been delivered. Thank you!\n\nIf you received this message and your package has not yet reached its destination, please contact us immediately.", 'From: RMR Customs Brokerage Corporation <corp@rmrcustoms.com>')) {
-                                $counter += 1;
-                            }
-                        }
-
-                        if($counter > 0) {
-                            echo 'Congratulations! A transaction has been complied. A delivery notification has been sent to client.';
-                        } else {
-                            echo 'Congratulations! A transaction has been complied. A delivery notification was not sent to client.';
-                        }
+                    if($counter > 0) {
+                        echo 'Congratulations! A transaction has been complied. A delivery notification has been sent to client.';
                     } else {
-                        echo 'Oops! Something went wrong. Please check if this transaction exist and try again.';
+                        echo 'Congratulations! A transaction has been complied. A delivery notification was not sent to client.';
                     }
                 } else {
-                    echo 'System Error: Failed to comply transaction. Transaction was not removed.';
+                    echo 'Oops! Something went wrong. Please check if this transaction exist and try again.';
                 }
             } else {
-                echo 'System Error: Failed to comply transaction. Bill of Lading was not removed.';
+                echo 'System Error: Failed to comply transaction. Transaction was not removed.';
             }
         } else {
             echo 'System Error: Transaction not found. Complying transaction failed.';

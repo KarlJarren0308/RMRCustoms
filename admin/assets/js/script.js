@@ -365,6 +365,8 @@ function fillTable($file, $search) {
                                         data: {
                                             action: 'Check Input',
                                             checker: 'isNumeric',
+                                            min: 0,
+                                            max: 0,
                                             input: $value
                                         },
                                         success: function(response) {
@@ -930,7 +932,7 @@ function fillTable($file, $search) {
                             action: 'View',
                             username: dataVar
                         },
-                        success: function (response) {
+                        success: function(response) {
                             $('#modal .modal-body').html(response);
                         }
                     });
@@ -950,7 +952,7 @@ function fillTable($file, $search) {
                             action: 'Edit',
                             username: dataVar
                         },
-                        success: function (response) {
+                        success: function(response) {
                             $('#modal .modal-body').html(response);
 
                             $('#save-changes-on-users-button').click(function() {
@@ -1064,6 +1066,15 @@ function fillTable($file, $search) {
                             $('#modal .modal-body').html(response);
 
                             $itemRow = $('#lading-count').text();
+
+                            $('#measure-ment').keyup(function() {
+                                $value = $(this).val();
+
+                                if(isNaN($value)) {
+                                    $(this).val(0);
+                                    $(this).focus();
+                                }
+                            });
 
                             $('#add-item-to-bill-button').click(function() {
                                 $itemRow += 1;
@@ -1214,7 +1225,6 @@ function clientIncomeChart($pageNumber) {
     return false;
 }
 
-/*
 function totalMonthlyIncomeChart() {
     $.ajax({
         url: 'requests/generate_chart.php',
@@ -1225,7 +1235,7 @@ function totalMonthlyIncomeChart() {
         dataType: 'json',
         success: function(response) {
             var chartData = {
-                labels: ["Credits", "Debits"],
+                labels: ["Total Monthly Income"],
                 datasets: [
                     {
                         label: "Credits",
@@ -1233,7 +1243,7 @@ function totalMonthlyIncomeChart() {
                         strokeColor: "rgba(7, 67, 139, 0.75)",
                         highlightFill: "rgba(57, 117, 189, 1)",
                         highlightStroke: "rgba(7, 67, 139, 1)",
-                        data: response['total_credits']
+                        data: [response['total_credits']]
                     },
                     {
                         label: "Debits",
@@ -1241,22 +1251,25 @@ function totalMonthlyIncomeChart() {
                         strokeColor: "rgba(145, 7, 5, 0.75)",
                         highlightFill: "rgba(195, 57, 55, 1)",
                         highlightStroke: "rgba(145, 7, 5, 1)",
-                        data: response['total_debits']
+                        data: [response['total_debits']]
                     }
                 ]
             };
 
             var ctx = document.getElementById('total-monthly-income-chart').getContext('2d');
             var totalMonthlyIncome = new Chart(ctx).Bar(chartData, {
-                scaleGridLineColor: 'rgba(0, 0, 0, .25)'
+                scaleGridLineColor: 'rgba(0, 0, 0, .25)',
+                legendTemplate: "<div class=\"legend-title\">Legend:</div><ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
             });
+
+            $('#total-monthly-income-chart-legend').html(totalMonthlyIncome.generateLegend());
         }
     });
 
     return false;
 }
-*/
 
+/*
 function totalMonthlyIncomeChart() {
     $.ajax({
         url: 'requests/generate_chart.php',
@@ -1299,6 +1312,7 @@ function totalMonthlyIncomeChart() {
 
     return false;
 }
+*/
 
 function isInputAlpha(field, message) {
     var rx = /[^a-z \.\,]/i;
@@ -1694,6 +1708,15 @@ $(document).ready(function() {
                         'overflow-y': 'scroll',
                         'max-height': ($(window).height() / 4) * 3
                     }).html(response);
+
+                    $('#measure-ment').keyup(function() {
+                        $value = $(this).val();
+
+                        if(isNaN($value)) {
+                            $(this).val(0);
+                            $(this).focus();
+                        }
+                    });
 
                     $('.date-input-control').keyup(function() {
                         if($(this).val() == '') {
