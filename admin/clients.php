@@ -79,6 +79,16 @@
         </div>
     </div>
 </div>
+<div id="notif" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark top-corners-round">
+                <div class="modal-title"></div>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
 <script>
     fillTable('list_clients.php', '');
 </script>

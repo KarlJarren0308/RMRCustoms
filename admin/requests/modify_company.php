@@ -9,7 +9,6 @@
         $companyName = mysqli_real_escape_string($connection, $_POST['companyName']);
         $companyAddress = mysqli_real_escape_string($connection, $_POST['companyAddress']);
         $companyContactNumber = mysqli_real_escape_string($connection, $_POST['companyContactNumber']);
-        $companyHeadOfficeAddress = mysqli_real_escape_string($connection, $_POST['companyHeadOfficeAddress']);
         $companyEmailAddress = mysqli_real_escape_string($connection, $_POST['companyEmailAddress']);
         $zipCode = mysqli_real_escape_string($connection, $_POST['zipCode']);
         $primaryContact = mysqli_real_escape_string($connection, $_POST['primaryContact']);
@@ -18,21 +17,19 @@
         $primaryContactPhoneNumber = mysqli_real_escape_string($connection, $_POST['primaryContactPhoneNumber']);
         $mainBusinessActivities = mysqli_real_escape_string($connection, $_POST['mainBusinessActivities']);
         $country = mysqli_real_escape_string($connection, $_POST['country']);
-        $corporateCurrency = mysqli_real_escape_string($connection, $_POST['corporateCurrency']);
-        $defaultLanguage = mysqli_real_escape_string($connection, $_POST['defaultLanguage']);
         $defaultTimeZone = mysqli_real_escape_string($connection, $_POST['defaultTimeZone']);
         $fax = mysqli_real_escape_string($connection, $_POST['fax']);
         $phoneNumber = mysqli_real_escape_string($connection, $_POST['phoneNumber']);
         $established = mysqli_real_escape_string($connection, $_POST['established']);
 
-        $query = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Contact_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $scan = mysqli_num_rows($query);
 
         if($scan == 0) {
-            $query = mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Contact_Number, Company_Head_Office_Address, Company_Email_Address, Zip_Code, Primary_Contact, Primary_Contact_Company_Position, Primary_Contact_Email, Primary_Contact_Phone_Number, Main_Business_Activities, Country, Corporate_Currency, Default_Language, Default_Time_Zone, Fax, Phone_Number, Established) VALUES ('$companyName', '$companyAddress', '$companyContactNumber', '$companyHeadOfficeAddress', '$companyEmailAddress', '$zipCode', '$primaryContact', '$primaryContactCompanyPosition', '$primaryContactEmail', '$primaryContactPhoneNumber', '$mainBusinessActivities', '$country', '$corporateCurrency', '$defaultLanguage', '$defaultTimeZone', '$fax', '$phoneNumber', '$established')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Number, Company_Email_Address, Zip_Code, Company_Contact_Person, Company_Contact_Person_Position, Company_Contact_Person_Email, Company_Contact_Person_Number, Main_Business_Activities, Country, Default_Time_Zone, Fax, Phone_Number, Established) VALUES ('$companyName', '$companyAddress', '$companyContactNumber', '$companyEmailAddress', '$zipCode', '$primaryContact', '$primaryContactCompanyPosition', '$primaryContactEmail', '$primaryContactPhoneNumber', '$mainBusinessActivities', '$country', '$defaultTimeZone', '$fax', '$phoneNumber', '$established')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
             if($query) {
-                $query = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Contact_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $query = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
                 $scan = mysqli_num_rows($query);
 
                 if($scan == 1) {

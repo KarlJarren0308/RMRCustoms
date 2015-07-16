@@ -224,6 +224,38 @@
         }
 
         echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
+    } else if($action == 'Hide') {
+        $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
+        $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $scan = mysqli_num_rows($query);
+
+        if($scan == 1) {
+            $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Display='Hide' WHERE Waybill_Number='$waybillNumber'");
+
+            if($queryUpdate) {
+                echo 'Transaction has been hidden to client.';
+            } else {
+                echo 'Failed to hide transaction to client.';
+            }
+        } else {
+            echo 'Transaction not found. Please refresh the page and try again.';
+        }
+    } else if($action == 'Show') {
+        $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
+        $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $scan = mysqli_num_rows($query);
+
+        if($scan == 1) {
+            $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Display='Show' WHERE Waybill_Number='$waybillNumber'");
+
+            if($queryUpdate) {
+                echo 'Transaction can now be viewed by client.';
+            } else {
+                echo 'Failed to show transaction to client.';
+            }
+        } else {
+            echo 'Transaction not found. Please refresh the page and try again.';
+        }
     } else if($action == 'Add') {
         $createTransactionClientID = mysqli_real_escape_string($connection, $_POST['createTransactionClientID']);
         $createTransactionDescription = mysqli_real_escape_string($connection, $_POST['createTransactionDescription']);
@@ -305,7 +337,7 @@
         
         if($row['Credit'] == 0 && $row['Debit'] == 0) {
             echo '<td align="right">Credit:</td>';
-            echo '<td><div class="input-group"><input type="number" min="0" max="" id="transaction-credit" class="form-control" placeholder="Enter Credit here..."><span class="input-group-btn"><button id="transaction-credit-locker-button" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span></button></span></div></td>';
+            echo '<td><div class="input-group"><input type="number" min="0" max="999999999999" id="transaction-credit" class="form-control" placeholder="Enter Credit here..."><span class="input-group-btn"><button id="transaction-credit-locker-button" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span></button></span></div></td>';
             echo '</tr>';
             echo '<tr>';
             echo '<td align="right">Debit:</td>';

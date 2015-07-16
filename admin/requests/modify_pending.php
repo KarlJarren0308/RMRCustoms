@@ -45,7 +45,8 @@
         $scanWaybill = mysqli_num_rows($query);
 
         if($scanWaybill == 1) {
-            $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $datetimeComplied = date('Y-m-d H:i:s');
+            $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied', Datetime_Complied='$datetimeComplied' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         
             if($queryUpdate) {
                 $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Delivery_Status='Active' AND Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
@@ -95,7 +96,8 @@
         if(count($waybillNumbers) > 0 && !in_array('None', $waybillNumbers)) {
             foreach($waybillNumbers as $waybillNumber) {
                 $waybillNumber = mysqli_real_escape_string($connection, $waybillNumber);
-                $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $datetimeComplied = date('Y-m-d H:i:s');
+                $queryUpdate = mysqli_query($connection, "UPDATE waybills SET Delivery_Status='Complied', Datetime_Complied='$datetimeComplied' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
             
                 if($queryUpdate) {
                     $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Delivery_Status='Active' AND Truck_ID='$truckId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));

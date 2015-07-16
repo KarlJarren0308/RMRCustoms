@@ -85,57 +85,55 @@ function fillTable($file, $search) {
                             $('#modal .modal-title').html('<h3 class="no-margin">Edit Client Information</h3>');
                             $('#modal .modal-body').html(response);
 
-                            $('[data-prompt').click(function() {
+                            $('[data-prompt]').click(function() {
                                 $('#modal').modal('hide');
 
-                                setTimeout(function() {
-                                    showLoader('modal');
-                                    $('#modal').modal({
-                                        backdrop: 'static'
-                                    });
+                                showLoader('notif');
+                                $('#notif').modal({
+                                    backdrop: 'static'
+                                });
+                                $('#notif .modal-title').html('<h3 class="no-margin">Edit Client Information</h3>');
 
-                                    $.ajax({
-                                        url: 'requests/modify_client.php',
-                                        method: 'POST',
-                                        data: {
-                                            action: 'Save',
-                                            clientId: dVar[1],
-                                            firstName: $('#edit-client-firstname').val(),
-                                            middleName: $('#edit-client-middlename').val(),
-                                            lastName: $('#edit-client-lastname').val(),
-                                            address: $('#edit-client-address').val(),
-                                            emailAddress: $('#edit-client-email-address').val(),
-                                            companyName: $('#edit-company-name').val(),
-                                            companyAddress: $('#edit-company-address').val(),
-                                            companyContactNumber: $('#edit-company-contact-number').val(),
-                                            companyHeadOfficeAddress: $('#edit-company-head-office-address').val(),
-                                            companyEmailAddress: $('#edit-company-email-address').val(),
-                                            zipCode: $('#edit-zip-code').val(),
-                                            primaryContact: $('#edit-primary-contact').val(),
-                                            primaryContactCompanyPosition: $('#edit-primary-contact-company-position').val(),
-                                            primaryContactEmail: $('#edit-primary-contact-email').val(),
-                                            primaryContactPhoneNumber: $('#edit-primary-contact-phone-number').val(),
-                                            mainBusinessActivities: $('#edit-main-business-activities').val(),
-                                            country: $('#edit-country').val(),
-                                            corporateCurrency: $('#edit-corporate-currency').val(),
-                                            defaultLanguage: $('#edit-default-language').val(),
-                                            defaultTimeZone: $('#edit-default-time-zone').val(),
-                                            fax: $('#edit-fax').val(),
-                                            phoneNumber: $('#edit-phonenumber').val(),
-                                            established: $('#edit-established').val(),
-                                            companyId: dVar[5]
-                                        },
-                                        success: function(response) {
-                                            $('#modal .modal-body').html(response);
+                                $.ajax({
+                                    url: 'requests/modify_client.php',
+                                    method: 'POST',
+                                    data: {
+                                        action: 'Save',
+                                        clientId: dVar[1],
+                                        firstName: $('#edit-client-firstname').val(),
+                                        middleName: $('#edit-client-middlename').val(),
+                                        lastName: $('#edit-client-lastname').val(),
+                                        address: $('#edit-client-address').val(),
+                                        emailAddress: $('#edit-client-email-address').val(),
+                                        companyName: $('#edit-company-name').val(),
+                                        companyAddress: $('#edit-company-address').val(),
+                                        companyContactNumber: $('#edit-company-contact-number').val(),
+                                        companyEmailAddress: $('#edit-company-email-address').val(),
+                                        zipCode: $('#edit-zip-code').val(),
+                                        primaryContact: $('#edit-primary-contact').val(),
+                                        primaryContactCompanyPosition: $('#edit-primary-contact-company-position').val(),
+                                        primaryContactEmail: $('#edit-primary-contact-email').val(),
+                                        primaryContactPhoneNumber: $('#edit-primary-contact-phone-number').val(),
+                                        mainBusinessActivities: $('#edit-main-business-activities').val(),
+                                        country: $('#edit-country').val(),
+                                        defaultTimeZone: $('#edit-default-time-zone').val(),
+                                        fax: $('#edit-fax').val(),
+                                        phoneNumber: $('#edit-phonenumber').val(),
+                                        established: $('#edit-established').val(),
+                                        companyId: dVar[5]
+                                    },
+                                    success: function(response) {
+                                        $('#notif .modal-body').html(response);
 
-                                            setTimeout(function() {
-                                                $('#modal').modal('hide');
+                                        setTimeout(function() {
+                                            $('#notif').modal('hide');
 
-                                                location.reload();
-                                            }, 2000);
-                                        }
-                                    });
-                                }, 1000);
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                });
+
+                                return false;
                             });
                         }
                     });
@@ -256,6 +254,72 @@ function fillTable($file, $search) {
                     });
 
                     return false;
+                } else if(dataExecute == 'Hide Transaction') {
+                    var dVar;
+
+                    arr = 'Hide;' + dataVar;
+                    dVar = arr.split(';');
+
+                    showLoader('notif');
+                    $('#notif').modal({
+                        backdrop: 'static'
+                    });
+                    $('#notif .modal-title').html('<h3 class="no-margin">Hide Transaction to Client</h3>');
+
+                    $.ajax({
+                        url: 'requests/modify_transactions.php',
+                        method: 'POST',
+                        data: {
+                            action: dVar[0],
+                            waybillNumber: dVar[1]
+                        },
+                        success: function(response) {
+                            $('#notif .modal-body').html(response);
+
+                            setTimeout(function() {
+                                $('#notif').modal('hide');
+                                $('#notif .modal-title').html('');
+                                $('#notif .modal-body').html('');
+
+                                location.reload();
+                            }, 2000);
+                        }
+                    });
+
+                    return false;
+                } else if(dataExecute == 'Show Transaction') {
+                    var dVar;
+
+                    arr = 'Show;' + dataVar;
+                    dVar = arr.split(';');
+
+                    showLoader('notif');
+                    $('#notif').modal({
+                        backdrop: 'static'
+                    });
+                    $('#notif .modal-title').html('<h3 class="no-margin">Show Transaction to Client</h3>');
+
+                    $.ajax({
+                        url: 'requests/modify_transactions.php',
+                        method: 'POST',
+                        data: {
+                            action: dVar[0],
+                            waybillNumber: dVar[1]
+                        },
+                        success: function(response) {
+                            $('#notif .modal-body').html(response);
+
+                            setTimeout(function() {
+                                $('#notif').modal('hide');
+                                $('#notif .modal-title').html('');
+                                $('#notif .modal-body').html('');
+
+                                location.reload();
+                            }, 2000);
+                        }
+                    });
+
+                    return false;
                 } else if(dataExecute == 'Set Payment') {
                     var dVar;
 
@@ -355,6 +419,8 @@ function fillTable($file, $search) {
 
                             $('#transaction-credit').keyup(function() {
                                 $value = $(this).val();
+                                $max = $(this).attr('max');
+                                $notification = false;
                                 
                                 $('#transaction-credit-locker-button').removeClass('disabled').removeAttr('disabled');
 
@@ -364,13 +430,28 @@ function fillTable($file, $search) {
                                         method: 'POST',
                                         data: {
                                             action: 'Check Input',
-                                            checker: 'isNumeric',
+                                            checker: 'isInRange',
                                             min: 0,
-                                            max: 0,
+                                            max: $max,
                                             input: $value
                                         },
                                         success: function(response) {
-                                            if(response == 'Not Numeric') {
+                                            if(response == 'Higher') {
+                                                showLoader('notif');
+                                                $('#notif').modal({
+                                                    backdrop: 'static'
+                                                });
+                                                $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
+                                                $('#notif .modal-body').html('Please enter an amount between 0 and 999,999,999,999.<br><br>Setting Transaction Credit back to 0.');
+
+                                                setTimeout(function() {
+                                                    $('#notif').modal('hide');
+                                                    $('#notif .modal-title').html('');
+                                                    $('#notif .modal-body').html('');
+                                                }, 2500);
+
+                                                $('#transaction-credit').val(0);
+                                            } else if(response == 'Lower') {
                                                 $('#transaction-credit').val(0);
                                             }
 
@@ -1499,7 +1580,7 @@ $(document).ready(function() {
                 backdrop: 'static'
             });
             $('#modal .modal-title').html('<h3 class="no-margin">Add New Company</h3>');
-            $('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)" required></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)" required></div><div class="form-group"><label>Company E-mail Address:</label><input type="text" class="form-control" name="companyEmailAddress" placeholder="Enter Company E-mail Address here..." required></div><div class="form-group"><label>Main Business Activities (Type of Business i.e. Electronics):</label><input type="text" class="form-control" name="mainBusinessActivities" placeholder="Enter Main Business Activities here..." required></div><div class="form-group"><label>Company Head Office Address:</label><input type="text" class="form-control" name="companyHeadOfficeAddress" placeholder="Enter Company Head Office Address here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Zip Code:</label><input type="text" class="form-control" name="zipCode" placeholder="Enter Zip Code here..." onkeyup="isInputNumeric(this)"></div><div class="form-group"><label>Primary Contact:</label><input type="text" class="form-control" name="primaryContact" placeholder="Enter Primary Contact here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Primary Contact Company Position:</label><input type="text" class="form-control" name="primaryContactCompanyPosition" placeholder="Enter Primary Contact Company Position here..."></div><div class="form-group"><label>Primary Contact E-mail:</label><input type="text" class="form-control" name="primaryContactEmail" placeholder="Enter Primary Contact E-mail here..."></div><div class="form-group"><label>Primary Contact Phone Number:</label><input type="text" class="form-control" name="primaryContactPhoneNumber" placeholder="Enter Primary Contact Phone Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Country:</label><input type="text" class="form-control" name="country" placeholder="Enter Country here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Corporate Currency:</label><input type="text" class="form-control" name="corporateCurrency" placeholder="Enter Corporate Currency here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Default Language:</label><input type="text" class="form-control" name="defaultLanguage" placeholder="Enter Default Language here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Default Time Zone:</label><input type="text" class="form-control" name="defaultTimeZone" placeholder="Enter Default Time Zone here..."></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="fax" placeholder="Enter Fax here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Phone Number:</label><input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Established:</label><input type="text" class="form-control" name="established" placeholder="Enter Established here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
+            $('#modal .modal-body').html('<form id="add-company-form"><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="companyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)" required></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="companyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="companyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)" required></div><div class="form-group"><label>Company E-mail Address:</label><input type="text" class="form-control" name="companyEmailAddress" placeholder="Enter Company E-mail Address here..." required></div><div class="form-group"><label>Main Business Activities (Type of Business i.e. Electronics):</label><input type="text" class="form-control" name="mainBusinessActivities" placeholder="Enter Main Business Activities here..." required></div><div class="form-group"><label>Zip Code:</label><input type="text" class="form-control" name="zipCode" placeholder="Enter Zip Code here..." onkeyup="isInputNumeric(this)"></div><div class="form-group"><label>Company\' Contact Person:</label><input type="text" class="form-control" name="primaryContact" placeholder="Enter Company\' Contact Person here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Company\' Contact Person Position:</label><input type="text" class="form-control" name="primaryContactCompanyPosition" placeholder="Enter Company\' Contact Person Position here..."></div><div class="form-group"><label>Company\' Contact Person E-mail:</label><input type="text" class="form-control" name="primaryContactEmail" placeholder="Enter Company\' Contact Person E-mail here..."></div><div class="form-group"><label>Company\' Contact Person Number:</label><input type="text" class="form-control" name="primaryContactPhoneNumber" placeholder="Enter Company\' Contact Person Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Country:</label><input type="text" class="form-control" name="country" placeholder="Enter Country here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Default Time Zone:</label><input type="text" class="form-control" name="defaultTimeZone" placeholder="Enter Default Time Zone here..."></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="fax" placeholder="Enter Fax here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Phone Number:</label><input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phone Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Established:</label><input type="text" class="form-control" name="established" placeholder="Enter Established here..."></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Company Information"></div></form>');
 
             $('#add-company-form').submit(function() {
                 $('#modal').modal('hide');

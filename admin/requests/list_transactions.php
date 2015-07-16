@@ -12,6 +12,14 @@
 
     if($scan > 0) {
         while($row = mysqli_fetch_array($query)) {
+            if($row['Display'] == 'Show') {
+                $disp = 'Hide';
+                $eye = 'close';
+            } else {
+                $disp = 'Show';
+                $eye = 'open';
+            }
+
             echo '<tr>';
             echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
             echo '<td>' . $row['Description'] . '</td>';
@@ -19,7 +27,16 @@
             echo '<td>' . $row['Delivery_Status'] . '</td>';
             echo '<td>&#8369; ' . number_format($row['Credit'], 2, '.', '') . '</td>';
             echo '<td>&#8369; ' . number_format($row['Debit'], 2, '.', '') . '</td>';
-            echo '<td align="center"><button class="btn btn-primary btn-xs btn-block" data-execute="View Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;View Information</button><button class="btn btn-success btn-xs btn-block" data-execute="Set Payment" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;Set Payment</button><button class="btn btn-danger btn-xs btn-block" data-execute="Delete Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Transaction</button></td>';
+            echo '<td align="center">';
+            echo '<button class="btn btn-primary btn-xs btn-block" data-execute="View Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;View Information</button>';
+            
+            if($row['Display'] == 'Show') {
+                echo '<button class="btn btn-warning btn-xs btn-block" data-execute="' . $disp . ' Transaction" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-eye-' . $eye . '"></span>&nbsp;&nbsp;' . $disp . ' Transaction to Client</button>';
+            }
+
+            echo '<button class="btn btn-success btn-xs btn-block" data-execute="Set Payment" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;Set Payment</button>';
+            echo '<button class="btn btn-danger btn-xs btn-block" data-execute="Delete Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Transaction</button>';
+            echo '</td>';
             echo '</tr>';
         }
     } else {

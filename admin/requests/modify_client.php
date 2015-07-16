@@ -48,16 +48,12 @@
             echo '<td>' . $row['Company_Address'] . '</td>';
             echo '</tr>';
             echo '<tr>';
-            echo '<td align="right">Company Contact Number:</td>';
-            echo '<td>' . $row['Company_Contact_Number'] . '</td>';
+            echo '<td align="right">Company Number:</td>';
+            echo '<td>' . $row['Company_Number'] . '</td>';
             echo '</tr>';
             echo '<tr>';
 
             if($row['First_Name'] == 'Not Available' && $row['Middle_Name'] == 'Not Available' && $row['Last_Name'] == 'Not Available') {
-                echo '<td align="right">Company Head Office Address:</td>';
-                echo '<td>' . $row['Company_Head_Office_Address'] . '</td>';
-                echo '</tr>';
-                echo '<tr>';
                 echo '<td align="right">Company Email Address:</td>';
                 echo '<td>' . $row['Company_Email_Address'] . '</td>';
                 echo '</tr>';
@@ -66,20 +62,20 @@
                 echo '<td>' . $row['Zip_Code'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact:</td>';
-                echo '<td>' . $row['Primary_Contact'] . '</td>';
+                echo '<td align="right">Company\' Contact Person:</td>';
+                echo '<td>' . $row['Company_Contact_Person'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Company Position:</td>';
-                echo '<td>' . $row['Primary_Contact_Company_Position'] . '</td>';
+                echo '<td align="right">Company\' Contact Person Position:</td>';
+                echo '<td>' . $row['Company_Contact_Person_Position'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Email:</td>';
-                echo '<td>' . $row['Primary_Contact_Email'] . '</td>';
+                echo '<td align="right">Company\' Contact Person Email:</td>';
+                echo '<td>' . $row['Company_Contact_Person_Email'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Phone Number:</td>';
-                echo '<td>' . $row['Primary_Contact_Phone_Number'] . '</td>';
+                echo '<td align="right">Company\' Contact Person Number:</td>';
+                echo '<td>' . $row['Company_Contact_Person_Number'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Main Business Activities:</td>';
@@ -88,14 +84,6 @@
                 echo '<tr>';
                 echo '<td align="right">Country:</td>';
                 echo '<td>' . $row['Country'] . '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td align="right">Corporate Currency:</td>';
-                echo '<td>' . $row['Corporate_Currency'] . '</td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td align="right">Default Language:</td>';
-                echo '<td>' . $row['Default_Language'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Default Time Zone:</td>';
@@ -245,15 +233,11 @@
             echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-address" type="text" class="form-control" value="' . $row['Company_Address'] . '" placeholder="Company Address"></div></td>';
             echo '</tr>';
             echo '<tr>';
-            echo '<td align="right">Company Contact Number:</td>';
-            echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-contact-number" type="text" class="form-control" value="' . $row['Company_Contact_Number'] . '" placeholder="Company Contact Number"></div></td>';
+            echo '<td align="right">Company Number:</td>';
+            echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-contact-number" type="text" class="form-control" value="' . $row['Company_Number'] . '" placeholder="Company Contact Number"></div></td>';
             echo '</tr>';
             
             if($row['First_Name'] == 'Not Available' && $row['Middle_Name'] == 'Not Available' && $row['Last_Name'] == 'Not Available') {
-                echo '<tr>';
-                echo '<td align="right">Company Head Office Address:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-head-office-address" type="text" class="form-control" value="' . $row['Company_Head_Office_Address'] . '" placeholder="Company Head Office Address"></div></td>';
-                echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Company Email Address:</td>';
                 echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-email-address" type="text" class="form-control" value="' . $row['Company_Email_Address'] . '" placeholder="Company Email Address"></div></td>';
@@ -263,20 +247,20 @@
                 echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-zip-code" type="text" class="form-control" value="' . $row['Zip_Code'] . '" placeholder="Zip Code"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact" type="text" class="form-control" value="' . $row['Primary_Contact'] . '" placeholder="Primary Contact"></div></td>';
+                echo '<td align="right">Company\' Contact Person:</td>';
+                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact" type="text" class="form-control" value="' . $row['Company_Contact_Person'] . '" placeholder="Company\' Contact Person"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Company Position:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-company-position" type="text" class="form-control" value="' . $row['Primary_Contact_Company_Position'] . '" placeholder="Primary Contact Company Position"></div></td>';
+                echo '<td align="right">Company\' Contact Person Position:</td>';
+                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-company-position" type="text" class="form-control" value="' . $row['Company_Contact_Person_Position'] . '" placeholder="Company\' Contact Person Position"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Email:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-email" type="text" class="form-control" value="' . $row['Primary_Contact_Email'] . '" placeholder="Primary Contact Email"></div></td>';
+                echo '<td align="right">Company\' Contact Person Email:</td>';
+                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-email" type="text" class="form-control" value="' . $row['Company_Contact_Person_Email'] . '" placeholder="Company\' Contact Person Email"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Primary Contact Phone Number:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-phone-number" type="text" class="form-control" value="' . $row['Primary_Contact_Phone_Number'] . '" placeholder="Primary Contact Phone Number"></div></td>';
+                echo '<td align="right">Company\' Contact Person Number:</td>';
+                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-primary-contact-phone-number" type="text" class="form-control" value="' . $row['Company_Contact_Person_Number'] . '" placeholder="Company\' Contact Person Number"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Main Business Activities:</td>';
@@ -285,14 +269,6 @@
                 echo '<tr>';
                 echo '<td align="right">Country:</td>';
                 echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-country" type="text" class="form-control" value="' . $row['Country'] . '" placeholder="Country"></div></td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td align="right">Corporate Currency:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-corporate-currency" type="text" class="form-control" value="' . $row['Corporate_Currency'] . '" placeholder="Corporate Currency"></div></td>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td align="right">Default Language:</td>';
-                echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-default-language" type="text" class="form-control" value="' . $row['Default_Language'] . '" placeholder="Default Language"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Default Time Zone:</td>';
@@ -340,7 +316,6 @@
         $companyName = isset($_POST['companyName']) ? mysqli_real_escape_string($connection, $_POST['companyName']) : '';
         $companyAddress = isset($_POST['companyAddress']) ? mysqli_real_escape_string($connection, $_POST['companyAddress']) : '';
         $companyContactNumber = isset($_POST['companyContactNumber']) ? mysqli_real_escape_string($connection, $_POST['companyContactNumber']) : '';
-        $companyHeadOfficeAddress = isset($_POST['companyHeadOfficeAddress']) ? mysqli_real_escape_string($connection, $_POST['companyHeadOfficeAddress']) : '';
         $companyEmailAddress = isset($_POST['companyEmailAddress']) ? mysqli_real_escape_string($connection, $_POST['companyEmailAddress']) : '';
         $zipCode = isset($_POST['zipCode']) ? mysqli_real_escape_string($connection, $_POST['zipCode']) : '';
         $primaryContact = isset($_POST['primaryContact']) ? mysqli_real_escape_string($connection, $_POST['primaryContact']) : '';
@@ -349,8 +324,6 @@
         $primaryContactPhoneNumber = isset($_POST['primaryContactPhoneNumber']) ? mysqli_real_escape_string($connection, $_POST['primaryContactPhoneNumber']) : '';
         $mainBusinessActivities = isset($_POST['mainBusinessActivities']) ? mysqli_real_escape_string($connection, $_POST['mainBusinessActivities']) : '';
         $country = isset($_POST['country']) ? mysqli_real_escape_string($connection, $_POST['country']) : '';
-        $corporateCurrency = isset($_POST['corporateCurrency']) ? mysqli_real_escape_string($connection, $_POST['corporateCurrency']) : '';
-        $defaultLanguage = isset($_POST['defaultLanguage']) ? mysqli_real_escape_string($connection, $_POST['defaultLanguage']) : '';
         $defaultTimeZone = isset($_POST['defaultTimeZone']) ? mysqli_real_escape_string($connection, $_POST['defaultTimeZone']) : '';
         $fax = isset($_POST['fax']) ? mysqli_real_escape_string($connection, $_POST['fax']) : '';
         $phoneNumber = isset($_POST['phoneNumber']) ? mysqli_real_escape_string($connection, $_POST['phoneNumber']) : '';
@@ -360,14 +333,14 @@
         $query = @mysqli_query($connection, "UPDATE clients SET First_Name='$firstName', Middle_Name='$middleName', Last_Name='$lastName', Address='$address', Email_Address='$emailAddress', Updated_By='$username', Date_Updated='$datetime' WHERE Client_ID='$clientId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
-            $query = @mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Contact_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = @mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
             $scan = mysqli_num_rows($query);
 
             if($scan == 0) {
-                $query = @mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Contact_Number, Company_Head_Office_Address, Company_Email_Address, Zip_Code, Primary_Contact, Primary_Contact_Company_Position, Primary_Contact_Email, Primary_Contact_Phone_Number, Main_Business_Activities, Country, Corporate_Currency, Default_Language, Default_Time_Zone, Fax, Phone_Number, Established) VALUES ('$companyName', '$companyAddress', '$companyContactNumber', '$companyHeadOfficeAddress', '$companyEmailAddress', '$zipCode', '$primaryContact', '$primaryContactCompanyPosition', '$primaryContactEmail', '$primaryContactPhoneNumber', '$mainBusinessActivities', '$country', '$corporateCurrency', '$defaultLanguage', '$defaultTimeZone', '$fax', '$phoneNumber', '$established')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $query = @mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Number, Company_Email_Address, Zip_Code, Company_Contact_Person, Company_Contact_Person_Position, Company_Contact_Person_Email, Company_Contact_Person_Number, Main_Business_Activities, Country, Default_Time_Zone, Fax, Phone_Number, Established) VALUES ('$companyName', '$companyAddress', '$companyContactNumber', '$companyEmailAddress', '$zipCode', '$primaryContact', '$primaryContactCompanyPosition', '$primaryContactEmail', '$primaryContactPhoneNumber', '$mainBusinessActivities', '$country', '$defaultTimeZone', '$fax', '$phoneNumber', '$established')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                 if($query) {
-                    $query = @mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Contact_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                    $query = @mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
                     $scan = mysqli_num_rows($query);
 
                     if($scan == 1) {
@@ -392,7 +365,7 @@
                 $query = @mysqli_query($connection, "UPDATE clients SET Company_ID='$row[Company_ID]' WHERE Client_ID='$clientId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                 if($query) {
-                    $query = @mysqli_query($connection, "UPDATE companies SET Company_Name='$companyName', Company_Address='$companyAddress', Company_Contact_Number='$companyContactNumber', Company_Head_Office_Address='$companyHeadOfficeAddress', Company_Email_Address='$companyEmailAddress', Zip_Code='$zipCode', Primary_Contact='$primaryContact', Primary_Contact_Company_Position='$primaryContactCompanyPosition', Primary_Contact_Email='$primaryContactEmail', Primary_Contact_Phone_Number='$primaryContactPhoneNumber', Main_Business_Activities='$mainBusinessActivities', Country='$country', Corporate_Currency='$corporateCurrency', Default_Language='$defaultLanguage', Default_Time_Zone='$defaultTimeZone', Fax='$fax', Phone_Number='$phoneNumber', Established='$established' WHERE Company_ID='$row[Company_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                    $query = @mysqli_query($connection, "UPDATE companies SET Company_Name='$companyName', Company_Address='$companyAddress', Company_Number='$companyContactNumber', Company_Email_Address='$companyEmailAddress', Zip_Code='$zipCode', Company_Contact_Person='$primaryContact', Company_Contact_Person_Position='$primaryContactCompanyPosition', Company_Contact_Person_Email='$primaryContactEmail', Company_Contact_Person_Number='$primaryContactPhoneNumber', Main_Business_Activities='$mainBusinessActivities', Country='$country', Default_Time_Zone='$defaultTimeZone', Fax='$fax', Phone_Number='$phoneNumber', Established='$established' WHERE Company_ID='$row[Company_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                     if($query) {
                         echo 'Saved Changes';
