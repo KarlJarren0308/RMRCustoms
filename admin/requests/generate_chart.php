@@ -6,7 +6,7 @@
     if($action == 'View Income per Client') {
         $page = mysqli_real_escape_string($connection, $_GET['page']);
         $offset = ($page * 10) - 10;
-        $queryNames = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $queryNames = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE clients.Status='Active' LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $flag = true;
 
         echo '{"names": [';
@@ -29,7 +29,7 @@
             }
         }
 
-        $queryCredit = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $queryCredit = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE clients.Status='Active' LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $flag = true;
 
         echo '], "credits": [';
@@ -60,7 +60,7 @@
             echo json_encode($credit);
         }
 
-        $queryDebit = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $queryDebit = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE clients.Status='Active' LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $flag = true;
 
         echo '], "debits": [';
@@ -94,20 +94,15 @@
     } else if($action == 'View Total Monthly Income') {
         $datetime = date('Y-m');
         $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Transaction_Date LIKE '$datetime%'") or die('Cannot connect to Database. Error: '. mysqli_error($connection));
-        $first = true;
+        $totalCredits = 0;
+        $totalDebits = 0;
 
         while($row = mysqli_fetch_array($query)) {
-            if($first) {
-                $totalCredits = (double) $row['Credit'];
-                $totalDebits = (double) $row['Debit'];
-                $first = false;
-            } else {
-                $totalCredits += (double) $row['Credit'];
-                $totalDebits += (double) $row['Debit'];
-            }
+            $totalCredits += (double) $row['Credit'];
+            $totalDebits += (double) $row['Debit'];
         }
 
-        echo '{"total_credits": ' . json_encode($totalCredits) . ', "total_debits": ' . json_encode($totalDebits) . '}';
+        echo '{"total_credits": "' . json_encode($totalCredits) . '", "total_debits": ' . json_encode($totalDebits) . '}';
     }
 
     mysqli_close($connection);

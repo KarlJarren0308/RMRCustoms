@@ -63,13 +63,20 @@
         $flag = false;
         $ctr = 31;
         $imagefile = '';
+        $credit = 0;
+        $debit = 0;
 
         while($flag == false) {
-            if(file_exists('../assets/img/graph_report[' . date('Y-m') . '-' . $ctr . '].png')) {
-                $imagefile = 'graph_report[' . date('Y-m') . '-' . $ctr . '].png';
+            if(file_exists('../assets/img/graph_report[' . date('Y-m') . '].png')) {
+                $imagefile = 'graph_report[' . date('Y-m') . '].png';
                 $flag = true;
             } else {
                 $ctr--;
+
+                if($ctr == 0) {
+                    $imagefile = 'graph_not_found.png';
+                    $flag = true;
+                }
             }
         }
 
@@ -92,13 +99,12 @@
         $pdf->Cell(98, 8, 'Total Credit', 1, 0, 'C', true);
         $pdf->Cell(98, 8, 'Total Debit', 1, 0, 'C', true);
         $pdf->Ln();
-        $txt = file_get_contents('tfpdf/symbol.txt');
         $pdf->SetFont('DejaVu', '', 8);
         $pdf->SetTextColor(25, 40, 35);
 
         while($row = mysqli_fetch_array($query)) {
-            $credit += $row['Credit'];
-            $debit += $row['Debit'];
+            $credit += (double) $row['Credit'];
+            $debit += (double) $row['Debit'];
         }
 
         $pdf->Cell(98, 8, '₱ ' . number_format($credit, 2, '.', ','), 1, 0, 'C');

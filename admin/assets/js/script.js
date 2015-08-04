@@ -1324,7 +1324,7 @@ function totalMonthlyIncomeChart() {
                         strokeColor: "rgba(7, 67, 139, 0.75)",
                         highlightFill: "rgba(57, 117, 189, 1)",
                         highlightStroke: "rgba(7, 67, 139, 1)",
-                        data: [response['total_credits']]
+                        data: response['total_credits']
                     },
                     {
                         label: "Debits",
@@ -1332,7 +1332,7 @@ function totalMonthlyIncomeChart() {
                         strokeColor: "rgba(145, 7, 5, 0.75)",
                         highlightFill: "rgba(195, 57, 55, 1)",
                         highlightStroke: "rgba(145, 7, 5, 1)",
-                        data: [response['total_debits']]
+                        data: response['total_debits']
                     }
                 ]
             };
