@@ -79,34 +79,10 @@
             echo '</tbody>';
             echo '</table>';
 
-            $queryCheques = mysqli_query($connection, "SELECT * FROM waybills WHERE Waybill_Number='$row[Waybill_Number]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $queryCheques = mysqli_query($connection, "SELECT * FROM transactions INNER JOIN waybills ON transactions.Waybill_Number=waybills.Waybill_Number INNER JOIN payment ON transactions.Payment_ID=payment.Payment_ID WHERE transactions.Waybill_Number='$row[Waybill_Number]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $scanCheques = mysqli_num_rows($query);
 
-            if($queryCheques) {
-                $rowCheques = mysqli_fetch_array($queryCheques);
-
-                $chequeNumber = json_decode($rowCheques['Cheque_Number']);
-                $bankName = json_decode($rowCheques['Bank_Name']);
-                $chequeDate = json_decode($rowCheques['Cheque_Date']);
-                $chequeAmount = json_decode($rowCheques['Cheque_Amount']);
-                
-                /*
-                if(count($chequeNumber) > count($bankName)) {
-                    if(count($chequeNumber) > count($chequeDate)) {
-                        $countCheques = count($chequeNumber);
-                    } else {
-                        $countCheques = count($chequeDate);
-                    }
-                } else {
-                    if(count($bankName) > count($chequeDate)) {
-                        $countCheques = count($bankName);
-                    } else {
-                        $countCheques = count($chequeDate);
-                    }
-                }
-                */
-
-                $countCheques = max(count($chequeNumber), count($bankName), count($chequeDate), count($chequeAmount));
-
+            if($scanCheques > 0) {
                 echo '<div class="well">';
                 // echo '<h3 class="no-margin">Cheque Information <button id="add-new-cheque-button" class="btn btn-primary btn-xs pull-right" data-cheque-count="' . $countCheques . '">Add New Cheque</button></h3>';
                 echo '<h3 class="no-margin">Cheque Information</h3>';
@@ -115,36 +91,28 @@
                 echo '<table id="cheque-table" class="table table-hover table-striped">';
                 echo '<thead class="bg-dark">';
                 echo '<tr>';
+                echo '<th>Mode of Payment</th>';
                 echo '<th>Cheque Number</th>';
                 echo '<th>Bank Name</th>';
-                echo '<th>Cheque Date</th>';
+                echo '<th>Date</th>';
                 echo '<th>Cheque Amount</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
 
-                for($i = 0; $i < $countCheques; $i++) {
-                    /*
+                while($rowCheques = mysqli_fetch_array($queryCheques)) {
                     echo '<tr>';
-                    echo '<td><textarea name="cChequeNumber-' . $i . '" class="form-control" required>' . @$chequeNumber[$i] . '</textarea></td>';
-                    echo '<td><textarea name="cBankName-' . $i . '" class="form-control" required>' . @$bankName[$i] . '</textarea></td>';
-                    echo '<td><textarea name="cChecqueDate-' . $i . '" class="form-control" required>' . @$chequeDate[$i] . '</textarea></td>';
-                    echo '</tr>';
-                    */
-
-                    echo '<tr>';
-                    echo '<td>' . @$chequeNumber[$i] . '</td>';
-                    echo '<td>' . @$bankName[$i] . '</td>';
-                    echo '<td>' . @date('F d, Y', strtotime($chequeDate[$i])) . '</td>';
-                    echo '<td>&#8369; ' . @number_format($chequeAmount[$i], 2, '.', ',') . '</td>';
+                    echo '<td>' . $rowCheques['Mode_of_Payment'] . '</td>';
+                    echo '<td>' . $rowCheques['Cheque_Number'] . '</td>';
+                    echo '<td>' . $rowCheques['Bank_Name'] . '</td>';
+                    echo '<td>' . @date('F d, Y', strtotime($rowCheques['Cheque_Date'])) . '</td>';
+                    echo '<td>&#8369; ' . @number_format($rowCheques['Amount'], 2, '.', ',') . '</td>';
                     echo '</tr>';
                 }
-
-                if($countCheques == 0) {
-                    echo '<tr id="cheque-table-error">';
-                    echo '<td colspan="3" align="center">No cheque found.</td>';
-                    echo '</tr>';
-                }
+            } else {
+                echo '<tr id="cheque-table-error">';
+                echo '<td colspan="3" align="center">No payment has been made.</td>';
+                echo '</tr>';
             }
 
             echo '</tbody>';
@@ -161,10 +129,16 @@
             // echo '<input type="hidden" name="waybillNumber" value="' . $row['Waybill_Number'] . '">';
             // echo '<input type="hidden" name="billID" value="' . $row['Bill_of_Lading_ID'] . '">';
 
-            $queryBills = mysqli_query($connection, "SELECT * FROM ladings WHERE Bill_of_Lading_ID='$row[Bill_of_Lading_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $queryBills = mysqli_query($connection, "SELECT * FROM ladings INNER JOIN clients ON ladings.Bill_of_Lading_ID=clients.Client_ID WHERE Bill_of_Lading_Number='$row[Bill_of_Lading_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
             if($queryBills) {
                 $rowBills = mysqli_fetch_array($queryBills);
+
+                if(strlen($rowBills['Middle_Name']) > 1) {
+                    $name = $rowBills['First_Name'] . ' ' . substr($rowBills['Middle_Name'], 0, 1) . '. ' . $rowBills['Last_Name'];
+                } else {
+                    $name = $rowBills['First_Name'] . ' ' . $rowBills['Last_Name'];
+                }
 
                 //echo '<div class="row">';
                 // echo '<div class="col-lg-6 col-md-6"><label>Bill of Lading ID:</label><input type="text" class="form-control" name="newBill" placeholder="Enter Bill of Lading Number here..." value="' . $rowBills['Bill_of_Lading_ID'] . '" required></div>';
@@ -182,7 +156,7 @@
                 echo '<tbody>';
                 echo '<tr>';
                 echo '<td width="30%" align="right">Bill of Lading ID:</td>';
-                echo '<td>' . $rowBills['Bill_of_Lading_ID'] . '</td>';
+                echo '<td>' . $name . '</td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td width="30%" align="right">Consignee:</td>';

@@ -8,7 +8,6 @@
     }
 ?>
 
-<div class="particles"></div>
 <div class="container">
     <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4">
         <div class="panel">

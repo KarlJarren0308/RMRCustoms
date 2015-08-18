@@ -52,6 +52,14 @@
             echo '<td>' . $row['Company_Number'] . '</td>';
             echo '</tr>';
             echo '<tr>';
+            echo '<td align="right">Fax:</td>';
+            echo '<td>' . $row['Fax'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td align="right">Business Type:</td>';
+            echo '<td>' . $row['Business_Type'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
 
             if($row['First_Name'] == 'Not Available' && $row['Middle_Name'] == 'Not Available' && $row['Last_Name'] == 'Not Available') {
                 echo '<td align="right">Company Email Address:</td>';

@@ -104,10 +104,6 @@
                 echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td width="30%" align="right"><strong>Bill of Lading ID:</strong></td>';
-                echo '<td>' . $row['Bill_of_Lading_ID'] . '</td>';
-                echo '</tr>';
-                echo '<tr>';
                 echo '<td width="30%" align="right"><strong>Destination Address:</strong></td>';
                 echo '<td>' . $row['Delivery_Location'] . '</td>';
                 echo '</tr>';
@@ -170,16 +166,22 @@
                 echo '<br>';
                 echo '<h3 class="no-margin">Bill of Lading</h3><br>';
 
-                $queryBills = mysqli_query($connection, "SELECT * FROM ladings WHERE Bill_of_Lading_ID='$row[Bill_of_Lading_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $queryBills = mysqli_query($connection, "SELECT * FROM ladings INNER JOIN clients ON ladings.Bill_of_Lading_ID=clients.Client_ID WHERE Bill_of_Lading_Number='$row[Bill_of_Lading_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                 if($queryBills) {
                     $rowBills = mysqli_fetch_array($queryBills);
+
+                    if(strlen($rowBills['Middle_Name']) > 1) {
+                        $name = $rowBills['First_Name'] . ' ' . substr($rowBills['Middle_Name'], 0, 1) . '. ' . $rowBills['Last_Name'];
+                    } else {
+                        $name = $rowBills['First_Name'] . ' ' . $rowBills['Last_Name'];
+                    }
 
                     echo '<table class="table table-hover table-striped">';
                     echo '<tbody>';
                     echo '<tr>';
                     echo '<td width="30%" align="right">Bill of Lading ID:</td>';
-                    echo '<td>' . $rowBills['Bill_of_Lading_ID'] . '</td>';
+                    echo '<td>' . $name . '</td>';
                     echo '</tr>';
                     echo '<tr>';
                     echo '<td width="30%" align="right">Consignee:</td>';

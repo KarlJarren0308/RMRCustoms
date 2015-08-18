@@ -48,7 +48,7 @@
             <thead>
                 <tr class="bg-dark">
                     <th width="15%">Waybill Number</th>
-                    <th width="15%">Description</th>
+                    <th width="15%">Client Name</th>
                     <th width="10%">Truck Name</th>
                     <th width="15%">Delivery Status</th>
                     <th width="15%">Credit (Amount Paid)</th>
