@@ -1,6 +1,32 @@
 <?php
     require('connection.php');
 
+    function randomizePaymentID($connection, $mode, $bankName, $chequeNumber, $chequeDate, $credit) {
+        $rand = '';
+
+        $rand = mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9) . mt_rand(0, 9);
+        $query = mysqli_query($connection, "SELECT * FROM payment WHERE Payment_ID='$rand'") or die('Failed to connect to Database (1). Error: ' . mysqli_error($connection));
+        $scan = mysqli_num_rows($query);
+
+        if($scan == 0) {
+            if($mode == 'Cash') {
+                $query2 = mysqli_query($connection, "INSERT INTO payment (Payment_ID, Bank_Name, Cheque_Number, Cheque_Date, Amount, Mode_of_Payment) VALUES ('$rand', '', '', '$chequeDate', '$credit', '$mode')") or die('Failed to connect to Database (2). Error: ' . mysqli_error($connection));
+            } else if($mode == 'Cheque') {
+                $query2 = mysqli_query($connection, "INSERT INTO payment (Payment_ID, Bank_Name, Cheque_Number, Cheque_Date, Amount, Mode_of_Payment) VALUES ('$rand', '$bankName', '$chequeNumber', '$chequeDate', '$credit', '$mode')") or die('Failed to connect to Database (3). Error: ' . mysqli_error($connection));
+            }
+
+            $scan2 = mysqli_affected_rows($connection);
+
+            if($scan2 == 1) {
+                return $rand;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     $username = $_SESSION['rmr_username'];
     $action = mysqli_real_escape_string($connection, $_POST['action']);
 
@@ -321,16 +347,24 @@
             echo '<tr>';
             */
         } else {
+            echo '<td align="right">Mode of Payment:</td>';
+            echo '<td><select class="form-control" id="mode-of-payment">';
+            echo '<option value="" selected disabled>Select a Mode of Payment</option>';
+            echo '<option value="Cash">Cash</option>';
+            echo '<option value="Cheque">Cheque</option>';
+            echo '</select></td>';
+            echo '</tr>';
+            echo '<tr>';
             echo '<td align="right">Cheque Number:</td>';
-            echo '<td><input id="cheque-number" type="text" class="form-control" placeholder="Enter Cheque Number here..."></td>';
+            echo '<td><input id="cheque-number" type="text" class="form-control" placeholder="Enter Cheque Number here..." required></td>';
             echo '</tr>';
             echo '<tr>';
             echo '<td align="right">Bank Name:</td>';
-            echo '<td><input id="bank-name" type="text" class="form-control" placeholder="Enter Bank Name here..."></td>';
+            echo '<td><input id="bank-name" type="text" class="form-control" placeholder="Enter Bank Name here..." required></td>';
             echo '</tr>';
             echo '<tr>';
-            echo '<td align="right">Cheque Date [yyyy-mm-dd]:</td>';
-            echo '<td><div class="row"><div class="col-lg-4 col-md-4"><input id="cheque-month" type="number" min="1" max="12" class="form-control" placeholder="Month"></div><div class="col-lg-4 col-md-4"><input id="cheque-day" type="number" min="1" max="31" class="form-control" placeholder="Day"></div><div class="col-lg-4 col-md-4"><input id="cheque-year" type="number" min="2000" max="' . (date('Y') + 5) . '" class="form-control" placeholder="Year"></div></div></td>';
+            echo '<td align="right">Date [yyyy-mm-dd]:</td>';
+            echo '<td><div class="row"><div class="col-lg-4 col-md-4"><input id="cheque-month" type="number" min="1" max="12" class="form-control" value="' . date('m') . '" placeholder="Month"></div><div class="col-lg-4 col-md-4"><input id="cheque-day" type="number" min="1" max="31" class="form-control" value="' . date('d') . '" placeholder="Day"></div><div class="col-lg-4 col-md-4"><input id="cheque-year" type="number" min="2000" max="' . (date('Y') + 5) . '" class="form-control" value="' . date('Y') . '" placeholder="Year"></div></div></td>';
             echo '</tr>';
             echo '<tr>';
         }
@@ -379,11 +413,8 @@
 
         echo '<script>var client = new ZeroClipboard($(".copy-to-clipboard"));</script>';
     } else if($action == 'Set Payment') {
-        $newChequeNumber = [];
-        $newBankName = [];
-        $newChequeDate = [];
-        $newChequeAmount = [];
         $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
+        $mode = mysqli_real_escape_string($connection, $_POST['mode']);
         $payment = mysqli_real_escape_string($connection, $_POST['payment']);
         $chequeNumber = mysqli_real_escape_string($connection, $_POST['chequeNumber']);
         $bankName = mysqli_real_escape_string($connection, $_POST['bankName']);
@@ -392,28 +423,17 @@
         $chequeYear = mysqli_real_escape_string($connection, $_POST['chequeYear']);
 
         $chequeDate = $chequeYear . '-' . $chequeMonth . '-' . $chequeDay;
+        
+        do {
+            $paymentID = randomizePaymentID($connection, $mode, $bankName, $chequeNumber, $chequeDate, $payment);
 
-        $queryCheques = mysqli_query($connection, "SELECT * FROM waybills WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-        $rowCheques = mysqli_fetch_array($queryCheques);
+            if($paymentID > 0) {
+                break;
+            }
+        } while($flag == true);
 
-        $newChequeNumber = json_decode($rowCheques['Cheque_Number']);
-        $newBankName = json_decode($rowCheques['Bank_Name']);
-        $newChequeDate = json_decode($rowCheques['Cheque_Date']);
-        $newChequeAmount = json_decode($rowCheques['Cheque_Amount']);
-
-        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0) {
-            array_push($newChequeNumber, $chequeNumber);
-            array_push($newBankName, $bankName);
-            array_push($newChequeDate, $chequeDate);
-            array_push($newChequeAmount, $payment);
-        }
-
-        $newChequeNumber = json_encode($newChequeNumber);
-        $newBankName = json_encode($newBankName);
-        $newChequeDate = json_encode($newChequeDate);
-        $newChequeAmount = json_encode($newChequeAmount);
-
-        $query = mysqli_query($connection, "UPDATE waybills SET Credit=Credit+$payment, Debit=Debit-$payment, Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate', Cheque_Amount='$newChequeAmount' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE waybills SET Credit=Credit+$payment, Debit=Debit-$payment WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "INSERT INTO transactions (Payment_ID, Waybill_Number) VALUES ('$paymentID', '$waybillNumber')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Payment has been set.';
@@ -421,11 +441,8 @@
             echo 'Failed to set payment.';
         }
     } else if($action == 'Set New Payment') {
-        $newChequeNumber = [];
-        $newBankName = [];
-        $newChequeDate = [];
-        $newChequeAmount = [];
         $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);
+        $mode = mysqli_real_escape_string($connection, $_POST['mode']);
         $credit = mysqli_real_escape_string($connection, $_POST['credit']);
         $debit = mysqli_real_escape_string($connection, $_POST['debit']);
         $chequeNumber = mysqli_real_escape_string($connection, $_POST['chequeNumber']);
@@ -436,27 +453,10 @@
 
         $chequeDate = $chequeYear . '-' . $chequeMonth . '-' . $chequeDay;
 
-        $queryCheques = mysqli_query($connection, "SELECT * FROM waybills WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
-        $rowCheques = mysqli_fetch_array($queryCheques);
+        $paymentID = randomizePaymentID($connection, $mode, $bankName, $chequeNumber, $chequeDate, $credit);
 
-        $newChequeNumber = json_decode($rowCheques['Cheque_Number']);
-        $newBankName = json_decode($rowCheques['Bank_Name']);
-        $newChequeDate = json_decode($rowCheques['Cheque_Date']);
-        $newChequeAmount = json_decode($rowCheques['Cheque_Amount']);
-
-        if(strlen($chequeNumber) > 0 && strlen($bankName) > 0) {
-            array_push($newChequeNumber, $chequeNumber);
-            array_push($newBankName, $bankName);
-            array_push($newChequeDate, $chequeDate);
-            array_push($newChequeAmount, $credit);
-        }
-
-        $newChequeNumber = json_encode($newChequeNumber);
-        $newBankName = json_encode($newBankName);
-        $newChequeDate = json_encode($newChequeDate);
-        $newChequeAmount = json_encode($newChequeAmount);
-
-        $query = mysqli_query($connection, "UPDATE waybills SET Credit='$credit', Debit='$debit', Cheque_Number='$newChequeNumber', Bank_Name='$newBankName', Cheque_Date='$newChequeDate', Cheque_Amount='$newChequeAmount' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE waybills SET Credit='$credit', Debit='$debit' WHERE Waybill_Number='$waybillNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "INSERT INTO transactions (Payment_ID, Waybill_Number) VALUES ('$paymentID', '$waybillNumber')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Payment has been set.';

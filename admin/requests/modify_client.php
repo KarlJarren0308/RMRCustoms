@@ -26,15 +26,15 @@
             
             if($row['First_Name'] != 'Not Available' && $row['Middle_Name'] != 'Not Available' && $row['Last_Name'] != 'Not Available') {
                 echo '<tr>';
-                echo '<td width="30%" align="right">Client Name:</td>';
+                echo '<td width="30%" align="right">Full Name:</td>';
                 echo '<td>' . $clientName . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Client Address:</td>';
+                echo '<td align="right">Address:</td>';
                 echo '<td>' . $row['Address'] . '</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Client E-mail Address:</td>';
+                echo '<td align="right">E-mail Address:</td>';
                 echo '<td>' . $row['Email_Address'] . '</td>';
                 echo '</tr>';
             }
@@ -206,15 +206,15 @@
 
             if($row['First_Name'] != 'Not Available' && $row['Middle_Name'] != 'Not Available' && $row['Last_Name'] != 'Not Available') {
                 echo '<tr>';
-                echo '<td width="30%" align="right">Client Name:</td>';
+                echo '<td width="30%" align="right">Full Name:</td>';
                 echo '<td><div class="col-lg-4 col-md-4 form-group"><span>First Name:</span><input id="edit-client-firstname" type="text" class="form-control" value="' . $row['First_Name'] . '" placeholder="First Name"></div><div class="col-lg-4 col-md-4 form-group"><span>Middle Name:</span><input id="edit-client-middlename" type="text" class="form-control" value="' . $row['Middle_Name'] . '" placeholder="Middle Name"></div><div class="col-lg-4 col-md-4 form-group"><span>Last Name:</span><input id="edit-client-lastname" type="text" class="form-control" value="' . $row['Last_Name'] . '" placeholder="Last Name"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Client Address:</td>';
+                echo '<td align="right">Address:</td>';
                 echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-client-address" type="text" class="form-control" value="' . $row['Address'] . '" placeholder="Address"></div></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td align="right">Client E-mail Address:</td>';
+                echo '<td align="right">E-mail Address:</td>';
                 echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-client-email-address" type="text" class="form-control" value="' . $row['Email_Address'] . '" placeholder="E-mail Address"></div></td>';
                 echo '</tr>';
             } else {
@@ -235,6 +235,14 @@
             echo '<tr>';
             echo '<td align="right">Company Number:</td>';
             echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-company-contact-number" type="text" class="form-control" value="' . $row['Company_Number'] . '" placeholder="Company Contact Number"></div></td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td align="right">Fax:</td>';
+            echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-fax" type="text" class="form-control" value="' . $row['Fax'] . '" placeholder="Fax"></div></td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td align="right">Business Type:</td>';
+            echo '<td><div class="col-lg-12 col-md-12 form-group"><input id="edit-business-type" type="text" class="form-control" value="' . $row['Business_Type'] . '" placeholder="Business Type"></div></td>';
             echo '</tr>';
             
             if($row['First_Name'] == 'Not Available' && $row['Middle_Name'] == 'Not Available' && $row['Last_Name'] == 'Not Available') {
@@ -298,7 +306,8 @@
         $middleName = mysqli_real_escape_string($connection, $_POST['middleName']);
         $lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 
-        $query = mysqli_query($connection, "UPDATE clients SET Status='Inactive' WHERE Client_ID='$clientId' AND First_Name='$firstName' AND Middle_Name='$middleName' AND Last_Name='$lastName'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        //$query = mysqli_query($connection, "UPDATE clients SET Status='Inactive' WHERE Client_ID='$clientId' AND First_Name='$firstName' AND Middle_Name='$middleName' AND Last_Name='$lastName'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "DELETE FROM clients WHERE Client_ID='$clientId' AND First_Name='$firstName' AND Middle_Name='$middleName' AND Last_Name='$lastName'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Client successfully deleted.';
@@ -326,11 +335,12 @@
         $country = isset($_POST['country']) ? mysqli_real_escape_string($connection, $_POST['country']) : '';
         $defaultTimeZone = isset($_POST['defaultTimeZone']) ? mysqli_real_escape_string($connection, $_POST['defaultTimeZone']) : '';
         $fax = isset($_POST['fax']) ? mysqli_real_escape_string($connection, $_POST['fax']) : '';
+        $businessType = isset($_POST['businessType']) ? mysqli_real_escape_string($connection, $_POST['businessType']) : '';
         $phoneNumber = isset($_POST['phoneNumber']) ? mysqli_real_escape_string($connection, $_POST['phoneNumber']) : '';
         $established = isset($_POST['established']) ? mysqli_real_escape_string($connection, $_POST['established']) : '';
         $datetime = date('Y-m-d');
 
-        $query = @mysqli_query($connection, "UPDATE clients SET First_Name='$firstName', Middle_Name='$middleName', Last_Name='$lastName', Address='$address', Email_Address='$emailAddress', Updated_By='$username', Date_Updated='$datetime' WHERE Client_ID='$clientId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = @mysqli_query($connection, "UPDATE clients SET First_Name='$firstName', Middle_Name='$middleName', Last_Name='$lastName', Address='$address', Email_Address='$emailAddress', Fax='$fax', Business_Type='$businessType', Updated_By='$username', Date_Updated='$datetime' WHERE Client_ID='$clientId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             $query = @mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$companyName' AND Company_Address='$companyAddress' AND Company_Number='$companyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
@@ -388,25 +398,27 @@
         $addCompanyName = mysqli_real_escape_string($connection, $_POST['addCompanyName']);
         $addCompanyAddress = mysqli_real_escape_string($connection, $_POST['addCompanyAddress']);
         $addCompanyContactNumber = mysqli_real_escape_string($connection, $_POST['addCompanyContactNumber']);
+        $addClientFax = mysqli_real_escape_string($connection, $_POST['addClientFax']);
+        $addClientBusinessType = mysqli_real_escape_string($connection, $_POST['addClientBusinessType']);
         $datetime = date('Y-m-d');
 
         $query = mysqli_query($connection, "SELECT * FROM clients WHERE (First_Name='$addClientFirstName' AND Middle_Name='$addClientMiddleName' AND Last_Name='$addClientLastName') OR (First_Name='$addClientFirstName' AND Last_Name='$addClientLastName')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $scan = mysqli_num_rows($query);
 
         if($scan == 0) {
-            $queryCompanies = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$addCompanyName' AND Company_Address='$addCompanyAddress' AND Company_Contact_Number='$addCompanyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $queryCompanies = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$addCompanyName' AND Company_Address='$addCompanyAddress' AND Company_Number='$addCompanyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
             $scanCompanies = mysqli_num_rows($query);
             
             if($scanCompanies == 0) {
-                $query = mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Contact_Number) VALUES ('$addCompanyName', '$addCompanyAddress', '$addCompanyContactNumber')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                $query = mysqli_query($connection, "INSERT INTO companies (Company_Name, Company_Address, Company_Number) VALUES ('$addCompanyName', '$addCompanyAddress', '$addCompanyContactNumber')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                 if($query) {
-                    $queryCompanies = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$addCompanyName' AND Company_Address='$addCompanyAddress' AND Company_Contact_Number='$addCompanyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                    $queryCompanies = mysqli_query($connection, "SELECT * FROM companies WHERE Company_Name='$addCompanyName' AND Company_Address='$addCompanyAddress' AND Company_Number='$addCompanyContactNumber'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
                 }
             }
 
             $rowCompanies = mysqli_fetch_array($queryCompanies);
-            $query = mysqli_query($connection, "INSERT INTO clients (First_Name, Middle_Name, Last_Name, Address, Email_Address, Added_By, Date_Added) VALUES ('$addClientFirstName', '$addClientMiddleName', '$addClientLastName', '$addClientAddress', '$addClientEmail', '$username', '$datetime')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = mysqli_query($connection, "INSERT INTO clients (First_Name, Middle_Name, Last_Name, Address, Email_Address, Fax, Business_Type, Added_By, Date_Added) VALUES ('$addClientFirstName', '$addClientMiddleName', '$addClientLastName', '$addClientAddress', '$addClientEmail', '$addClientFax', '$addClientBusinessType', '$username', '$datetime')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
             if($query) {
                 echo 'You successfully added a client.';

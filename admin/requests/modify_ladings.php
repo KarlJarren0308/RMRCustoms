@@ -14,9 +14,9 @@
         echo '<div class="col-lg-6 col-md-6"><label>Export References:</label><input type="text" class="form-control" name="exportReferences" placeholder="Enter Export References here..." required></div>';
         echo '<div class="col-lg-6 col-md-6">';
         echo '<label>Date:</label><div class="nested-group">';
-        echo '<input type="number" class="date-input-control input-group form-control" name="dateMonth" min="1" max="12" placeholder="Month" required>';
-        echo '<input type="number" class="date-input-control form-control" name="dateDay" min="1" max="31" placeholder="Day" required>';
-        echo '<input type="number" class="date-input-control form-control" name="dateYear" min="2000" max="' . date('Y') . '" placeholder="Year" required></div>';
+        echo '<input type="number" class="date-input-control input-group form-control" name="dateMonth" min="1" max="12" placeholder="Month" value="' . date('m') . '" required>';
+        echo '<input type="number" class="date-input-control form-control" name="dateDay" min="1" max="31" placeholder="Day" value="' . date('d') . '" required>';
+        echo '<input type="number" class="date-input-control form-control" name="dateYear" min="2000" max="' . date('Y') . '" placeholder="Year" value="' . date('Y') . '" required></div>';
         echo '</div></div><br><div class="row">';
         echo '<div class="col-lg-4 col-md-4">';
         echo '<label>Gross Weight:</label>';

@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="col-lg-9 col-md-9 text-right">
-            <button data-execute="Add New Company" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add New Company</button>
+            <!--<button data-execute="Add New Company" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add New Company</button>-->
         </div>
         <table id="listing" class="table table-hover table-striped table-bordered bg-white">
             <thead>

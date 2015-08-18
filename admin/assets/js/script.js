@@ -54,7 +54,7 @@ function fillTable($file, $search) {
                             id: dataVar
                         },
                         success: function(response) {
-                            $('#modal .modal-title').html('<h3 class="no-margin">View Cheques</h3>');
+                            $('#modal .modal-title').html('<h3 class="no-margin">View Payments</h3>');
                             $('#modal .modal-body').html(response);
                         }
                     });
@@ -118,6 +118,7 @@ function fillTable($file, $search) {
                                         country: $('#edit-country').val(),
                                         defaultTimeZone: $('#edit-default-time-zone').val(),
                                         fax: $('#edit-fax').val(),
+                                        businessType: $('#edit-business-type').val(),
                                         phoneNumber: $('#edit-phonenumber').val(),
                                         established: $('#edit-established').val(),
                                         companyId: dVar[5]
@@ -604,6 +605,18 @@ function fillTable($file, $search) {
                                 }
                             });
 
+                            $('#mode-of-payment').change(function() {
+                                var value = $(this).val();
+
+                                if(value == 'Cash') {
+                                    $('#cheque-number').addClass('disabled').attr('disabled', '').val('');
+                                    $('#bank-name').addClass('disabled').attr('disabled', '').val('');
+                                } else if(value == 'Cheque') {
+                                    $('#cheque-number').removeClass('disabled').removeAttr('disabled');
+                                    $('#bank-name').removeClass('disabled').removeAttr('disabled');
+                                }
+                            });
+
                             $('#set-new-payment-button').click(function() {
                                 $('#modal').modal('hide');
 
@@ -617,6 +630,7 @@ function fillTable($file, $search) {
                                     data: {
                                         action: 'Set New Payment',
                                         waybillNumber: dVar[1],
+                                        mode: $('#mode-of-payment').val(),
                                         credit: $('#transaction-credit').val(),
                                         debit: $('#transaction-debit').val(),
                                         chequeNumber: $('#cheque-number').val(),
@@ -655,6 +669,7 @@ function fillTable($file, $search) {
                                     data: {
                                         action: 'Set Payment',
                                         waybillNumber: dVar[1],
+                                        mode: $('#mode-of-payment').val(),
                                         payment: $('#transaction-payment').val(),
                                         chequeNumber: $('#cheque-number').val(),
                                         bankName: $('#bank-name').val(),
@@ -1550,7 +1565,7 @@ $(document).ready(function() {
                 backdrop: 'static'
             });
             $('#modal .modal-title').html('<h3 class="no-margin">Add New Client</h3>');
-            $('#modal .modal-body').html('<form id="add-client-form"><div class="row"><div class="col-lg-4 col-md-4 form-group"><label>Client\'s First Name:</label><input type="text" class="form-control" name="addClientFirstName" placeholder="Enter Client\'s First Name here..." onkeyup="isInputAlpha(this)" required autofocus></div><div class="col-lg-4 col-md-4 form-group"><label>Client\'s Middle Name:</label><input type="text" class="form-control" name="addClientMiddleName" placeholder="Enter Client\'s Middle Name here..." onkeyup="isInputAlpha(this)"></div><div class="col-lg-4 col-md-4 form-group"><label>Client\'s Last Name:</label><input type="text" class="form-control" name="addClientLastName" placeholder="Enter Client\'s Last Name here..." onkeyup="isInputAlpha(this)" required></div></div><div class="form-group"><label>Client\'s Address:</label><input type="text" class="form-control" name="addClientAddress" placeholder="Enter Client\'s Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>Client\'s E-mail Address:</label><input type="text" class="form-control" name="addClientEmail" placeholder="Enter Client\'s E-mail Address here..." required></div><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="addCompanyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="addCompanyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="addCompanyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)"></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Client Information"></div></form>');
+            $('#modal .modal-body').html('<form id="add-client-form"><div class="row"><div class="col-lg-4 col-md-4 form-group"><label>First Name:</label><input type="text" class="form-control" name="addClientFirstName" placeholder="Enter First Name here..." onkeyup="isInputAlpha(this)" required autofocus></div><div class="col-lg-4 col-md-4 form-group"><label>Middle Name:</label><input type="text" class="form-control" name="addClientMiddleName" placeholder="Enter Middle Name here..." onkeyup="isInputAlpha(this)"></div><div class="col-lg-4 col-md-4 form-group"><label>Last Name:</label><input type="text" class="form-control" name="addClientLastName" placeholder="Enter Last Name here..." onkeyup="isInputAlpha(this)" required></div></div><div class="form-group"><label>Address:</label><input type="text" class="form-control" name="addClientAddress" placeholder="Enter Address here..." onkeyup="isInputAddress(this)" required></div><div class="form-group"><label>E-mail Address:</label><input type="text" class="form-control" name="addClientEmail" placeholder="Enter E-mail Address here..." required></div><div class="form-group"><label>Company Name:</label><input type="text" class="form-control" name="addCompanyName" placeholder="Enter Company Name here..." onkeyup="isInputAlpha(this)"></div><div class="form-group"><label>Company Address:</label><input type="text" class="form-control" name="addCompanyAddress" placeholder="Enter Company Address here..." onkeyup="isInputAddress(this)"></div><div class="form-group"><label>Company Contact Number:</label><input type="text" class="form-control" name="addCompanyContactNumber" placeholder="Enter Company Contact Number here..." onkeyup="isInputContact(this)"></div><div class="form-group"><label>Fax:</label><input type="text" class="form-control" name="addClientFax" placeholder="Enter Fax here..." required></div><div class="form-group"><label>Business Type:</label><input type="text" class="form-control" name="addClientBusinessType" placeholder="Enter Business Type here..." required></div><div class="text-right"><input class="btn btn-primary" type="submit" value="Add Client Information"></div></form>');
 
             $('#add-client-form').submit(function() {
                 showLoader('modal');

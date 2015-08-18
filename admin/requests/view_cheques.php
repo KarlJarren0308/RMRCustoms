@@ -1,15 +1,12 @@
 <?php
     require('connection.php');
 
-    $chequeNumber = [];
-    $bankName = [];
-    $chequeDate = [];
-    $chequeAmount = [];
     $clientId = mysqli_real_escape_string($connection, $_POST['id']);
 
-    $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$clientId' AND Status='Active'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+    $query = mysqli_query($connection, "SELECT * FROM transactions INNER JOIN waybills ON transactions.Waybill_Number=waybills.Waybill_Number INNER JOIN payment ON transactions.Payment_ID=payment.Payment_ID WHERE waybills.Client_ID='$clientId' AND waybills.Status='Active'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
     $scan = mysqli_num_rows($query);
 
+    /*
     if($scan > 0) {
         while($row = mysqli_fetch_array($query)) {
             $cn = json_decode($row['Cheque_Number']);
@@ -34,6 +31,7 @@
             }
         }
     }
+    */
 
     /*
     if(count($chequeNumber) > count($bankName)) {
@@ -51,20 +49,22 @@
     }
     */
 
-    $countCheques = max(count($chequeNumber), count($bankName), count($chequeDate), count($chequeAmount));
+    //$countCheques = max(count($chequeNumber), count($bankName), count($chequeDate), count($chequeAmount));
 
     echo '<table class="table table-hover table-striped">';
     echo '<thead class="bg-dark">';
     echo '<tr>';
+    echo '<th>Mode of Payment</th>';
     echo '<th>Cheque Number</th>';
     echo '<th>Bank Name</th>';
-    echo '<th>Cheque Date</th>';
-    echo '<th>Cheque Amount</th>';
+    echo '<th>Date</th>';
+    echo '<th>Amount</th>';
     echo '</tr>';
     echo '</thead>';
     echo '<tbody>';
 
-    if($countCheques > 0) {
+    if($scan > 0) {
+        /*
         for($i = 0; $i < $countCheques; $i++) {
             echo '<tr>';
             echo '<td>' . @$chequeNumber[$i] . '</td>';
@@ -73,9 +73,20 @@
             echo '<td>&#8369; ' . @number_format((double) $chequeAmount[$i], 2, '.', ',') . '</td>';
             echo '</tr>';
         }
+        */
+
+        while($row = mysqli_fetch_array($query)) {
+            echo '<tr>';
+            echo '<td>' . $row['Mode_of_Payment'] . '</td>';
+            echo '<td>' . $row['Cheque_Number'] . '</td>';
+            echo '<td>' . $row['Bank_Name'] . '</td>';
+            echo '<td>' . date('F d, Y', strtotime($row['Cheque_Date'])) . '</td>';
+            echo '<td>&#8369; ' . @number_format((double) $row['Amount'], 2, '.', ',') . '</td>';
+            echo '</tr>';
+        }
     } else {
         echo '<tr>';
-        echo '<td colspan="4" align="center">No cheque found.</td>';
+        echo '<td colspan="5" align="center">No payment has been made.</td>';
         echo '</tr>';
     }
 
