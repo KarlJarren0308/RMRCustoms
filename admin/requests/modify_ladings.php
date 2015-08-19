@@ -10,7 +10,8 @@
         echo '<form id="bill-of-lading-form">';
         echo '<input type="hidden" name="action" value="Add">';
         echo '<div class="row">';
-        echo '<div class="col-lg-12 col-md-12"><label>Bill of Lading Number:</label><input type="text" class="form-control" name="billNumber" placeholder="Enter Bill of Lading Number here..." required></div>';
+        echo '<div class="col-lg-6 col-md-6"><label>Bill of Lading Number:</label><input type="text" class="form-control" name="billNumber" placeholder="Enter Bill of Lading Number here..." required></div>';
+        echo '<div class="col-lg-6 col-md-6"><label>Shipping Line:</label><input type="text" class="form-control" name="shippingLine" placeholder="Enter Shipping Line here..." required></div>';
         echo '</div><br>';
         echo '<div class="row">';
         echo '<div class="col-lg-6 col-md-6"><label>Bill of Lading ID:</label>';
@@ -70,7 +71,7 @@
     } else if($action == 'Edit') {
         $billId = mysqli_real_escape_string($connection, $_POST['billId']);
 
-        $query = mysqli_query($connection, "SELECT * FROM ladings WHERE Bill_of_Lading_ID='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "SELECT * FROM ladings WHERE Bill_of_Lading_Number='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
         $scan = mysqli_num_rows($query);
 
         if($scan == 1) {
@@ -82,7 +83,8 @@
             echo '<form id="edit-bill-of-lading-form">';
             echo '<input type="hidden" name="billId" value="' . $billId . '">';
             echo '<div class="row">';
-            echo '<div class="col-lg-12 col-md-12"><label>Bill of Lading Number:</label><input type="text" class="form-control" name="billNumber" value="' . $row['Bill_of_Lading_Number'] . '" placeholder="Enter Bill of Lading Number here..." required></div>';
+            echo '<div class="col-lg-6 col-md-6"><label>Bill of Lading Number:</label><input type="text" class="form-control" name="billNumber" value="' . $row['Bill_of_Lading_Number'] . '" placeholder="Enter Bill of Lading Number here..." required></div>';
+            echo '<div class="col-lg-6 col-md-6"><label>Shipping Line:</label><input type="text" class="form-control" name="shippingLine" placeholder="Enter Shipping Line here..." value="' . $row['Shipping_Line'] . '" required></div>';
             echo '</div><br>';
             echo '<div class="row">';
             echo '<div class="col-lg-6 col-md-6"><label>Bill of Lading ID:</label>';
@@ -176,6 +178,7 @@
         $loopCount = 0;
 
         $billNumber = mysqli_real_escape_string($connection, $_POST['billNumber']);
+        $shippingLine = mysqli_real_escape_string($connection, $_POST['shippingLine']);
         $newBill = mysqli_real_escape_string($connection, $_POST['newBill']);
         $consignee = mysqli_real_escape_string($connection, $_POST['consignee']);
         $exportReferences = mysqli_real_escape_string($connection, $_POST['exportReferences']);
@@ -194,15 +197,16 @@
                 $loopCount += 1;
 
                 if($loopCount % 3 == 0) {
-                    array_push($mark, mysqli_real_escape_string($connection, $post));
-                } else if($loopCount % 3 == 1) {
-                    array_push($quantity, mysqli_real_escape_string($connection, $post));
-                } else {
                     array_push($description, mysqli_real_escape_string($connection, $post));
+                } else if($loopCount % 3 == 1) {
+                    array_push($mark, mysqli_real_escape_string($connection, $post));
+                } else {
+                    array_push($quantity, mysqli_real_escape_string($connection, $post));
                 }
             }
         }
 
+        array_shift($mark);
         array_shift($mark);
         array_shift($mark);
         array_shift($mark);
@@ -226,7 +230,7 @@
             $quantity = json_encode($quantity);
             $description = json_encode($description);
 
-            $query = mysqli_query($connection, "INSERT INTO ladings (Bill_of_Lading_Number, Bill_of_Lading_ID, Consignee, Export_References, Item_Mark, Item_Quantity, Item_Description, Date_of_Transaction, Date_Added, Gross_Weight, Measurement, Package_Count) VALUES ('$billNumber', '$newBill', '$consignee', '$exportReferences', '$mark', '$quantity', '$description', '$billDate', '$datetime', '$grossWeight', '$measurement', '$packageCount')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+            $query = mysqli_query($connection, "INSERT INTO ladings (Bill_of_Lading_Number, Bill_of_Lading_ID, Shipping_Line, Consignee, Export_References, Item_Mark, Item_Quantity, Item_Description, Date_of_Transaction, Date_Added, Gross_Weight, Measurement, Package_Count) VALUES ('$billNumber', '$newBill', '$shippingLine', '$consignee', '$exportReferences', '$mark', '$quantity', '$description', '$billDate', '$datetime', '$grossWeight', '$measurement', '$packageCount')") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
             if($query) {
                 echo 'You successfully created a new bill of lading.';
@@ -245,6 +249,7 @@
         $billId = mysqli_real_escape_string($connection, $_POST['billId']);
         $billNumber = mysqli_real_escape_string($connection, $_POST['billNumber']);
         $newBill = mysqli_real_escape_string($connection, $_POST['newBill']);
+        $shippingLine = mysqli_real_escape_string($connection, $_POST['shippingLine']);
         $consignee = mysqli_real_escape_string($connection, $_POST['consignee']);
         $exportReferences = mysqli_real_escape_string($connection, $_POST['exportReferences']);
         $dateMonth = mysqli_real_escape_string($connection, $_POST['dateMonth']);
@@ -262,15 +267,16 @@
                 $loopCount += 1;
 
                 if($loopCount % 3 == 0) {
-                    array_push($mark, mysqli_real_escape_string($connection, $post));
-                } else if($loopCount % 3 == 1) {
-                    array_push($quantity, mysqli_real_escape_string($connection, $post));
-                } else {
                     array_push($description, mysqli_real_escape_string($connection, $post));
+                } else if($loopCount % 3 == 1) {
+                    array_push($mark, mysqli_real_escape_string($connection, $post));
+                } else {
+                    array_push($quantity, mysqli_real_escape_string($connection, $post));
                 }
             }
         }
 
+        array_shift($mark);
         array_shift($mark);
         array_shift($mark);
         array_shift($mark);
@@ -291,7 +297,7 @@
         $quantity = json_encode($quantity);
         $description = json_encode($description);
 
-        $query = mysqli_query($connection, "UPDATE ladings SET Bill_of_Lading_Number='$billNumber', Bill_of_Lading_ID='$newBill', Consignee='$consignee', Export_References='$exportReferences', Item_Mark='$mark', Item_Quantity='$quantity', Item_Description='$description', Date_of_Transaction='$billDate', Gross_Weight='$grossWeight', Measurement='$measurement', Package_Count='$packageCount' WHERE Bill_of_Lading_ID='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE ladings SET Bill_of_Lading_Number='$billNumber', Bill_of_Lading_ID='$newBill', Shipping_Line='$shippingLine', Consignee='$consignee', Export_References='$exportReferences', Item_Mark='$mark', Item_Quantity='$quantity', Item_Description='$description', Date_of_Transaction='$billDate', Gross_Weight='$grossWeight', Measurement='$measurement', Package_Count='$packageCount' WHERE Bill_of_Lading_Number='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Bill of Lading successfully modified.';
@@ -301,7 +307,7 @@
     } else if($action == 'Delete') {
         $billId = mysqli_real_escape_string($connection, $_POST['billId']);
 
-        $query = mysqli_query($connection, "UPDATE ladings SET Status='Inactive' WHERE Bill_of_Lading_ID='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+        $query = mysqli_query($connection, "UPDATE ladings SET Status='Inactive' WHERE Bill_of_Lading_Number='$billId'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
         if($query) {
             echo 'Bill of Lading successfully deleted.';

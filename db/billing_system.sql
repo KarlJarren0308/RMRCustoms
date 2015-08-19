@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2015 at 08:35 PM
+-- Generation Time: Aug 19, 2015 at 11:34 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -137,6 +137,7 @@ INSERT INTO `companies` (`Company_ID`, `Company_Name`, `Company_Address`, `Compa
 CREATE TABLE IF NOT EXISTS `ladings` (
   `Bill_of_Lading_Number` char(25) NOT NULL,
   `Bill_of_Lading_ID` char(15) NOT NULL,
+  `Shipping_Line` char(150) NOT NULL,
   `Consignee` char(250) NOT NULL,
   `Export_References` char(250) NOT NULL,
   `Item_Mark` varchar(2500) NOT NULL DEFAULT '[]',
@@ -154,8 +155,9 @@ CREATE TABLE IF NOT EXISTS `ladings` (
 -- Dumping data for table `ladings`
 --
 
-INSERT INTO `ladings` (`Bill_of_Lading_Number`, `Bill_of_Lading_ID`, `Consignee`, `Export_References`, `Item_Mark`, `Item_Quantity`, `Item_Description`, `Date_of_Transaction`, `Status`, `Date_Added`, `Gross_Weight`, `Measurement`, `Package_Count`) VALUES
-('TESTLADING101', '1', 'Jinri Choi', 'None', '["1"]', '["2"]', '["3"]', '2015-08-19', 'Active', '2015-08-19', '50', '15', '10');
+INSERT INTO `ladings` (`Bill_of_Lading_Number`, `Bill_of_Lading_ID`, `Shipping_Line`, `Consignee`, `Export_References`, `Item_Mark`, `Item_Quantity`, `Item_Description`, `Date_of_Transaction`, `Status`, `Date_Added`, `Gross_Weight`, `Measurement`, `Package_Count`) VALUES
+('TESTLADING101', '1', 'LBC', 'Jinri Choi', 'None', '["1"]', '["2"]', '["3"]', '2015-08-19', 'Active', '2015-08-19', '50', '15', '10'),
+('TESTLADING102', '1', '', 'Jinri Choi', 'None', '["10"]', '["20"]', '["30"]', '2015-08-19', 'Active', '2015-08-19', '150', '115', '110');
 
 -- --------------------------------------------------------
 
@@ -168,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `Account_Username` char(10) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `Log` char(255) NOT NULL,
   `Log_Datetime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
@@ -405,7 +407,15 @@ INSERT INTO `logs` (`Log_ID`, `Account_Username`, `Log`, `Log_Datetime`) VALUES
 (228, 'admin', 'accessed the Companies Module.', '2015-08-19 02:23:40'),
 (229, 'admin', 'accessed the Clients Module.', '2015-08-19 02:23:52'),
 (230, 'admin', 'accessed the Transactions Module.', '2015-08-19 02:24:41'),
-(231, 'admin', 'has logged out.', '2015-08-19 02:35:10');
+(231, 'admin', 'has logged out.', '2015-08-19 02:35:10'),
+(232, 'admin', 'has logged in.', '2015-08-19 15:54:14'),
+(233, 'admin', 'accessed the Transactions Module.', '2015-08-19 15:54:30'),
+(234, 'admin', 'accessed the Bill of Lading Module.', '2015-08-19 16:04:38'),
+(235, 'admin', 'accessed the Clients Module.', '2015-08-19 17:03:24'),
+(236, 'admin', 'accessed the Transactions Module.', '2015-08-19 17:03:33'),
+(237, 'admin', 'accessed the Bill of Lading Module.', '2015-08-19 17:12:46'),
+(238, 'admin', 'accessed the Transactions Module.', '2015-08-19 17:33:50'),
+(239, 'admin', 'has logged out.', '2015-08-19 17:34:19');
 
 -- --------------------------------------------------------
 
@@ -577,7 +587,7 @@ MODIFY `Company_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=232;
+MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=240;
 --
 -- AUTO_INCREMENT for table `trucks`
 --

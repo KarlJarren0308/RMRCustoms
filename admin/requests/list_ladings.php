@@ -22,7 +22,7 @@
             echo '<td>' . $name . '</td>';
             echo '<td>' . $row['Consignee'] . '</td>';
             echo '<td>' . date('F d, Y', strtotime($row['Date_of_Transaction'])) . '</td>';
-            echo '<td align="center"><button class="btn btn-xs btn-success" data-execute="Edit Lading Info" data-var="' . $row['Bill_of_Lading_ID'] . '"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit Info</button>&nbsp;<button class="btn btn-xs btn-danger" data-execute="Delete Lading Info" data-var="' . $row['Bill_of_Lading_ID'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Lading</button></td>';
+            echo '<td align="center"><button class="btn btn-xs btn-success" data-execute="Edit Lading Info" data-var="' . $row['Bill_of_Lading_Number'] . '"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit Info</button>&nbsp;<button class="btn btn-xs btn-danger" data-execute="Delete Lading Info" data-var="' . $row['Bill_of_Lading_Number'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Lading</button></td>';
             echo '</tr>';
         }
     } else {
