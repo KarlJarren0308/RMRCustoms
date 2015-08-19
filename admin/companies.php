@@ -49,7 +49,7 @@
                 <tr class="bg-dark">
                     <th width="5%">ID</th>
                     <th>Company Name</th>
-                    <th width="40%"></th>
+                    <th width="380"></th>
                 </tr>
             </thead>
             <tbody></tbody>

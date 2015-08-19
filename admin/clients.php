@@ -48,9 +48,9 @@
             <thead>
                 <tr class="bg-dark">
                     <th width="5%">ID</th>
-                    <th width="30%">Client Name</th>
-                    <th width="25%">Company Name</th>
-                    <th width="40%"></th>
+                    <th>Client Name</th>
+                    <th width="20%">Company Name</th>
+                    <th width="380"></th>
                 </tr>
             </thead>
             <tbody></tbody>
