@@ -255,6 +255,78 @@ function fillTable($file, $search) {
                     });
 
                     return false;
+                } else if(dataExecute == 'View Charges') {
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+
+                    $.ajax({
+                        url: 'requests/track_delivery.php',
+                        method: 'GET',
+                        data: {
+                            currency: 'peso',
+                            track: dataVar
+                        },
+                        success: function(response) {
+                            $('#modal .modal-title').html('Delivery Information');
+                            $('#modal .modal-body').html(response);
+
+                            $('.change-currency').click(function() {
+                                var currency;
+                                var dataCurrency = $(this).attr('data-currency');
+                                var trackID = $(this).attr('data-waybill');
+
+                                if(dataCurrency == 'peso') {
+                                    currency = 'peso';
+                                } else if(dataCurrency == 'dollar') {
+                                    currency = 'dollar';
+                                }
+
+                                $('#modal').modal('hide');
+
+                                setTimeout(function() {
+                                    showLoader('modal');
+                                    $('#modal').modal({
+                                        backdrop: 'static'
+                                    });
+                                
+                                    $.ajax({
+                                        url: 'requests/track_delivery.php',
+                                        method: 'GET',
+                                        data: {
+                                            track: trackID,
+                                            currency: currency
+                                        },
+                                        success: function(response) {
+                                            $('#modal .modal-title').html('Delivery Information');
+                                            $('#modal .modal-body').html(response);
+
+                                            $('.change-currency').click(function() {
+                                                $('#track-form').submit();
+                                            });
+
+                                            if(response == 'Please enter your waybill number first.' || response == 'Transaction not found. Please check your waybill number and try again.') {
+                                                setTimeout(function() {
+                                                    $('#modal').modal('hide');
+                                                }, 2000);
+                                            }
+                                        }
+                                    });
+
+                                    return false;
+                                }, 1500);
+                            });
+
+                            if(response == 'Please enter your waybill number first.' || response == 'Transaction not found. Please check your waybill number and try again.') {
+                                setTimeout(function() {
+                                    $('#modal').modal('hide');
+                                }, 2000);
+                            }
+                        }
+                    });
+
+                    return false;
                 } else if(dataExecute == 'Hide Transaction') {
                     var dVar;
 

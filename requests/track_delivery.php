@@ -365,12 +365,7 @@
                 echo '<h3 class="no-margin">Service Charges ' . $currencyButton . '</h3><br>';
                 echo '<table class="table table-hover table-striped">';
                 echo '<tbody>';
-                echo '<tr>';
-
-                $warehouseEntry = (double) $row['Credit'] + (double) $row['Debit'];
-
-                $warehouseEntry = $warehouseEntry / $currencyRate;
-
+                
                 $customs = 0.02;
                 $vat = 0.12;
                 $rateOfDuty = 0.15;
@@ -380,23 +375,38 @@
                 $wharfageCharges = 519.35;
                 $importProcessingFee = 750;
 
-                $dutiableValuePaid = (($warehouseEntry + ($warehouseEntry * $customs)) + $shippingLines) * $currencyRate;
-                $customerDuty = $dutiableValuePaid * $rateOfDuty;
-                $BrokerageFee = (($dutiableValuePaid - getBrokerageFee($dutiableValuePaid)) * 0.00125) + getBrokerageRate($dutiableValuePaid);
-                $grossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
+                if($row['Debit'] != 0) {
+                    $warehouseEntry = (double) $row['Debit'];
+                    $warehouseEntry = $warehouseEntry / $currencyRate;
 
-                if($_GET['currency'] == 'dollar') {
-                    $dutiableValuePaid = $dutiableValuePaid / $currencyRate;
-                    $customerDuty = $customerDuty / $currencyRate;
-                    $BrokerageFee = $BrokerageFee / $currencyRate;
-                    $grossTotal = $grossTotal / $currencyRate;
+                    $dutiableValuePaid = (($warehouseEntry + ($warehouseEntry * $customs)) + $shippingLines) * $currencyRate;
+                    $customerDuty = $dutiableValuePaid * $rateOfDuty;
+                    $BrokerageFee = (($dutiableValuePaid - getBrokerageFee($dutiableValuePaid)) * 0.00125) + getBrokerageRate($dutiableValuePaid);
+                    $grossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
 
-                    $customerDocumentaryStamp = $customerDocumentaryStamp / $currencyRate;
-                    $arastreCharges = $arastreCharges / $currencyRate;
-                    $wharfageCharges = $wharfageCharges / $currencyRate;
-                    $importProcessingFee = $importProcessingFee / $currencyRate;
+                    if($_GET['currency'] == 'dollar') {
+                        $dutiableValuePaid = $dutiableValuePaid / $currencyRate;
+                        $customerDuty = $customerDuty / $currencyRate;
+                        $BrokerageFee = $BrokerageFee / $currencyRate;
+                        $grossTotal = $grossTotal / $currencyRate;
+
+                        $customerDocumentaryStamp = $customerDocumentaryStamp / $currencyRate;
+                        $arastreCharges = $arastreCharges / $currencyRate;
+                        $wharfageCharges = $wharfageCharges / $currencyRate;
+                        $importProcessingFee = $importProcessingFee / $currencyRate;
+                    }
+                } else {
+                    $dutiableValuePaid = 0;
+                    $customerDuty = 0;
+                    $BrokerageFee = 0;
+                    $grossTotal = 0;
+                    $customerDocumentaryStamp = 0;
+                    $arastreCharges = 0;
+                    $wharfageCharges = 0;
+                    $importProcessingFee = 0;
                 }
 
+                echo '<tr>';
                 echo '<td width="30%" align="right">Dutiable Value Paid:</td><td>' . $currencySymbol . number_format($dutiableValuePaid, 2, '.', ',') . '</td>';
                 echo '</tr><tr>';
                 echo '<td align="right">Customer Duty:</td><td>' . $currencySymbol . number_format($customerDuty, 2, '.', ',') . '</td>';

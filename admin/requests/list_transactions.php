@@ -35,6 +35,7 @@
             echo '<td>&#8369; ' . number_format($row['Debit'], 2, '.', '') . '</td>';
             echo '<td align="center">';
             echo '<button class="btn btn-primary btn-xs btn-block" data-execute="View Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;View Information</button>';
+            echo '<button class="btn btn-info btn-xs btn-block" data-execute="View Charges" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;View Charges</button>';
             
             if($row['Display'] == 'Show') {
                 echo '<button class="btn btn-warning btn-xs btn-block" data-execute="' . $disp . ' Transaction" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-eye-' . $eye . '"></span>&nbsp;&nbsp;' . $disp . ' Transaction to Client</button>';
