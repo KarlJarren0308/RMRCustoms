@@ -371,8 +371,18 @@
                 $rateOfDuty = 0.15;
                 $shippingLines = 300;
                 $customerDocumentaryStamp = 265;
-                $arastreCharges = 3727;
-                $wharfageCharges = 519.35;
+
+                if($row['Container_Size'] == '20 feet') {
+                    $arastreCharges = 4099.70;
+                    $wharfageCharges = 571.29;
+                } else if($row['Container_Size'] == '40 feet') {
+                    $arastreCharges = 9406.10;
+                    $wharfageCharges = 856.96;
+                } else {
+                    $arastreCharges = 0;
+                    $wharfageCharges = 0;
+                }
+
                 $importProcessingFee = 750;
 
                 if($row['Debit'] != 0) {
@@ -383,6 +393,7 @@
                     $customerDuty = $dutiableValuePaid * $rateOfDuty;
                     $BrokerageFee = (($dutiableValuePaid - getBrokerageFee($dutiableValuePaid)) * 0.00125) + getBrokerageRate($dutiableValuePaid);
                     $grossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
+                    $grossTotal = ($grossTotal * 0.15) + $grossTotal;
 
                     if($_GET['currency'] == 'dollar') {
                         $dutiableValuePaid = $dutiableValuePaid / $currencyRate;
