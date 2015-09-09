@@ -6,6 +6,9 @@
     $stampsOnCarrierBonds = isset($_POST['stampsOnCarrierBonds']) && is_numeric($_POST['stampsOnCarrierBonds']) ? $_POST['stampsOnCarrierBonds'] : 0;
     $stampsOnChargeableBond = isset($_POST['stampsOnChargeableBond']) && is_numeric($_POST['stampsOnChargeableBond']) ? $_POST['stampsOnChargeableBond'] : 0;
     $stampsOnExportDeclaration = isset($_POST['stampsOnExportDeclaration']) && is_numeric($_POST['stampsOnExportDeclaration']) ? $_POST['stampsOnExportDeclaration'] : 0;
+    $birExemption = isset($_POST['birExemption']) && is_numeric($_POST['birExemption']) ? $_POST['birExemption'] : 0;
+    $documentation = isset($_POST['documentation']) && is_numeric($_POST['documentation']) ? $_POST['documentation'] : 0;
+    $processing = isset($_POST['processing']) && is_numeric($_POST['processing']) ? $_POST['processing'] : 0;
 
     $xml = simplexml_load_file('../assets/data/xml/charges.xml');
 
@@ -16,6 +19,9 @@
     $xml->charge[4]['value'] = $stampsOnCarrierBonds;
     $xml->charge[5]['value'] = $stampsOnChargeableBond;
     $xml->charge[6]['value'] = $stampsOnExportDeclaration;
+    $xml->charge[7]['value'] = $birExemption;
+    $xml->charge[8]['value'] = $documentation;
+    $xml->charge[9]['value'] = $processing;
 
     $xml->asXML('../assets/data/xml/charges.xml');
 

@@ -7,7 +7,7 @@
                 $configXML = fopen('../assets/data/xml/charges.xml', 'w');
 
                 fwrite($configXML, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL);
-                fwrite($configXML, '<charges><charge name="stampsOnEntry" value="10"/><charge name="customsStorage" value="10"/><charge name="xerox" value="10"/><charge name="notaryFee" value="10"/><charge name="stampsOnCarrierBonds" value="10"/><charge name="stampsOnChargeableBond" value="10"/><charge name="stampsOnExportDeclaration" value="10"/></charges>' . PHP_EOL);
+                fwrite($configXML, '<charges><charge name="stampsOnEntry" value="10"/><charge name="customsStorage" value="10"/><charge name="xerox" value="10"/><charge name="notaryFee" value="10"/><charge name="stampsOnCarrierBonds" value="10"/><charge name="stampsOnChargeableBond" value="10"/><charge name="stampsOnExportDeclaration" value="10"/><charge name="birExemption" value="10"/><charge name="documentation" value="10"/><charge name="processing" value="10"/></charges>' . PHP_EOL);
                 fclose($configXML);
             }
 

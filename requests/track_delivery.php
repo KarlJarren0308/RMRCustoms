@@ -104,6 +104,10 @@
                 echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
                 echo '</tr>';
                 echo '<tr>';
+                echo '<td width="30%" align="right"><strong>Container Size:</strong></td>';
+                echo '<td>' . $row['Container_Size'] . '</td>';
+                echo '</tr>';
+                echo '<tr>';
                 echo '<td width="30%" align="right"><strong>Destination Address:</strong></td>';
                 echo '<td>' . $row['Delivery_Location'] . '</td>';
                 echo '</tr>';
@@ -314,6 +318,9 @@
                     $stampsOnCarrierBonds = (double) $rmrCharges->getChargeValue('stampsOnCarrierBonds');
                     $stampsOnChargeableBond = (double) $rmrCharges->getChargeValue('stampsOnChargeableBond');
                     $stampsOnExportDeclaration = (double) $rmrCharges->getChargeValue('stampsOnExportDeclaration');
+                    $birExemption = (double) $rmrCharges->getChargeValue('birExemption');
+                    $documentation = (double) $rmrCharges->getChargeValue('documentation');
+                    $processing = (double) $rmrCharges->getChargeValue('processing');
                 } else if($_GET['currency'] == 'dollar') {
                     $currencySymbol = 'USD ';
 
@@ -324,6 +331,9 @@
                     $stampsOnCarrierBonds = (double) $rmrCharges->getChargeValue('stampsOnCarrierBonds') / $currencyRate;
                     $stampsOnChargeableBond = (double) $rmrCharges->getChargeValue('stampsOnChargeableBond') / $currencyRate;
                     $stampsOnExportDeclaration = (double) $rmrCharges->getChargeValue('stampsOnExportDeclaration') / $currencyRate;
+                    $birExemption = (double) $rmrCharges->getChargeValue('birExemption') / $currencyRate;
+                    $documentation = (double) $rmrCharges->getChargeValue('documentation') / $currencyRate;
+                    $processing = (double) $rmrCharges->getChargeValue('processing') / $currencyRate;
                 }
 
                 echo '<div class="tab-pane" id="advances">';
@@ -353,6 +363,15 @@
                 echo '</tr><tr>';
                 echo '<td align="right">Stamps on Export Declaration:</td>';
                 echo '<td>' . $currencySymbol . number_format($stampsOnExportDeclaration, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">BIR Exemption:</td>';
+                echo '<td>' . $currencySymbol . number_format($birExemption, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">Documentation:</td>';
+                echo '<td>' . $currencySymbol . number_format($documentation, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">Processing:</td>';
+                echo '<td>' . $currencySymbol . number_format($processing, 2, '.', ',') . '</td>';
                 echo '</tr>';
                 echo '</tbody>';
                 echo '</table>';
@@ -439,7 +458,8 @@
                 echo '</div>';
                 echo '</div>';
 
-                $grandTotal = $stampsOnEntry + $customsStorage + $xerox + $notaryFee + $stampsOnCarrierBonds + $stampsOnChargeableBond + $stampsOnExportDeclaration + $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
+                $newGrossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
+                $grandTotal = $stampsOnEntry + $customsStorage + $xerox + $notaryFee + $stampsOnCarrierBonds + $stampsOnChargeableBond + $stampsOnExportDeclaration + $newGrossTotal + $birExemption + $documentation + $processing + ($newGrossTotal * 0.15);
 
                 echo '<div class="tab-pane" id="grande">';
                 echo '<div class="container-fluid">';
@@ -468,6 +488,15 @@
                 echo '</tr><tr>';
                 echo '<td align="right">Stamps on Export Declaration:</td>';
                 echo '<td>' . $currencySymbol . number_format($stampsOnExportDeclaration, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">BIR Exemption:</td>';
+                echo '<td>' . $currencySymbol . number_format($birExemption, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">Documentation:</td>';
+                echo '<td>' . $currencySymbol . number_format($documentation, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
+                echo '<td align="right">Processing:</td>';
+                echo '<td>' . $currencySymbol . number_format($processing, 2, '.', ',') . '</td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td align="right">Dutiable Value Paid:</td>';

@@ -95,6 +95,27 @@
                                 <input type="text" class="form-control" name="stampsOnExportDeclaration" placeholder="Enter Stamps on Export Declaration here..." value="<?php echo $rmrCharges->getChargeValue('stampsOnExportDeclaration'); ?>">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>BIR Exemption [In Philippine Peso]:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">&#8369;</div>
+                                <input type="text" class="form-control" name="birExemption" placeholder="Enter BIR Exemption here..." value="<?php echo $rmrCharges->getChargeValue('birExemption'); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Documentation [In Philippine Peso]:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">&#8369;</div>
+                                <input type="text" class="form-control" name="documentation" placeholder="Enter Documentation here..." value="<?php echo $rmrCharges->getChargeValue('documentation'); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Processing [In Philippine Peso]:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">&#8369;</div>
+                                <input type="text" class="form-control" name="processing" placeholder="Enter Processing here..." value="<?php echo $rmrCharges->getChargeValue('processing'); ?>">
+                            </div>
+                        </div>
                         <div class="text-right">
                             <input type="submit" class="btn btn-primary" value="Save Changes">
                         </div>
