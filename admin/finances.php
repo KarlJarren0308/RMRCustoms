@@ -22,7 +22,6 @@
     <div class="col-lg-3 col-md-3 fixed-position">
         <div class="list-group round-corner shadow">
             <a href="clients.php" class="list-group-item" data-log="Clients Module" data-toggle="popover" title="Clients" data-content="Displays all client information. This module also allows you to add, edit, or delete client information."><h4 class="no-margin">Clients</h4></a>
-            <a href="companies.php" class="list-group-item" data-log="Companies Module" data-toggle="popover" title="Companies" data-content="Displays all company information. This module also allows you to add, edit, or delete company information."><h4 class="no-margin">Companies</h4></a>
             <a href="ladings.php" class="list-group-item" data-log="Bill of Lading Module" data-toggle="popover" title="Bill of Lading" data-content="Displays all bill of lading made. This module also allows you to create new bill of lading."><h4 class="no-margin">Bill of Lading</h4></a>
             <a href="transactions.php" class="list-group-item" data-log="Transactions Module" data-toggle="popover" title="Transactions" data-content="Displays all active and inactive transactions made. This module also allows you to create new transactions."><h4 class="no-margin">Transactions</h4></a>
             <a href="trucks.php" class="list-group-item" data-log="Trucks Module" data-toggle="popover" title="Trucks" data-content="Displays information about the trucks."><h4 class="no-margin">Trucks</h4></a>
@@ -42,6 +41,17 @@
     </div>
     <div class="col-lg-9 col-lg-offset-3 col-md-9 col-md-offset-3 fg-white auto-next-line">
         <div class="col-lg-12 col-md-12 text-center">
+            <div class="navbar navbar-inverse navbar" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand">Delivery Report</a>
+                    </div>
+                    <div class="navbar-right">
+                        <a id="delivery-report-button" class="btn btn-primary navbar-btn">Generate Report</a>
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
             <div class="navbar navbar-inverse navbar" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -70,12 +80,12 @@
                             }
                         ?>
                     </ul>
-                </div>
+                <!--</div>
                 <canvas id="client-income-chart" class="center-block" height="400" width="740"></canvas>
                 <br>
                 <div id="client-income-chart-legend"></div>
                 <br>
-                <div>
+                <div>-->
                     <table id="client-income-table" class="table table-hover table-striped">
                         <thead class="bg-dark">
                             <tr>
@@ -144,11 +154,11 @@
                     </div>
                 </div>
             </div>
-            <div class="text-left col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            <!--<div class="text-left col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <canvas id="total-monthly-income-chart" class="center-block" height="250" width="740"></canvas>
                 <br>
                 <div id="total-monthly-income-chart-legend"></div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

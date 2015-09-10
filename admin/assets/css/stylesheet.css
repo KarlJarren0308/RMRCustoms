@@ -400,3 +400,8 @@
 #client-income-table {
     background-color: white;
 }
+
+#preview-picture {
+    height: 200px;
+    width: 200px;
+}

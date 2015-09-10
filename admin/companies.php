@@ -16,7 +16,6 @@
     <div class="col-lg-3 col-md-3 fixed-position">
         <div class="list-group">
             <a href="clients.php" class="list-group-item" data-log="Clients Module" data-toggle="popover" title="Clients" data-content="Displays all client information. This module also allows you to add, edit, or delete client information."><h4 class="no-margin">Clients</h4></a>
-            <a href="companies.php" class="list-group-item active-dark" data-log="Companies Module" data-toggle="popover" title="Companies" data-content="Displays all company information. This module also allows you to add, edit, or delete company information."><h4 class="no-margin">Companies</h4></a>
             <a href="ladings.php" class="list-group-item" data-log="Bill of Lading Module" data-toggle="popover" title="Bill of Lading" data-content="Displays all bill of lading made. This module also allows you to create new bill of lading."><h4 class="no-margin">Bill of Lading</h4></a>
             <a href="transactions.php" class="list-group-item" data-log="Transactions Module" data-toggle="popover" title="Transactions" data-content="Displays all active and inactive transactions made. This module also allows you to create new transactions."><h4 class="no-margin">Transactions</h4></a>
             <a href="trucks.php" class="list-group-item" data-log="Trucks Module" data-toggle="popover" title="Trucks" data-content="Displays information about the trucks."><h4 class="no-margin">Trucks</h4></a>

@@ -16,8 +16,6 @@
                 <li data-target="#rmr-carousel" data-slide-to="1"></li>
                 <li data-target="#rmr-carousel" data-slide-to="2"></li>
                 <li data-target="#rmr-carousel" data-slide-to="3"></li>
-                <li data-target="#rmr-carousel" data-slide-to="4"></li>
-                <li data-target="#rmr-carousel" data-slide-to="5"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
@@ -31,12 +29,6 @@
                 </div>
                 <div class="item">
                     <img src="assets/img/carousel04.jpg" style="margin-top: -200px; width: 100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/img/carousel05.jpg" style="margin-top: -200px; width: 100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/img/carousel06.jpg" style="margin-top: -200px; width: 100%;">
                 </div>
             </div>
             <a class="left carousel-control" href="#rmr-carousel" role="button" data-slide="prev">

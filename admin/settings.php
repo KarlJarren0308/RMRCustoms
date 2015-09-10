@@ -23,24 +23,24 @@
                 <br>
                 <div class="text-center">
                     <div class="btn-group" data-toggle="buttons">
-                    <?php
-                        if($systemSettings->checkSetting('displayParticles') == 'On') {
-                            echo '<label onclick="configureSetting(\'displayParticles\', \'On\');" data-light-switch="switchOne" class="btn btn-success light-switch-on active">';
-                            echo '<input type="radio" name="displayParticles" autocomplete="off" checked>On';
-                            echo '</label>';
-                            echo '<label onclick="configureSetting(\'displayParticles\', \'Off\');" data-light-switch="switchOne" class="btn btn-default light-switch-off">';
-                            echo '<input type="radio" name="displayParticles" autocomplete="off">Off';
-                            echo '</label>';
-                        } else {
-                            echo '<label onclick="configureSetting(\'displayParticles\', \'On\');" data-light-switch="switchOne" class="btn btn-default light-switch-on">';
-                            echo '<input type="radio" name="displayParticles" autocomplete="off">On';
-                            echo '</label>';
-                            echo '<label onclick="configureSetting(\'displayParticles\', \'Off\');" data-light-switch="switchOne" class="btn btn-danger light-switch-off active">';
-                            echo '<input type="radio" name="displayParticles" autocomplete="off" checked>Off';
-                            echo '</label>';
-                        }
-                    ?>
-                </div>
+                        <?php
+                            if($systemSettings->checkSetting('displayParticles') == 'On') {
+                                echo '<label onclick="configureSetting(\'displayParticles\', \'On\');" data-light-switch="switchOne" class="btn btn-success light-switch-on active">';
+                                echo '<input type="radio" name="displayParticles" autocomplete="off" checked>On';
+                                echo '</label>';
+                                echo '<label onclick="configureSetting(\'displayParticles\', \'Off\');" data-light-switch="switchOne" class="btn btn-default light-switch-off">';
+                                echo '<input type="radio" name="displayParticles" autocomplete="off">Off';
+                                echo '</label>';
+                            } else {
+                                echo '<label onclick="configureSetting(\'displayParticles\', \'On\');" data-light-switch="switchOne" class="btn btn-default light-switch-on">';
+                                echo '<input type="radio" name="displayParticles" autocomplete="off">On';
+                                echo '</label>';
+                                echo '<label onclick="configureSetting(\'displayParticles\', \'Off\');" data-light-switch="switchOne" class="btn btn-danger light-switch-off active">';
+                                echo '<input type="radio" name="displayParticles" autocomplete="off" checked>Off';
+                                echo '</label>';
+                            }
+                        ?>
+                    </div>
                 </div>
                 <br>
             </div>

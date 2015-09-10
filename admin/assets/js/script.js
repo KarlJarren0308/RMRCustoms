@@ -1,3 +1,19 @@
+function countdown() {
+    var count = 5;
+
+    setInterval(function() {
+        $('#countdown').text(count);
+
+        console.log(count);
+
+        if(count == 0) {
+            window.location = '';
+        } else {
+            count--;
+        }
+    }, 1000);
+}
+
 function fillTable($file, $search) {
     $.ajax({
         url: 'requests/' + $file,
@@ -1973,6 +1989,14 @@ $(document).ready(function() {
 
     $('[data-log]').click(function() {
         addLog($(this).attr('data-log'));
+    });
+
+    $('#delivery-report-button').click(function() {
+        $('#modal').modal({
+            backdrop: 'static'
+        });
+        $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
+        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_delivery_report.php" type="application/pdf" internalinstanceid="3">');
     });
 
     $('#generate-client-income-report-button').click(function() {
