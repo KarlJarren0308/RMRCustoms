@@ -41,6 +41,7 @@
                 echo '<button class="btn btn-warning btn-xs btn-block" data-execute="' . $disp . ' Transaction" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-eye-' . $eye . '"></span>&nbsp;&nbsp;' . $disp . ' Transaction to Client</button>';
             }
 
+            echo '<button class="btn btn-success btn-xs btn-block" data-execute="Manage Miscellaneous" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;Manage Miscellaneous</button>';
             echo '<button class="btn btn-success btn-xs btn-block" data-execute="Set Payment" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;Set Payment</button>';
             echo '<button class="btn btn-danger btn-xs btn-block" data-execute="Delete Transaction Info" data-var="' . $row['Waybill_Number'] . '"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Transaction</button>';
             echo '</td>';

@@ -784,6 +784,108 @@ function fillTable($file, $search) {
                     });
 
                     return false;
+                } else if(dataExecute == 'Manage Miscellaneous') {
+                    var dVar;
+
+                    arr = 'View;' + dataVar;
+                    dVar = arr.split(';');
+
+                    showLoader('modal');
+                    $('#modal').modal({
+                        backdrop: 'static'
+                    });
+                    $('#modal .modal-title').html('<h3 class="no-margin">Manage Miscellaneous</h3>');
+                    
+                    $.ajax({
+                        url: 'requests/modify_miscellaneous.php',
+                        method: 'POST',
+                        data: {
+                            action: dVar[0],
+                            waybillNumber: dVar[1]
+                        },
+                        success: function(response) {
+                            $('#modal .modal-body').html(response);
+
+                            $('#set-miscellaneous-button').addClass('disabled').attr('disabled', '');
+
+                            $('.btnMisc').click(function() {
+                                var quantum = $(this).data('var');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+                                
+                                $.ajax({
+                                    url: 'requests/modify_miscellaneous.php',
+                                    method: 'POST',
+                                    data: {
+                                        action: 'Delete',
+                                        quantum: quantum
+                                    },
+                                    success: function(response) {
+                                        $('#prompt .modal-body').html(response);
+
+                                        setTimeout(function() {
+                                            $('#prompt').modal('hide');
+
+                                            if(response == 'Miscellaneous has been removed.') {
+                                                $('#misc-table-body tr[data-id="' + quantum + '"]').remove();
+                                            }
+                                        }, 2000);
+                                    }
+                                });
+
+                                return false;
+                            });
+
+                            $('#set-miscellaneous-locker-button').click(function() {
+                                if($('#set-miscellaneous').val() == '' || $('#set-miscellaneous').val() < 0) {
+                                    // Update Block (Optional)
+                                    alert('Your input is invalid. Please enter a number greater than or equal to 0.');
+                                    $('#set-miscellaneous').val('').focus();
+                                } else {
+                                    $(this).addClass('disabled').attr('disabled', '');
+                                    $('#set-miscellaneous').attr('readonly', '');
+                                    $('#set-miscellaneous-button').removeClass('disabled').removeAttr('disabled');
+                                }
+                            });
+
+                            $('#set-miscellaneous-button').click(function() {
+                                $('#modal').modal('hide');
+
+                                showLoader('prompt');
+                                $('#prompt').modal({
+                                    backdrop: 'static'
+                                });
+
+                                $.ajax({
+                                    url: 'requests/modify_miscellaneous.php',
+                                    method: 'POST',
+                                    data: {
+                                        action: 'Add',
+                                        waybillNumber: dVar[1],
+                                        payment: $('#set-miscellaneous').val()
+                                    },
+                                    success: function(response) {
+                                        $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
+                                        $('#prompt .modal-body').html(response);
+                                        $('#prompt .modal-footer').html('');
+
+                                        setTimeout(function() {
+                                            $('#prompt').modal('hide');
+
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                });
+
+                                return false;
+                            });
+                        }
+                    });
+
+                    return false;
                 } else if(dataExecute == 'Delete Transaction Info') {
                     var dVar;
 

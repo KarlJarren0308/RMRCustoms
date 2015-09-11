@@ -390,6 +390,7 @@
                 $rateOfDuty = 0.15;
                 $shippingLines = 300;
                 $customerDocumentaryStamp = 265;
+                $totalMiscellaneous = 0;
 
                 if($row['Container_Size'] == '20 feet') {
                     $arastreCharges = 4099.70;
@@ -408,11 +409,20 @@
                     $warehouseEntry = (double) $row['Debit'];
                     $warehouseEntry = $warehouseEntry / $currencyRate;
 
+                    $qry = mysqli_query($connection, "SELECT * FROM misc WHERE Waybill_Number='$track'") or die('Failed to connect to Database. Error: ' . mysqli_error($connection));
+                    $scn = mysqli_num_rows($qry);
+
+                    if($scn > 0) {
+                        while($row = mysqli_fetch_array($qry)) {
+                            $totalMiscellaneous += (double) $row['Miscellaneous'];
+                        }
+                    }
+
                     $dutiableValuePaid = (($warehouseEntry + ($warehouseEntry * $customs)) + $shippingLines) * $currencyRate;
                     $customerDuty = $dutiableValuePaid * $rateOfDuty;
                     $BrokerageFee = (($dutiableValuePaid - getBrokerageFee($dutiableValuePaid)) * 0.00125) + getBrokerageRate($dutiableValuePaid);
                     $grossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
-                    $grossTotal = ($grossTotal * 0.15) + $grossTotal;
+                    $grossTotal = ($grossTotal * 0.15) + $grossTotal + $totalMiscellaneous;
 
                     if($_GET['currency'] == 'dollar') {
                         $dutiableValuePaid = $dutiableValuePaid / $currencyRate;
@@ -451,6 +461,8 @@
                 echo '</tr><tr>';
                 echo '<td align="right">Import Processing Fee:</td><td>' . $currencySymbol . number_format($importProcessingFee, 2, '.', ',') . '</td>';
                 echo '</tr><tr>';
+                echo '<td align="right">Miscellaneous:</td><td>' . $currencySymbol . number_format($totalMiscellaneous, 2, '.', ',') . '</td>';
+                echo '</tr><tr>';
                 echo '<td align="right">Total:</td><td>' . $currencySymbol . number_format($grossTotal, 2, '.', ',') . '</td>';
                 echo '</tr>';
                 echo '</tbody>';
@@ -459,7 +471,7 @@
                 echo '</div>';
 
                 $newGrossTotal = $dutiableValuePaid + $customerDuty + $BrokerageFee + $customerDocumentaryStamp + $arastreCharges + $wharfageCharges + $importProcessingFee;
-                $grandTotal = $stampsOnEntry + $customsStorage + $xerox + $notaryFee + $stampsOnCarrierBonds + $stampsOnChargeableBond + $stampsOnExportDeclaration + $newGrossTotal + $birExemption + $documentation + $processing + ($newGrossTotal * 0.15);
+                $grandTotal = $stampsOnEntry + $customsStorage + $xerox + $notaryFee + $stampsOnCarrierBonds + $stampsOnChargeableBond + $stampsOnExportDeclaration + $newGrossTotal + $birExemption + $documentation + $processing + ($newGrossTotal * 0.15) + + $totalMiscellaneous;
 
                 echo '<div class="tab-pane" id="grande">';
                 echo '<div class="container-fluid">';
