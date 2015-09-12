@@ -539,6 +539,10 @@
                 echo '<td>' . $currencySymbol . number_format($importProcessingFee, 2, '.', ',') . '</td>';
                 echo '</tr>';
                 echo '<tr>';
+                echo '<td align="right">Miscellaneous:</td>';
+                echo '<td>' . $currencySymbol . number_format($totalMiscellaneous, 2, '.', ',') . '</td>';
+                echo '</tr>';
+                echo '<tr>';
                 echo '<td align="right">Grand Total:</td>';
                 echo '<td>' . $currencySymbol . number_format($grandTotal, 2, '.', ',') . '</td>';
                 echo '</tr>';

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2015 at 11:34 AM
+-- Generation Time: Sep 12, 2015 at 02:41 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -43,10 +43,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 --
 
 INSERT INTO `accounts` (`Account_Username`, `Account_Password`, `Account_Type`, `First_Name`, `Middle_Name`, `Last_Name`, `Gender`, `Status`, `User_Image`) VALUES
-('AlyssInWonderland', 'asd123456', 'Clerk', 'Alyssa Marie', 'Pielago', 'Yaun', 'Female', 'Active', 'alyssa.jpg'),
-('admin', 'admin', 'Administrator', 'Akihiko', '', 'Kayaba', 'Male', 'Active', 'kayaba.jpg'),
-('dummy', 'dummy', 'Clerk', 'dummy', 'dummy', 'dummy', 'Male', 'Active', 'unknown.png'),
-('KaaruMakuzo', 'jinjinko', 'President', 'Kaaru', '', 'Makuzo', 'Male', 'Active', 'sulli.png');
+('admin', 'admin', 'Administrator', 'Akihiko', '', 'Kayaba', 'Male', 'Active', 'admin.jpg'),
+('karuzo', 'asd123', 'Administrator', 'Kaaru', '', 'Makuzo', 'Male', 'Active', 'unknown.png');
 
 -- --------------------------------------------------------
 
@@ -170,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `Account_Username` char(10) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `Log` char(255) NOT NULL,
   `Log_Datetime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=309 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
@@ -415,7 +413,96 @@ INSERT INTO `logs` (`Log_ID`, `Account_Username`, `Log`, `Log_Datetime`) VALUES
 (236, 'admin', 'accessed the Transactions Module.', '2015-08-19 17:03:33'),
 (237, 'admin', 'accessed the Bill of Lading Module.', '2015-08-19 17:12:46'),
 (238, 'admin', 'accessed the Transactions Module.', '2015-08-19 17:33:50'),
-(239, 'admin', 'has logged out.', '2015-08-19 17:34:19');
+(239, 'admin', 'has logged out.', '2015-08-19 17:34:19'),
+(240, 'admin', 'has logged in.', '2015-08-19 18:16:12'),
+(241, 'admin', 'accessed the Clients Module.', '2015-08-19 18:16:16'),
+(242, 'admin', 'accessed the Companies Module.', '2015-08-19 18:17:08'),
+(243, '', 'has logged out.', '2015-08-19 19:02:41'),
+(244, 'admin', 'has logged in.', '2015-08-19 19:20:48'),
+(245, 'admin', 'accessed the Clients Module.', '2015-08-19 19:20:52'),
+(246, '', 'has logged out.', '2015-08-19 20:38:05'),
+(247, 'admin', 'has logged in.', '2015-08-23 17:31:14'),
+(248, 'admin', 'accessed the Transactions Module.', '2015-08-23 17:31:18'),
+(249, 'admin', 'accessed the Bill of Lading Module.', '2015-08-23 17:31:19'),
+(250, 'admin', 'accessed the Transactions Module.', '2015-08-23 17:31:20'),
+(251, 'admin', 'has logged out.', '2015-08-23 17:31:42'),
+(252, 'admin', 'has logged in.', '2015-08-25 02:58:56'),
+(253, 'admin', 'accessed the Transactions Module.', '2015-08-25 02:59:03'),
+(254, 'admin', 'has logged in.', '2015-08-25 16:17:39'),
+(255, 'admin', 'accessed the Transactions Module.', '2015-08-25 16:21:12'),
+(256, 'admin', 'has logged in.', '2015-08-31 17:05:00'),
+(257, 'admin', 'has logged in.', '2015-09-01 20:49:13'),
+(258, 'admin', 'has logged in.', '2015-09-01 21:04:37'),
+(259, 'admin', 'accessed the Transactions Module.', '2015-09-01 21:16:27'),
+(260, 'admin', 'accessed the Company Fix Rate Charges Module.', '2015-09-02 09:08:41'),
+(261, 'admin', 'accessed the Transactions Module.', '2015-09-02 09:09:24'),
+(262, 'admin', 'accessed the Transactions Module.', '2015-09-02 18:41:29'),
+(263, 'admin', 'has logged in.', '2015-09-08 19:26:28'),
+(264, 'admin', 'has logged in.', '2015-09-08 19:28:15'),
+(265, 'admin', 'has logged out.', '2015-09-08 19:57:27'),
+(266, 'admin', 'has logged in.', '2015-09-09 06:57:53'),
+(267, 'admin', 'accessed the Company Fix Rate Charges Module.', '2015-09-09 07:02:42'),
+(268, 'admin', 'accessed the Users Module.', '2015-09-09 09:03:05'),
+(269, 'admin', 'accessed the Company Fix Rate Charges Module.', '2015-09-09 09:03:06'),
+(270, 'admin', 'accessed the Transactions Module.', '2015-09-09 09:35:29'),
+(271, 'admin', 'accessed the Company Fix Rate Charges Module.', '2015-09-09 09:42:19'),
+(272, 'admin', 'has logged out.', '2015-09-09 09:57:05'),
+(273, 'admin', 'has logged in.', '2015-09-09 17:44:53'),
+(274, 'admin', 'accessed the Finances Module.', '2015-09-09 17:45:03'),
+(275, 'admin', 'accessed the Transactions Module.', '2015-09-09 17:46:12'),
+(276, 'admin', 'has logged in.', '2015-09-11 01:02:55'),
+(277, 'admin', 'accessed the Users Module.', '2015-09-11 01:02:58'),
+(278, 'admin', 'has logged out.', '2015-09-11 01:59:07'),
+(279, 'admin', 'has logged in.', '2015-09-11 01:59:11'),
+(280, '', 'has logged out.', '2015-09-11 03:23:11'),
+(281, 'admin', 'has logged in.', '2015-09-11 03:23:15'),
+(282, 'admin', 'has logged out.', '2015-09-11 03:27:59'),
+(283, 'admin', 'has logged in.', '2015-09-11 03:28:32'),
+(284, 'admin', 'has logged out.', '2015-09-11 04:16:27'),
+(285, 'admin', 'has logged in.', '2015-09-11 04:16:29'),
+(286, 'admin', 'has logged out.', '2015-09-11 04:17:25'),
+(287, 'admin', 'has logged in.', '2015-09-11 04:17:28'),
+(288, 'admin', 'has logged out.', '2015-09-11 04:18:46'),
+(289, 'admin', 'has logged in.', '2015-09-11 04:18:49'),
+(290, 'admin', 'has logged out.', '2015-09-11 04:19:30'),
+(291, 'admin', 'has logged in.', '2015-09-11 04:19:33'),
+(292, 'admin', 'has logged out.', '2015-09-11 04:20:13'),
+(293, 'admin', 'has logged in.', '2015-09-11 04:20:15'),
+(294, 'admin', 'has logged out.', '2015-09-11 04:21:27'),
+(295, 'admin', 'has logged in.', '2015-09-11 04:24:08'),
+(296, 'admin', 'accessed the Finances Module.', '2015-09-11 04:24:13'),
+(297, 'admin', 'has logged out.', '2015-09-11 04:28:00'),
+(298, 'admin', 'has logged in.', '2015-09-11 04:28:04'),
+(299, 'admin', 'accessed the Finances Module.', '2015-09-11 04:28:10'),
+(300, 'admin', 'accessed the Transactions Module.', '2015-09-11 04:30:23'),
+(301, 'admin', 'accessed the Clients Module.', '2015-09-11 04:30:43'),
+(302, 'admin', 'accessed the Transactions Module.', '2015-09-11 06:49:16'),
+(303, '', 'has logged out.', '2015-09-11 07:16:50'),
+(304, 'admin', 'has logged in.', '2015-09-11 08:56:10'),
+(305, 'admin', 'accessed the Finances Module.', '2015-09-11 09:03:05'),
+(306, 'admin', 'has logged in.', '2015-09-11 10:51:16'),
+(307, 'admin', 'accessed the Transactions Module.', '2015-09-11 10:51:29'),
+(308, 'admin', 'has logged out.', '2015-09-11 12:30:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `misc`
+--
+
+CREATE TABLE IF NOT EXISTS `misc` (
+`Miscellaneous_ID` int(10) NOT NULL,
+  `Waybill_Number` char(13) NOT NULL,
+  `Miscellaneous` double NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `misc`
+--
+
+INSERT INTO `misc` (`Miscellaneous_ID`, `Waybill_Number`, `Miscellaneous`) VALUES
+(1, '2015070194844', 10000),
+(2, '2015070194844', 40000);
 
 -- --------------------------------------------------------
 
@@ -438,6 +525,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 
 INSERT INTO `payment` (`Payment_ID`, `Bank_Name`, `Cheque_Number`, `Cheque_Date`, `Amount`, `Mode_of_Payment`) VALUES
 ('2576093043', 'Banko De Oro', '1DG68D53SB1X', '2015-08-18', 250000, 'Cheque'),
+('5882644891', '', '', '2015-09-02', 556824.181, 'Cash'),
 ('7985805463', '', '', '2015-08-18', 50000, 'Cash'),
 ('8221112187', '', '', '2015-08-18', 50000, 'Cash');
 
@@ -460,6 +548,8 @@ INSERT INTO `transactions` (`Payment_ID`, `Waybill_Number`) VALUES
 ('2576093043', '2015070194844'),
 ('7985805463', '2015070194844'),
 ('8221112187', '2015070194844'),
+('', '2015070194844'),
+('5882644891', '2015070194844'),
 ('', '2015070194844');
 
 -- --------------------------------------------------------
@@ -515,7 +605,8 @@ CREATE TABLE IF NOT EXISTS `waybills` (
 --
 
 INSERT INTO `waybills` (`Waybill_Number`, `Description`, `Transaction_Date`, `Mode_of_Transaction`, `Container_Size`, `Pickup_Location`, `Datetime_Picked`, `Delivery_Location`, `Datetime_Delivered`, `Credit`, `Debit`, `Delivery_Status`, `Datetime_Complied`, `Display`, `Bill_of_Lading_ID`, `Client_ID`, `Truck_ID`, `Status`) VALUES
-('2015070194844', 'Test', '2015-08-01', 'Warehouse', '40 feet', '', '0000-00-00 00:00:00', 'test', '0000-00-00 00:00:00', 400000, 600000, 'Active', '2015-08-06 14:32:00', 'Show', 'TESTLADING101', 1, 1, 'Active');
+('2015070194844', 'Test', '2015-08-01', 'Warehouse', '20 feet', '', '0000-00-00 00:00:00', 'test', '0000-00-00 00:00:00', 443175.82, 556824.18, 'Active', '0000-00-00 00:00:00', 'Hide', 'TESTLADING101', 1, 1, 'Active'),
+('2015082325413', '', '2015-08-23', 'Door to Door', '40 feet', '', '0000-00-00 00:00:00', 'asd', '0000-00-00 00:00:00', 0, 0, 'Inactive', '0000-00-00 00:00:00', 'Show', 'TESTLADING102', 1, -1, 'Active');
 
 --
 -- Indexes for dumped tables
@@ -550,6 +641,12 @@ ALTER TABLE `ladings`
 --
 ALTER TABLE `logs`
  ADD PRIMARY KEY (`Log_ID`);
+
+--
+-- Indexes for table `misc`
+--
+ALTER TABLE `misc`
+ ADD PRIMARY KEY (`Miscellaneous_ID`);
 
 --
 -- Indexes for table `payment`
@@ -587,7 +684,12 @@ MODIFY `Company_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=240;
+MODIFY `Log_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=309;
+--
+-- AUTO_INCREMENT for table `misc`
+--
+ALTER TABLE `misc`
+MODIFY `Miscellaneous_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `trucks`
 --

@@ -46,21 +46,24 @@
         <span class="fa fa-truck fa-5x"></span>
         <br>
         <h3>Track Delivery</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Need to track your item and check your bills? Use our Online tracking system for cargo service to find out where your shipment is and to view your billing charges info.</p>
     </div>
     <div class="col-lg-4 col-md-4 text-center">
         <br>
         <span class="fa fa-comment-o fa-5x"></span>
         <br>
         <h3>About Us</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p><strong>RMR CUSTOMS BROKERAGE CORPORATION</strong> is a corporation duly registered with the Securities and Exchange Commision. It was originally organized to provide a formal structure and framework to an already flourishing custom brokerage operation managed and manned by members of the close-knit circle of friends. On September 11, 1987 when the formal registration was done, benefiting much from the pre-registration experience and the on-the-job learning and training in all aspects of the customs brokerage business.</p>
+        <p>Its clientele found in the company the kind of services that were  not just efficient but also effective, given that the customs brokerage business in the country has many factors to contend with, the positive and negative, the anticipated and the unanticipated, under which circumstances only an experienced and adaptable management can survive and progress.</p>
+        <p>From its experience came the effort to choose its clientele with care and caution. It would rather have less, quantity-wise, than have more and suffer the fate of being part of or unknowingly abetting irregular practices. This outlook has probably been contributory to the apparent increase in its business prospects than affecting them negatively. In recent years, it has had to measure and calibrate its expansion, striking a decent balance between its clientele’s requirements and its capabilities, always aware that each and every client deserves the best.</p>
     </div>
     <div class="col-lg-4 col-md-4 text-center">
         <br>
-        <span class="fa fa-power-off fa-5x"></span>
+        <span class="fa fa-star fa-5x"></span>
         <br>
-        <h3>Admin Login</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h3>Vision & Mission</h3>
+        <p>The company’s VISION is to able to provide its clientele (Importers, Exporters, and others) the best customs brokerage services possible.</p>
+        <p>Its MISSION is to harness all its resources to ensure the fulfillment of its Vision.</p>
     </div>
 </div>
 
