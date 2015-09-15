@@ -10,6 +10,7 @@
         </div>
         <div id="navbar-menus" class="navbar-right collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="track.php">Track Delivery</a></li>
                 <li><a href="./admin">Admin Login</a></li>
             </ul>

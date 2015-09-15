@@ -154,11 +154,11 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="text-left col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            <div class="text-left col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <canvas id="total-monthly-income-chart" class="center-block" height="250" width="740"></canvas>
                 <br>
                 <div id="total-monthly-income-chart-legend"></div>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>
