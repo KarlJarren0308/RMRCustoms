@@ -1,9 +1,9 @@
 <?php
     require('connection.php');
 
-    $mark = [""];
-    $quantity = [""];
-    $description = [""];
+    $mark = array('');
+    $quantity = array('');
+    $description = array('');
     $loopCount = 0;
 
     $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);

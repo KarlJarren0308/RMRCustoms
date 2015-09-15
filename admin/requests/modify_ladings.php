@@ -58,7 +58,7 @@
         echo '<table id="bill-of-lading-table" class="table table-hover table-striped">';
         echo '<thead>';
         echo '<tr class="bg-dark">';
-        echo '<th width="25%">Mark</th>';
+        echo '<th width="25%">Product/Item Name</th>';
         echo '<th width="25%">Quantity</th>';
         echo '<th width="75%">Item Description</th>';
         echo '</tr>';
@@ -151,7 +151,7 @@
             echo '<table id="bill-of-lading-table" class="table table-hover table-striped">';
             echo '<thead>';
             echo '<tr class="bg-dark">';
-            echo '<th width="25%">Mark</th>';
+            echo '<th width="25%">Product/Item Name</th>';
             echo '<th width="25%">Quantity</th>';
             echo '<th width="75%">Item Description</th>';
             echo '</tr>';
@@ -172,9 +172,9 @@
             echo '</form>';
         }
     } else if($action == 'Add') {
-        $mark = [""];
-        $quantity = [""];
-        $description = [""];
+        $mark = array('');
+        $quantity = array('');
+        $description = array('');
         $loopCount = 0;
 
         $billNumber = mysqli_real_escape_string($connection, $_POST['billNumber']);
@@ -241,9 +241,9 @@
             echo 'Bill of Lading already exist.';
         }
     } else if($action == 'Save') {
-        $mark = [""];
-        $quantity = [""];
-        $description = [""];
+        $mark = array('');
+        $quantity = array('');
+        $description = array('');
         $loopCount = 0;
 
         $billId = mysqli_real_escape_string($connection, $_POST['billId']);

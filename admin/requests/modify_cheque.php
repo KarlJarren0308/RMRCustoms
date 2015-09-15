@@ -1,9 +1,9 @@
 <?php
     require('connection.php');
 
-    $chequeNumber = [""];
-    $bankName = [""];
-    $chequeDate = [""];
+    $chequeNumber = array('');
+    $bankName = array('');
+    $chequeDate = array('');
     $loopCount = 0;
 
     $waybillNumber = mysqli_real_escape_string($connection, $_POST['waybillNumber']);

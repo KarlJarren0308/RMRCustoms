@@ -87,7 +87,7 @@
     } else if($action == 'Comply All') {
         $truckId = mysqli_real_escape_string($connection, $_POST['truckId']);
         $waybillNumbers = $_POST['waybillNumbers'];
-        $failedWaybillMails = [];
+        $failedWaybillMails = array();
         $ctr = 0;
 
         array_shift($waybillNumbers);

@@ -201,7 +201,7 @@
                 echo '<table class="table table-hover table-striped">';
                 echo '<thead class="bg-dark">';
                 echo '<tr>';
-                echo '<th width="25%">Mark</th>';
+                echo '<th width="25%">Product/Item Name</th>';
                 echo '<th width="25%">Quantity</th>';
                 echo '<th width="75%">Item Description</th>';
                 echo '</tr>';

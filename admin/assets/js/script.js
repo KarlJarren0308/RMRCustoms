@@ -267,6 +267,35 @@ function fillTable($file, $search) {
 
                                 return false;
                             });
+
+                            $('#btnSaveDeliveryLocation').click(function() {
+                                $.ajax({
+                                    url: 'requests/modify_delivery_location.php',
+                                    method: 'POST',
+                                    data: {
+                                        waybill: $('#waybill-number').text(),
+                                        location: $('#delivery-location-input-field').val()
+                                    },
+                                    success: function(response) {
+                                        $('#modal').modal('hide');
+
+                                        showLoader('prompt');
+                                        $('#prompt').modal({
+                                            backdrop: 'static'
+                                        });
+                                        $('#prompt .modal-title').html('<h3 class="no-margin">Prompt</h3>');
+                                        $('#prompt .modal-body').html(response);
+
+                                        setTimeout(function() {
+                                            $('#prompt').modal('hide');
+
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                });
+
+                                return false;
+                            });
                         }
                     });
 

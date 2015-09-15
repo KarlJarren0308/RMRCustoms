@@ -54,7 +54,7 @@
             echo '<tbody>';
             echo '<tr>';
             echo '<td width="30%" align="right">Waybill Number:</td>';
-            echo '<td><a class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
+            echo '<td><a id="waybill-number" class="copy-to-clipboard" data-clipboard-text="' . $row['Waybill_Number'] . '" title="Click to copy">' . $row['Waybill_Number'] . '</a></td>';
             echo '</tr>';
             echo '<tr>';
             echo '<td align="right">Description:</td>';
@@ -75,6 +75,10 @@
             echo '<tr>';
             echo '<td align="right">Debit:</td>';
             echo '<td>&#8369; ' . $row['Debit'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td align="right">Delivery Location:</td>';
+            echo '<td><div class="form-group"><input id="delivery-location-input-field" class="form-control" type="text" value="' . $row['Delivery_Location'] . '"><div style="margin-top: 5px;" class="pull-right"><button id="btnSaveDeliveryLocation" class="btn btn-primary">Save</button></div></div></td>';
             echo '</tr>';
             echo '</tbody>';
             echo '</table>';
@@ -176,7 +180,7 @@
                 echo '<table id="bill-of-lading-table" class="table table-hover table-striped">';
                 echo '<thead>';
                 echo '<tr class="bg-dark">';
-                echo '<th width="25%">Mark</th>';
+                echo '<th width="25%">Product/Item Name</th>';
                 echo '<th width="25%">Quantity</th>';
                 echo '<th width="75%">Item Description</th>';
                 echo '</tr>';
@@ -494,9 +498,9 @@
             if($input >= $min && $input <= $max) {
                 echo 'In Range';
             } else {
-                if($input <= $min) {
+                if($input < $min) {
                     echo 'Lower';
-                } else {
+                } else if($input > $max) {
                     echo 'Higher';
                 }
             }
