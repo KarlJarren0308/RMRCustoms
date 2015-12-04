@@ -100,7 +100,7 @@
                                 $queryClient = mysqli_query($connection, "SELECT * FROM clients LEFT JOIN companies ON clients.Company_ID=companies.Company_ID WHERE clients.Status='Active' LIMIT $offset, 10") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
 
                                 while($rowClient = mysqli_fetch_array($queryClient)) {
-                                    $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Client_ID='$rowClient[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
+                                    $query = mysqli_query($connection, "SELECT * FROM waybills WHERE Status='Active' AND Client_ID='$rowClient[Client_ID]'") or die('Cannot connect to Database. Error: ' . mysqli_error($connection));
                                     $scan = mysqli_num_rows($query);
                                     $first = true;
 

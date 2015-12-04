@@ -537,12 +537,34 @@ function fillTable($file, $search) {
 
                             $('#transaction-credit').keyup(function() {
                                 $value = $(this).val();
+                                $max = $(this).attr('min');
                                 $max = $(this).attr('max');
                                 $notification = false;
                                 
                                 $('#transaction-credit-locker-button').removeClass('disabled').removeAttr('disabled');
 
                                 if($value != '') {
+                                    /*
+                                    if($value > $max) {
+                                        showLoader('notif');
+                                        $('#notif').modal({
+                                            backdrop: 'static'
+                                        });
+                                        $('#notif .modal-title').html('<h3 class="no-margin">Warning</h3>');
+                                        $('#notif .modal-body').html('Please enter an amount between 0 and 999,999,999,999.<br><br>Setting Transaction Credit back to 0.');
+
+                                        setTimeout(function() {
+                                            $('#notif').modal('hide');
+                                            $('#notif .modal-title').html('');
+                                            $('#notif .modal-body').html('');
+                                        }, 2500);
+
+                                        $('#transaction-credit').val(0);
+                                    } else if($value < $min) {
+                                        $('#transaction-credit').val(0);
+                                    }
+                                    */
+                                    /*
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -578,6 +600,7 @@ function fillTable($file, $search) {
                                     });
 
                                     return false;
+                                    */
                                 } else {
                                     $(this).val(0);
                                     $(this).focus();
@@ -597,6 +620,7 @@ function fillTable($file, $search) {
                                 $('#transaction-debit-locker-button').removeClass('disabled').removeAttr('disabled');
 
                                 if($value != '') {
+                                    /*
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -632,6 +656,7 @@ function fillTable($file, $search) {
                                     });
 
                                     return false;
+                                    */
                                 } else {
                                     $(this).val(0);
                                     $(this).focus();
@@ -644,6 +669,7 @@ function fillTable($file, $search) {
                                 $dataMax = $(this).attr('data-max');
                                 
                                 if($value != '') {
+                                    /*
                                     $.ajax({
                                         url: 'requests/modify_transactions.php',
                                         method: 'POST',
@@ -677,6 +703,7 @@ function fillTable($file, $search) {
                                     });
 
                                     return false;
+                                    */
                                 } else {
                                     $(this).val(0);
                                     $(this).focus();
@@ -2127,7 +2154,7 @@ $(document).ready(function() {
             backdrop: 'static'
         });
         $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
-        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_delivery_report.php" type="application/pdf" internalinstanceid="3">');
+        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="requests/generate_delivery_report_2.php" type="application/pdf" internalinstanceid="3">');
     });
 
     $('#generate-client-income-report-button').click(function() {
@@ -2135,7 +2162,7 @@ $(document).ready(function() {
             backdrop: 'static'
         });
         $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
-        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_finance_report.php?action=clientIncome" type="application/pdf" internalinstanceid="3">');
+        $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="requests/generate_finance_report_2.php?action=clientIncome" type="application/pdf" internalinstanceid="3">');
     });
 
     $('#generate-total-monthly-income-report-button').click(function() {
@@ -2157,7 +2184,7 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     $('#modal .modal-title').html('<h3 class="no-margin">Generate Report</h3>');
-                    $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="http://localhost/rmr/admin/requests/generate_finance_report.php?action=totalMonthlyIncome" type="application/pdf" internalinstanceid="3">');
+                    $('#modal .modal-body').html('<embed width="100%" height="500px" name="plugin" src="requests/generate_finance_report_2.php?action=totalMonthlyIncome" type="application/pdf" internalinstanceid="3">');
                 }
             });
 
